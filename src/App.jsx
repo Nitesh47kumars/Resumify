@@ -1,18 +1,14 @@
 import React, { useState } from "react";
-import ResumeForm from "./Components/ResumeForm";
-import ResumePreview from "./Components/ResumePreview";
+import HomePage from "./Components/HomePage";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 export default function App() {
-  const [resumeData, setResumeData] = useState({ name: "", email: "", summary: "" });
-
-  const handleChange = (field, value) => {
-    setResumeData(prev => ({ ...prev, [field]: value }));
-  };
-
-  return (
-    <div className="app-container">
-      <ResumeForm onChange={handleChange} />
-      <ResumePreview data={resumeData} />
-    </div>
-  );
+  const Router = createBrowserRouter([
+    {
+      path:"/",
+      element: <HomePage/>
+    }
+  ])
+  
+  return <RouterProvider router={Router}/>;
 }
