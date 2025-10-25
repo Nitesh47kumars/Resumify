@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import HomePage from "./Components/HomePage";
+import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Header from "./Components/Header";
 
 export default function App() {
   const Router = createBrowserRouter([
     {
       path:"/",
-      element: <HomePage/>
+      element: <Header/>
     }
   ])
   
