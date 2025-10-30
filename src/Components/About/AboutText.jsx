@@ -21,7 +21,7 @@ export default function AboutText() {
             href="https://portfolio-ten-jade-21.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition"
+            className="px-8 py-3 bg-linear-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition"
           >
             Visit My Portfolio
           </a>
