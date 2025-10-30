@@ -1,0 +1,13 @@
+import AboutText from "./AboutText";
+import AboutImage from "./AboutImage";
+
+export default function AboutSection() {
+  return (
+    <section className="relative bg-gray-50 py-20">
+      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center md:justify-between">
+        <AboutText />
+        <AboutImage />
+      </div>
+    </section>
+  );
+}
