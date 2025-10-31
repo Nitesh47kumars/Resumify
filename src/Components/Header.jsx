@@ -18,8 +18,8 @@ const Header = () => {
         </div>
 
         <div className="hidden md:flex space-x-10 pe-10">
-            {links.map((link)=>{
-                return <button className="cursor-pointer text-sm font-medium text-gray-700 hover:text-indigo-600">
+            {links.map((link,idx)=>{
+                return <button key={idx} className="cursor-pointer text-sm font-medium text-gray-700 hover:text-indigo-600">
                     {link.name}
                 </button>
             })}
