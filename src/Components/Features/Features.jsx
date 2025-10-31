@@ -4,8 +4,8 @@ import FeaturesContent from './FeaturesContent';
 
 const Features = () => {
   return (
-    <section className="bg-gray-50 py-16" id="features">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 flex flex-col md:flex-row items-center gap-12">
+    <section className="bg-gray-50 py-30 flex justify-center" id="features">
+      <div className="max-w-[90%] flex flex-col md:flex-row items-center justify-center">
         
         <FeaturesImage />
         <FeaturesContent />
