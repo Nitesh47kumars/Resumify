@@ -4,6 +4,7 @@ import HeroSection from './Components/HeroSection/HeroSection'
 import AboutSection from './Components/About/AboutSection'
 import Features from './Components/Features/Features'
 import TemplatesSection from './Components/Template/Template'
+import Footer from './Components/Footer/Footer'
 
 const Homepage = () => {
   return (
@@ -13,6 +14,7 @@ const Homepage = () => {
       <AboutSection/>
       <Features/>
       <TemplatesSection/>
+      <Footer/>
     </div>
   )
 }
