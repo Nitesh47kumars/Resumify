@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { Menu, X } from "lucide-react"; // lightweight icons (npm install lucide-react)
+import { Menu, X } from "lucide-react";
+import { Link } from "react-scroll";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const links = [
-    { name: "About", link: "#about" },
-    { name: "Features", link: "#features" },
-    { name: "Templates", link: "#templates" },
-    { name: "Q & A", link: "#qa" },
+    { name: "About", link: "about" },
+    { name: "Features", link: "features" },
+    { name: "Templates", link: "templates" },
+    { name: "Q & A", link: "qa" },
   ];
 
   return (
@@ -29,13 +30,18 @@ const Navbar = () => {
         {/* Desktop Links */}
         <div className="hidden md:flex items-center space-x-10">
           {links.map((link, idx) => (
-            <a
+            <Link
               key={idx}
-              href={link.link}
-              className="text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors duration-200"
+              to={link.link}
+              smooth={true}
+              duration={600}
+              offset={0}
+              spy={true}
+              activeClass="text-indigo-600"
+              className="cursor-pointer text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors duration-200"
             >
               {link.name}
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -53,14 +59,17 @@ const Navbar = () => {
         <div className="md:hidden bg-white/80 backdrop-blur-lg shadow-md border-t border-gray-100">
           <div className="flex flex-col items-center py-4 space-y-3">
             {links.map((link, idx) => (
-              <a
+              <Link
                 key={idx}
-                href={link.link}
+                to={link.link}
+                smooth={true}
+                duration={600}
+                offset={-80}
                 onClick={() => setIsOpen(false)}
-                className="text-gray-700 font-medium hover:text-indigo-600 transition-colors duration-200"
+                className="text-gray-700 font-medium hover:text-indigo-600 transition-colors duration-200 cursor-pointer"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </div>
         </div>
