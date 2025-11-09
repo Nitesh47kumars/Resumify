@@ -29,8 +29,7 @@ const FeaturesContent = () => {
       </ul>
 
       <button
-        className="mt-10 px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition duration-300"
-        
+          className="mt-10 px-8 py-3 bg-linear-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition"        
       >
         Create Resume
       </button>
