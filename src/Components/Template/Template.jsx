@@ -27,7 +27,7 @@ const templates = [
 
 const Template= () => {
   return (
-    <section id="templates" className="py-20 bg-gray-50">
+    <section id="templates" className="py-32 bg-gray-50">
       <div className="max-w-6xl mx-auto px-6 text-center">
         <h2 className="text-4xl font-bold text-gray-800 mb-4">
           Choose Your Resume Template
