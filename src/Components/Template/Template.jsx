@@ -1,4 +1,3 @@
-// src/components/Template/Template.jsx
 import React from "react";
 import TemplateContent from "./TemplateContent";
 import TemplateImage from "./TemplateImage";

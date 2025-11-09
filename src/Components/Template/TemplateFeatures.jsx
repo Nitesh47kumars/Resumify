@@ -1,4 +1,3 @@
-// src/components/Template/TemplateFeatures.jsx
 import React from "react";
 
 const TemplateFeatures = () => {
