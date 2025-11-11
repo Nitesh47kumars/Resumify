@@ -1,3 +1,4 @@
+import ResumeButton from "../ResumeButton"
 export default function HeroContent() {
   return (
     <div className="md:w-1/2 flex flex-col space-y-6 text-center md:text-left">
@@ -13,12 +14,7 @@ export default function HeroContent() {
         Build, customize, and download your professional resume in minutes —
         no design skills required.
       </p>
-
-      <div className="pt-2">
-        <button className="px-8 py-3 bg-linear-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition">
-          Create Resume
-        </button>
-      </div>
+      <ResumeButton data="Create Resume" />
     </div>
   );
 }

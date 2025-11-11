@@ -1,5 +1,6 @@
 import React from "react";
 import TemplateFeatures from "./TemplateFeatures";
+import ResumeButton from "../ResumeButton";
 
 const TemplateContent = () => {
   return (
@@ -16,9 +17,7 @@ const TemplateContent = () => {
 
       <TemplateFeatures />
 
-      <button className="mt-6 bg-linear-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-md font-semibold shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition">
-        Explore Templates
-      </button>
+      <ResumeButton data="Explore More"/>
     </div>
   );
 };
