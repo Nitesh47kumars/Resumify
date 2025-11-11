@@ -35,7 +35,7 @@ const Navbar = () => {
               to={link.link}
               smooth={true}
               duration={600}
-              offset={0}
+              offset={-160}
               spy={true}
               activeClass="text-indigo-600"
               className="cursor-pointer text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors duration-200"

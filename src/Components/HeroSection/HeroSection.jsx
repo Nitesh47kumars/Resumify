@@ -3,7 +3,7 @@ import HeroImage from "./HeroImage";
 
 export default function HeroSection() {
   return (
-    <section className="relative bg-linear-to-b from-white via-gray-50 to-gray-600 py-15 z-[-1] overflow-hidden">
+    <section className="relative bg-linear-to-b from-white via-gray-50 to-gray-600 py-15 overflow-hidden">
       
       <div className="absolute -top-32 -left-32 w-[300px] h-[300px] bg-indigo-300/30 rounded-full blur-3xl"></div>
       <div className="absolute -bottom-32 right-32 w-[300px] h-[300px] bg-purple-300/30 rounded-full blur-3xl"></div>

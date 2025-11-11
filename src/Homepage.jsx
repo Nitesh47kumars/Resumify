@@ -8,14 +8,16 @@ import Footer from './Components/Footer/Footer'
 
 const Homepage = () => {
   return (
-    <div>
+    <>
       <Header/>
-      <HeroSection/>
-      <AboutSection/>
-      <Features/>
-      <TemplatesSection/>
-      <Footer/>
-    </div>
+      <div className='flex flex-col bg-gray-50 gap-40'>
+        <HeroSection/>
+        <AboutSection/>
+        <Features/>
+        <TemplatesSection/>
+        <Footer/>
+      </div>
+    </>
   )
 }
 

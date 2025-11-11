@@ -3,7 +3,7 @@ import AboutImage from "./AboutImage";
 
 export default function AboutSection() {
   return (
-    <section id="about" className="relative bg-gray-50 py-50">
+    <section id="about" className="relative bg-gray-50 py-10">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center md:justify-between">
         <AboutText />
         <AboutImage />
