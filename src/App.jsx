@@ -1,14 +1,50 @@
-import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Homepage from "./Pages/Homepage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { StepProvider } from "./Context/StepContext";
+import ProtectedRoute from "./Routes/ProtectedRoute";
+
+// Pages
+import Homepage from "./pages/Homepage";
+import ChooseTemplate from "./pages/Create/ChooseTemplate";
+import Education from "./pages/Create/Education";
+import Skills from "./pages/Create/Skills";
+import Summary from "./pages/Create/Summary";
 
 export default function App() {
-  const Router = createBrowserRouter([
-    {
-      path:"/",
-      element: <Homepage/>
-    }
-  ])
-  
-  return <RouterProvider router={Router}/>;
+  return (
+    <BrowserRouter>
+      <StepProvider>
+        <Routes>
+          {/* Homepage (with HeroSection, About, etc.) */}
+          <Route path="/" element={<Homepage />} />
+
+          {/* Resume builder routes */}
+          <Route path="/create/template" element={<ChooseTemplate />} />
+          <Route
+            path="/create/education"
+            element={
+              <ProtectedRoute stepNumber={2}>
+                <Education />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/create/skills"
+            element={
+              <ProtectedRoute stepNumber={3}>
+                <Skills />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/create/summary"
+            element={
+              <ProtectedRoute stepNumber={4}>
+                <Summary />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </StepProvider>
+    </BrowserRouter>
+  );
 }
