@@ -1,11 +1,13 @@
 import { useStep } from "../../Context/StepContext";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import ResumeButton from "../../Components/ResumeButton";
 
 export default function ChooseTemplate() {
   const { setCompletedStep, formData, setFormData } = useStep();
   const navigate = useNavigate();
   const [selected, setSelected] = useState(formData.template || "");
+  const [error, setError] = useState("");
 
   const templates = [
     { id: "template1", name: "Modern", image: "/template1.jpg" },
@@ -16,11 +18,15 @@ export default function ChooseTemplate() {
 
   const handleSelect = (id) => {
     setSelected(id);
+    setError("");
     setFormData({ ...formData, template: id });
   };
 
   const handleNext = () => {
-    if (!selected) return alert("Please choose a template first!");
+    if (!selected) {
+      setError("⚠️ Please select a resume template before continuing.");
+      return;
+    }
     setCompletedStep(2);
     navigate("/create/education");
   };
@@ -33,8 +39,8 @@ export default function ChooseTemplate() {
         </h1>
 
         <p className="text-center text-gray-600 mb-12">
-          Select a template that fits your personality and profession — you can
-          customize everything later.
+          Pick a template that matches your personality and profession — you can
+          fully customize it later.
         </p>
 
         {/* Template Grid */}
@@ -44,7 +50,7 @@ export default function ChooseTemplate() {
               key={template.id}
               className={`border-4 rounded-xl overflow-hidden shadow-md cursor-pointer transform transition duration-200 hover:scale-105 hover:shadow-lg ${
                 selected === template.id
-                  ? "border-indigo-600"
+                  ? "border-indigo-600 shadow-indigo-300 shadow-lg"
                   : "border-transparent"
               }`}
               onClick={() => handleSelect(template.id)}
@@ -63,15 +69,13 @@ export default function ChooseTemplate() {
           ))}
         </div>
 
-        {/* Next Button */}
-        <div className="flex justify-center mt-12">
-          <button
-            onClick={handleNext}
-            className="px-10 py-3 bg-linear-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg shadow-lg hover:opacity-90 transition"
-          >
-            Next Step →
-          </button>
-        </div>
+        {error && (
+          <div className="text-center mt-6 text-red-600 font-medium animate-pulse">
+            {error}
+          </div>
+        )}
+
+        <ResumeButton onClick={handleNext} data="Next Step →" />
       </div>
     </div>
   );
