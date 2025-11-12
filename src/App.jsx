@@ -14,10 +14,8 @@ export default function App() {
     <BrowserRouter>
       <StepProvider>
         <Routes>
-          {/* Homepage (with HeroSection, About, etc.) */}
           <Route path="/" element={<Homepage />} />
 
-          {/* Resume builder routes */}
           <Route path="/create/template" element={<ChooseTemplate />} />
           <Route
             path="/create/education"
