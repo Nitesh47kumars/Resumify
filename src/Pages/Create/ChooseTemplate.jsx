@@ -8,30 +8,10 @@ export default function ChooseTemplate() {
   const [selected, setSelected] = useState(formData.template || "");
 
   const templates = [
-    {
-      id: "modern",
-      name: "Modern",
-      image:
-        "https://cdn.pixabay.com/photo/2020/05/15/19/38/resume-5179069_1280.jpg",
-    },
-    {
-      id: "classic",
-      name: "Classic",
-      image:
-        "https://cdn.pixabay.com/photo/2015/11/19/21/11/resume-1053746_1280.jpg",
-    },
-    {
-      id: "minimal",
-      name: "Minimal",
-      image:
-        "https://cdn.pixabay.com/photo/2020/09/02/20/46/resume-template-5537587_1280.png",
-    },
-    {
-      id: "creative",
-      name: "Creative",
-      image:
-        "https://cdn.pixabay.com/photo/2020/03/09/17/59/cv-4910293_1280.jpg",
-    },
+    { id: "template1", name: "Modern", image: "/template1.jpg" },
+    { id: "template2", name: "Classic", image: "/template2.jpg" },
+    { id: "template3", name: "Minimal", image: "/template3.jpeg" },
+    { id: "template4", name: "Creative", image: "/template4.png" },
   ];
 
   const handleSelect = (id) => {
@@ -53,11 +33,11 @@ export default function ChooseTemplate() {
         </h1>
 
         <p className="text-center text-gray-600 mb-12">
-          Select a template style that matches your personality and profession.
-          You can customize it later.
+          Select a template that fits your personality and profession — you can
+          customize everything later.
         </p>
 
-        {/* Templates Grid */}
+        {/* Template Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {templates.map((template) => (
             <div
@@ -83,7 +63,7 @@ export default function ChooseTemplate() {
           ))}
         </div>
 
-        {/* Navigation */}
+        {/* Next Button */}
         <div className="flex justify-center mt-12">
           <button
             onClick={handleNext}
