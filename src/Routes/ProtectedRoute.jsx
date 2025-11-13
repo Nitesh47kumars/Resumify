@@ -3,5 +3,10 @@ import { useStep } from "../Context/StepContext";
 
 export default function ProtectedRoute({ children, stepNumber }) {
   const { completedStep } = useStep();
-  return completedStep >= stepNumber ? children : <Navigate to="/create/template" replace />;
+
+  if (completedStep < stepNumber - 1) {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
 }
