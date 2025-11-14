@@ -7,7 +7,7 @@ export default function CreateLayout({ children }) {
   const location = useLocation();
 
   const steps = [
-    { id: 1, label: "Header", path: "/create/template" },
+    { id: 1, label: "Header", path: "/create/header" },
     { id: 2, label: "Education", path: "/create/education" },
     { id: 3, label: "Summary", path: "/create/summary" },
     { id: 4, label: "Experience", path: "/create/experience" },
