@@ -2,12 +2,12 @@ import { useStep } from "../Context/StepContext";
 import { useNavigate } from "react-router-dom";
 
 const steps = [
-  { id: 2, label: "Header", path: "/create/header" },
-  { id: 3, label: "Education", path: "/create/education" },
-  { id: 4, label: "Summary", path: "/create/summary" },
-  { id: 5, label: "Experience", path: "/create/experience" },
-  { id: 6, label: "Add Other", path: "/create/add-other" },
-  { id: 7, label: "Finalize", path: "/create/finalize" },
+  { id: 1, label: "Header", path: "/create/header" },
+  { id: 2, label: "Education", path: "/create/education" },
+  { id: 3, label: "Summary", path: "/create/summary" },
+  { id: 4, label: "Experience", path: "/create/experience" },
+  { id: 5, label: "Add Other", path: "/create/add-other" },
+  { id: 6, label: "Finalize", path: "/create/finalize" },
 ];
 
 export default function StepTracker() {

@@ -27,9 +27,10 @@ export default function ChooseTemplate() {
       setError("⚠️ Please select a resume template before continuing.");
       return;
     }
-    setCompletedStep(2);
-    navigate("/create/education");
+    setCompletedStep(1);
+    navigate("/create/header");
   };
+  
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center py-12 px-6">

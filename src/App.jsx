@@ -23,7 +23,7 @@ export default function App() {
 
           {/* Step 1 */}
           <Route
-            path="/create/education"
+            path="/create/header"
             element={
               <ProtectedRoute stepNumber={1}>
                 <Header />
