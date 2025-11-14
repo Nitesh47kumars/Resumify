@@ -9,6 +9,7 @@ import Education from "./Pages/Create/Education";
 import Summary from "./Pages/Create/Summary";
 import Experience from "./Pages/Create/Experience";
 import Finalize from "./Pages/Create/Finalize";
+import Header from "./Pages/Create/Header";
 
 export default function App() {
   return (
@@ -20,6 +21,24 @@ export default function App() {
           {/* Step 1 */}
           <Route path="/create/template" element={<ChooseTemplate />} />
 
+          {/* Step 1 */}
+          <Route
+            path="/create/education"
+            element={
+              <ProtectedRoute stepNumber={1}>
+                <Header />
+              </ProtectedRoute>
+            }
+          />
+          {/* Step 2 */}
+          <Route
+            path="/create/education"
+            element={
+              <ProtectedRoute stepNumber={2}>
+                <Education />
+              </ProtectedRoute>
+            }
+          />
           {/* Step 2 */}
           <Route
             path="/create/education"
