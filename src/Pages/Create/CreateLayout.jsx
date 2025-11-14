@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { useStep } from "../../Context/StepContext";
+import ResumePreview from "../../Components/ResumePreview";
 
 export default function CreateLayout({ children }) {
   const { completedStep } = useStep();
@@ -55,7 +56,7 @@ export default function CreateLayout({ children }) {
       <aside className="hidden lg:block w-104 border-l border-gray-200 bg-white p-6">
         <h3 className="text-lg font-semibold mb-4">Resume Preview</h3>
         <div className="w-full h-[85vh] border rounded-lg shadow-inner flex items-center justify-center text-gray-400">
-          <p>Live Preview Coming Soon...</p>
+          <ResumePreview/>
         </div>
       </aside>
       
