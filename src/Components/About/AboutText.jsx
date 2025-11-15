@@ -1,3 +1,5 @@
+import ResumeButton from "../ResumeButton";
+
 export default function AboutText() {
     return (
       <div className="md:w-1/2 flex flex-col space-y-6 text-center md:text-left">
@@ -16,16 +18,7 @@ export default function AboutText() {
           Check out my portfolio to see the projects I've worked on, including modern web apps, interactive interfaces, and custom UI components.
         </p>
   
-        <div className="pt-2">
-          <a
-            href="https://portfolio-ten-jade-21.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-8 py-3 bg-linear-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition"
-          >
-            Visit My Portfolio
-          </a>
-        </div>
+        <ResumeButton data="Visit My Portfolio"/>
   
       </div>
     );

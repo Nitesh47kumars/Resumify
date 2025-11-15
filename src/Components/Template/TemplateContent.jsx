@@ -17,7 +17,7 @@ const TemplateContent = () => {
 
       <TemplateFeatures />
 
-      <ResumeButton data="Explore More"/>
+      <ResumeButton data="Explore Now"/>
     </div>
   );
 };
