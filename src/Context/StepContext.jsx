@@ -12,18 +12,25 @@ export function StepProvider({ children }) {
     summary: "",
     education: [],
     experience: [],
-    skills: []
+    skills: [],
   });
 
   const [completedStep, setCompletedStep] = useState(1);
 
+  // ⭐ NEW: stores canvas preview image (base64)
+  const [previewImage, setPreviewImage] = useState(null);
+
   return (
-    <StepContext.Provider value={{
-      formData,
-      setFormData,
-      completedStep,
-      setCompletedStep
-    }}>
+    <StepContext.Provider
+      value={{
+        formData,
+        setFormData,
+        completedStep,
+        setCompletedStep,
+        previewImage,
+        setPreviewImage,
+      }}
+    >
       {children}
     </StepContext.Provider>
   );

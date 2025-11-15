@@ -1,5 +1,5 @@
 import React from "react";
-import ResumePreview from "../Components/ResumePreview";
+import ResumePreview from "./ResumePreview";
 import StepTracker from "../Layout/StepTracker";
 
 export default function CreateLayout({ children }) {
