@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { useStep } from "../Context/StepContext";
 import ResumePreview from "../Components/ResumePreview";
-import StepTracker from "../Components/StepTracker";
+import StepTracker from "../Layout/StepTracker";
 
 export default function CreateLayout({ children }) {
   const { completedStep } = useStep();
