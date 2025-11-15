@@ -2,20 +2,33 @@ import { createContext, useContext, useState } from "react";
 
 const StepContext = createContext();
 
-export const StepProvider = ({ children }) => {
-  const [completedStep, setCompletedStep] = useState(1);
+export function StepProvider({ children }) {
   const [formData, setFormData] = useState({
-    template: "",
-    education: [],
-    skills: [],
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    address: "",
     summary: "",
+    education: [],
+    experience: [],
+    skills: []
   });
 
+  const [completedStep, setCompletedStep] = useState(1);
+
   return (
-    <StepContext.Provider value={{ completedStep, setCompletedStep, formData, setFormData }}>
+    <StepContext.Provider value={{
+      formData,
+      setFormData,
+      completedStep,
+      setCompletedStep
+    }}>
       {children}
     </StepContext.Provider>
   );
-};
+}
 
-export const useStep = () => useContext(StepContext);
+export function useStep() {
+  return useContext(StepContext);
+}

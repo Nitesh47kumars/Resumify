@@ -1,7 +1,7 @@
 import { useStep } from "../../Context/StepContext";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import CreateLayout from "../Create/CreateLayout";
+import CreateLayout from "../../Layout/CreateLayout";
 
 export default function Education() {
   const { setCompletedStep, formData, setFormData } = useStep();
