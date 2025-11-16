@@ -17,7 +17,6 @@ export function StepProvider({ children }) {
 
   const [completedStep, setCompletedStep] = useState(1);
 
-  // ⭐ NEW: stores canvas preview image (base64)
   const [previewImage, setPreviewImage] = useState(null);
 
   return (

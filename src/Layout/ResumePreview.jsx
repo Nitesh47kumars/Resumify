@@ -5,9 +5,22 @@ import ResumeTemplate1 from "../ResumeTemplates/ResumeTemplate1";
 const ResumePreview = () => {
   const { formData } = useStep();
 
+  const header = formData.header || {};
+
+  const mergedData = {
+    name: `${header.firstName || ""} ${header.lastName || ""}`.trim(),
+    email: header.email || "",
+    phone: header.phone || "",
+    address: `${header.city || ""} ${header.country || ""} ${header.pin || ""}`.trim(),
+    summary: formData.summary || "",
+    skills: formData.skills || [],
+    experience: formData.experience || [],
+    education: formData.education || [],
+  };
+
   return (
-    <div className="">
-      <ResumeTemplate1 data={formData}/>
+    <div>
+      <ResumeTemplate1 data={mergedData} />
     </div>
   );
 };
