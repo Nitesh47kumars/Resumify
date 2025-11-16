@@ -1,26 +1,27 @@
-import React from "react";
 import ResumePreview from "./ResumePreview";
-import StepTracker from "../Layout/StepTracker";
+import StepTracker from "./StepTracker";
 
-export default function CreateLayout({ children }) {
+const CreateLayout = ({ children }) => {
   return (
-    <div className="min-h-screen flex bg-gray-50">
-
-     <aside className="w-64 min-h-screen bg-white border-r border-gray-200 p-6 flex flex-col">
+    <div className="flex w-full h-screen overflow-hidden bg-gray-100">
+      
+      {/* Sidebar */}
+      <div className="w-[20%] bg-white shadow-md p-5">
         <StepTracker />
-      </aside>
+      </div>
 
-      <main className="flex-1 p-10 overflow-y-auto">
+      {/* Form Page */}
+      <div className="w-[50%] p-8 overflow-y-auto">
         {children}
-      </main>
+      </div>
 
-      <aside className="hidden lg:block w-104 border-l border-gray-200 bg-white p-6">
-        <h3 className="text-lg font-semibold mb-4">Resume Preview</h3>
-        <div className="w-full h-[85vh] border rounded-lg shadow-inner p-4 bg-white">
-          <ResumePreview />
-        </div>
-      </aside>
+      {/* Live Preview */}
+      <div className="w-[30%] bg-gray-50 border-l p-5 overflow-y-auto">
+        <ResumePreview />
+      </div>
 
     </div>
   );
-}
+};
+
+export default CreateLayout;
