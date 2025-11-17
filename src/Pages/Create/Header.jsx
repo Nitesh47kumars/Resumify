@@ -23,8 +23,16 @@ export default function Header() {
   );
 
   const handleChange = (e) => {
-    setHeaderData({ ...headerData, [e.target.name]: e.target.value });
+    const updated = { ...headerData, [e.target.name]: e.target.value };
+    setHeaderData(updated);
+  
+    // 🔥 LIVE UPDATE CONTEXT
+    setFormData((prev) => ({
+      ...prev,
+      header: updated,
+    }));
   };
+  
 
   const handleNext = () => {
     if (!headerData.firstName || !headerData.email) {

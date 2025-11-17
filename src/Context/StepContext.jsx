@@ -4,16 +4,24 @@ const StepContext = createContext();
 
 export function StepProvider({ children }) {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    address: "",
+    header: {            // <── ADD THIS
+      firstName: "",
+      lastName: "",
+      profession: "",
+      city: "",
+      country: "",
+      pin: "",
+      phone: "",
+      email: "",
+      linkedin: "",
+      website: "",
+    },
     summary: "",
     education: [],
     experience: [],
     skills: [],
   });
+  
 
   const [completedStep, setCompletedStep] = useState(1);
 
