@@ -1,6 +1,6 @@
 import React from "react";
 import { useStep } from "../Context/StepContext";
-import ResumeTemplate1 from "../ResumeTemplates/ResumeTemplate1";
+import ResumeTemplate1 from "../ResumeTemplates/Template1.jsx/ResumeTemplate1";
 
 const ResumePreview = () => {
   const { formData } = useStep();

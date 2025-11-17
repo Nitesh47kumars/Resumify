@@ -1,0 +1,70 @@
+import React from "react";
+
+export default function Header({ name, email, phone, address, header }) {
+  return (
+    <header className="text-center mb-6">
+      <hr className="border-gray-300" />
+
+      <h1 className="text-2xl my-1 font-serif font-bold text-gray-900">
+        {name?.trim() || "Your Name Here"}
+      </h1>
+
+      <hr className="border-gray-300 mb-1" />
+
+      <div className="flex flex-col items-center gap-1 text-[13px] text-gray-700 leading-relaxed">
+        <p>{address?.trim() || "Your Address Here"}</p>
+
+        <p>
+          <a href={`tel:${phone}`} className="hover:underline">
+            Phone: {phone || "+91 00000 00000"}
+          </a>{" "}
+          |{" "}
+          <a href={`mailto:${email}`} className="hover:underline">
+            Email: {email || "example@gmail.com"}
+          </a>
+        </p>
+
+        <p>
+          {header?.linkedin && (
+            <>
+              <a
+                href={header.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                LinkedIn
+              </a>{" "}
+              |{" "}
+            </>
+          )}
+
+          {header?.website && (
+            <>
+              <a
+                href={header.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                Portfolio
+              </a>{" "}
+              |{" "}
+            </>
+          )}
+
+          {header?.github && (
+            <a
+              href={header.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
+              GitHub
+            </a>
+          )}
+        </p>
+      </div>
+    </header>
+  );
+}
