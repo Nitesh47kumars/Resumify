@@ -11,8 +11,8 @@ export default function Header() {
     formData.header || {
       firstName: "",
       lastName: "",
-      profession: "",
       city: "",
+      state: "",
       country: "",
       pin: "",
       phone: "",
@@ -24,15 +24,33 @@ export default function Header() {
   );
 
   const handleChange = (e) => {
-    const updated = { ...headerData, [e.target.name]: e.target.value };
+    const { name, value } = e.target;
+
+    const updated = { ...headerData, [name]: value };
     setHeaderData(updated);
-  
+
     setFormData((prev) => ({
       ...prev,
       header: updated,
     }));
   };
-  
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+
+    if (["city", "state", "country"].includes(name)) {
+      const formatted =
+        value.trim().endsWith(",") ? value.trim() : value.trim() + ",";
+
+      const updated = { ...headerData, [name]: formatted };
+      setHeaderData(updated);
+
+      setFormData((prev) => ({
+        ...prev,
+        header: updated,
+      }));
+    }
+  };
 
   const handleNext = () => {
     if (!headerData.firstName || !headerData.email) {
@@ -49,11 +67,9 @@ export default function Header() {
     <CreateLayout>
       <div className="max-w-2xl mx-auto">
         <h1 className="text-3xl font-bold mb-6">Personal Information</h1>
-
         <p className="text-sm text-gray-600 mb-4">* required fields</p>
 
         <div className="grid grid-cols-2 gap-4">
-
           {/* First Name */}
           <input
             name="firstName"
@@ -72,21 +88,23 @@ export default function Header() {
             className="p-3 border rounded"
           />
 
-          {/* Profession */}
-          <input
-            name="profession"
-            value={headerData.profession}
-            onChange={handleChange}
-            placeholder="Profession (e.g. Web Developer)"
-            className="col-span-2 p-3 border rounded"
-          />
-
           {/* City */}
           <input
             name="city"
             value={headerData.city}
             onChange={handleChange}
+            onBlur={handleBlur}
             placeholder="City"
+            className="p-3 border rounded"
+          />
+
+          {/* State */}
+          <input
+            name="state"
+            value={headerData.state}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder="State"
             className="p-3 border rounded"
           />
 
@@ -95,6 +113,7 @@ export default function Header() {
             name="country"
             value={headerData.country}
             onChange={handleChange}
+            onBlur={handleBlur}
             placeholder="Country"
             className="p-3 border rounded"
           />
@@ -145,11 +164,12 @@ export default function Header() {
             className="col-span-2 p-3 border rounded"
           />
 
+          {/* GitHub */}
           <input
             name="github"
             value={headerData.github}
             onChange={handleChange}
-            placeholder="Github (optional)"
+            placeholder="GitHub (optional)"
             className="col-span-2 p-3 border rounded"
           />
         </div>

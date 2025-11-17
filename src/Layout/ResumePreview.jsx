@@ -11,7 +11,7 @@ const ResumePreview = () => {
     name: `${header.firstName || ""} ${header.lastName || ""}`.trim(),
     email: header.email || "",
     phone: header.phone || "",
-    address: `${header.city || ""} ${header.country || ""} ${header.pin || ""}`.trim(),
+    address: `${header.city || ""} ${header.state || ""} ${header.country || ""} ${header.pin || ""}`.trim(),
     summary: formData.summary || "",
     skills: formData.skills || [],
     experience: formData.experience || [],
@@ -24,8 +24,6 @@ const ResumePreview = () => {
     }
   };
   
-  
-
   return (
     <div>
       <ResumeTemplate1 data={mergedData} />
