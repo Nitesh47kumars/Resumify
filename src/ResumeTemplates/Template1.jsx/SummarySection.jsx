@@ -1,14 +1,16 @@
 import SectionTitle from "./SectionTitle";
 
 export default function SummarySection({ summary }) {
-    return (
-      <section style={{ marginBottom: "24px" }}>
-        <SectionTitle title="Summary"/>
-  
-        <p style={{ fontSize: "15px", color: "#444" }}>
-          {summary?.trim() || "Write a short professional summary here..."}
+  return (
+    <section className="mb-6">
+      <SectionTitle title="Professional Summary" />
+
+      <div className="text-sm text-gray-700 leading-relaxed space-y-2">
+        <p>
+          {summary?.trim() ||
+            "Write a short professional summary here..."}
         </p>
-      </section>
-    );
-  }
-  
+      </div>
+    </section>
+  );
+}

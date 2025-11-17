@@ -1,30 +1,33 @@
+import SectionTitle from "./SectionTitle";
+
 export default function EducationSection({ education }) {
-    const fallback = [
-      {
-        degree: "Bachelor of Science",
-        institute: "Your University Name",
-        year: "2020 - 2023",
-      },
-    ];
-  
-    const list = education?.length > 0 ? education : fallback;
-  
-    return (
-      <section style={{ marginBottom: "24px" }}>
-        <h2 style={{ fontSize: "20px", marginBottom: "8px" }}>Education</h2>
-  
+  const fallback = [
+    {
+      degree: "Bachelor of Science",
+      institute: "Your University Name",
+      year: "2020 - 2023",
+    },
+  ];
+
+  const list = education?.length > 0 ? education : fallback;
+
+  return (
+    <section>
+      <SectionTitle title="Education" />
+
+      <div className="text-sm text-gray-700 space-y-3">
         {list.map((edu, idx) => (
-          <div key={idx} style={{ marginBottom: "12px" }}>
-            <strong style={{ fontSize: "16px" }}>
-              {edu.degree}
-            </strong>
-  
-            <p style={{ margin: "0 0 4px", fontSize: "15px" }}>
-              {edu.institute} • {edu.year}
+          <div key={idx} className="space-y-1">
+            <p>
+              <span className="font-semibold">{edu.degree}</span>
             </p>
+
+            <p className="font-semibold text-gray-900">{edu.institute}</p>
+
+            <p className="text-gray-800">{edu.year}</p>
           </div>
         ))}
-      </section>
-    );
-  }
-  
+      </div>
+    </section>
+  );
+}
