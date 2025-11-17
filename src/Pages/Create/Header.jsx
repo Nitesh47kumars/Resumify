@@ -19,6 +19,7 @@ export default function Header() {
       email: "",
       linkedin: "",
       website: "",
+      github: "",
     }
   );
 
@@ -26,7 +27,6 @@ export default function Header() {
     const updated = { ...headerData, [e.target.name]: e.target.value };
     setHeaderData(updated);
   
-    // 🔥 LIVE UPDATE CONTEXT
     setFormData((prev) => ({
       ...prev,
       header: updated,
@@ -142,6 +142,14 @@ export default function Header() {
             value={headerData.website}
             onChange={handleChange}
             placeholder="Portfolio / Website (optional)"
+            className="col-span-2 p-3 border rounded"
+          />
+
+          <input
+            name="github"
+            value={headerData.github}
+            onChange={handleChange}
+            placeholder="Github (optional)"
             className="col-span-2 p-3 border rounded"
           />
         </div>

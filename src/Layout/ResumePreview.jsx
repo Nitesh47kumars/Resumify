@@ -16,7 +16,15 @@ const ResumePreview = () => {
     skills: formData.skills || [],
     experience: formData.experience || [],
     education: formData.education || [],
+  
+    header: {
+      linkedin: header.linkedin || "",
+      website: header.website || "",
+      github: header.github || "",
+    }
   };
+  
+  
 
   return (
     <div>

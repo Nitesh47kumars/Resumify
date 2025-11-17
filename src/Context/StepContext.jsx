@@ -15,6 +15,7 @@ export function StepProvider({ children }) {
       email: "",
       linkedin: "",
       website: "",
+      github: "",
     },
     summary: "",
     education: [],
