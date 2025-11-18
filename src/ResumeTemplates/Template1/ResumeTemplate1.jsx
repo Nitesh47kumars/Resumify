@@ -7,7 +7,7 @@ import EducationSection from "./EducationSection";
 
 export default function ResumeTemplate1({ data }) {
   return (
-    <div
+    <div id="template1"
       style={{
         width: "100%",
         maxWidth: "800px",
