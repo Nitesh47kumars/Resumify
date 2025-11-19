@@ -3,7 +3,7 @@ import { useStep } from "../Context/StepContext";
 
 import ResumeTemplate1 from "../ResumeTemplates/Template1/ResumeTemplate1";
 import ResumeTemplate2 from "../ResumeTemplates/Template2/ResumeTemplate2";
-import ResumeTemplate3 from "../ResumeTemplates/ResumeTemplate3";
+import ResumeTemplate3 from "../ResumeTemplates/Template3/ResumeTemplate3";
 
 const ResumePreview = () => {
   const { formData } = useStep();

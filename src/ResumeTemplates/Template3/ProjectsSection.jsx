@@ -1,18 +1,23 @@
-export default function ProjectsSection({ projects = [] }) {
-    if (!projects.length) return null;
-  
-    return (
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold border-b pb-1 mb-3">Projects</h2>
-  
-        {projects.map((proj, i) => (
-          <div key={i} className="mb-3">
-            <h3 className="font-semibold text-sm">{proj.title}</h3>
-            <p className="text-xs text-gray-600">{proj.link}</p>
-            <p className="text-sm mt-1">{proj.description}</p>
-          </div>
-        ))}
-      </section>
-    );
-  }
-  
+export default function ProjectsSection({ projects }) {
+  const placeholder = [
+    {
+      name: "Portfolio Website",
+      description: "A personal portfolio built with React.js.",
+    },
+  ];
+
+  const list = projects?.length ? projects : placeholder;
+
+  return (
+    <section className="mb-6">
+      <h2 className="text-xl font-semibold mb-3">Projects</h2>
+
+      {list.map((proj, index) => (
+        <div key={index} className="mb-3">
+          <h3 className="font-semibold">{proj.name}</h3>
+          <p className="text-sm text-gray-700">{proj.description}</p>
+        </div>
+      ))}
+    </section>
+  );
+}
