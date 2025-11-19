@@ -5,9 +5,11 @@ import ExperienceSection from "./ExperienceSection";
 import EducationSection from "./EducationSection";
 import ProjectsSection from "./ProjectsSection";
 
-export default function ResumeTemplateSkill({ data }) {
+export default function ResumeTemplate3({ data }) {
   return (
-    <div className="bg-white p-8 w-[800px] mx-auto text-gray-900">
+    <div
+    id="template3"
+    className="bg-white p-8 w-[800px] mx-auto text-gray-900">
       <HeaderSection data={data} />
       <SummarySection summary={data.summary} />
       <SkillsSection skills={data.skills} />
