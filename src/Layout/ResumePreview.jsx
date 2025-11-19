@@ -3,6 +3,7 @@ import { useStep } from "../Context/StepContext";
 
 import ResumeTemplate1 from "../ResumeTemplates/Template1/ResumeTemplate1";
 import ResumeTemplate2 from "../ResumeTemplates/Template2/ResumeTemplate2";
+import ResumeTemplate3 from "../ResumeTemplates/ResumeTemplate3";
 
 const ResumePreview = () => {
   const { formData } = useStep();
@@ -31,6 +32,7 @@ const ResumePreview = () => {
     <div>
       {selectedTemplate === "template1" && <ResumeTemplate1 data={mergedData} />}
       {selectedTemplate === "template2" && <ResumeTemplate2 data={mergedData} />}
+      {selectedTemplate === "template3" && <ResumeTemplate3 data={mergedData} />}
 
       {/* If no template selected => fallback */}
       {!selectedTemplate && <p>Please select a template.</p>}
