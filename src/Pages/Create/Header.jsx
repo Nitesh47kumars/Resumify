@@ -7,27 +7,37 @@ export default function Header() {
   const { setCompletedStep, formData, setFormData } = useStep();
   const navigate = useNavigate();
 
-  const [headerData, setHeaderData] = useState(
-    formData.header || {
-      firstName: "",
-      lastName: "",
-      city: "",
-      state: "",
-      country: "",
-      pin: "",
-      phone: "",
-      email: "",
-      linkedin: "",
-      website: "",
-      github: "",
-    }
-  );
+  const emptyHeader = {
+    firstName: "",
+    lastName: "",
+    city: "",
+    state: "",
+    country: "",
+    pin: "",
+    phone: "",
+    email: "",
+    linkedin: "",
+    website: "",
+    github: "",
+  };
+
+  const [headerData, setHeaderData] = useState(formData.header || emptyHeader);
+
+  const [errors, setErrors] = useState({
+    firstName: "",
+    email: "",
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     const updated = { ...headerData, [name]: value };
     setHeaderData(updated);
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
 
     setFormData((prev) => ({
       ...prev,
@@ -39,10 +49,13 @@ export default function Header() {
     const { name, value } = e.target;
 
     if (["city", "state", "country"].includes(name)) {
-      const formatted =
-        value.trim().endsWith(",") ? value.trim() : value.trim() + ",";
+      const updated = {
+        ...headerData,
+        [name]: value.trim().endsWith(",")
+          ? value.trim()
+          : value.trim() + (value ? "," : ""),
+      };
 
-      const updated = { ...headerData, [name]: formatted };
       setHeaderData(updated);
 
       setFormData((prev) => ({
@@ -53,14 +66,36 @@ export default function Header() {
   };
 
   const handleNext = () => {
-    if (!headerData.firstName || !headerData.email) {
-      alert("Please fill at least First Name and Email to continue.");
-      return;
+    const newErrors = {};
+
+    if (!headerData.firstName.trim()) {
+      newErrors.firstName = "First name is required.";
     }
+
+    if (!headerData.email.trim()) {
+      newErrors.email = "Email is required.";
+    }
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) return;
 
     setFormData({ ...formData, header: headerData });
     setCompletedStep(2);
     navigate("/create/education");
+  };
+
+  // 🔥 CLEAR ALL BUTTON
+  const handleClear = () => {
+    setHeaderData(emptyHeader);
+    setFormData((prev) => ({
+      ...prev,
+      header: emptyHeader,
+    }));
+    setErrors({
+      firstName: "",
+      email: "",
+    });
   };
 
   return (
@@ -69,15 +104,22 @@ export default function Header() {
         <h1 className="text-3xl font-bold mb-6">Personal Information</h1>
         <p className="text-sm text-gray-600 mb-4">* required fields</p>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-2">
           {/* First Name */}
-          <input
-            name="firstName"
-            value={headerData.firstName}
-            onChange={handleChange}
-            placeholder="First Name *"
-            className="p-3 border rounded"
-          />
+          <div>
+            <input
+              name="firstName"
+              value={headerData.firstName}
+              onChange={handleChange}
+              placeholder="First Name *"
+              className={`p-3 border rounded w-full ${
+                errors.firstName ? "border-red-500" : ""
+              }`}
+            />
+            {errors.firstName && (
+              <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>
+            )}
+          </div>
 
           {/* Last Name */}
           <input
@@ -85,7 +127,7 @@ export default function Header() {
             value={headerData.lastName}
             onChange={handleChange}
             placeholder="Last Name"
-            className="p-3 border rounded"
+            className="p-3 border h-[50px] rounded"
           />
 
           {/* City */}
@@ -118,7 +160,7 @@ export default function Header() {
             className="p-3 border rounded"
           />
 
-          {/* Pin Code */}
+          {/* Pin */}
           <input
             name="pin"
             value={headerData.pin}
@@ -137,14 +179,21 @@ export default function Header() {
           />
 
           {/* Email */}
-          <input
-            name="email"
-            type="email"
-            value={headerData.email}
-            onChange={handleChange}
-            placeholder="Email *"
-            className="p-3 border rounded"
-          />
+          <div className="col-span-2">
+            <input
+              name="email"
+              type="email"
+              value={headerData.email}
+              onChange={handleChange}
+              placeholder="Email *"
+              className={`p-3 border rounded w-full ${
+                errors.email ? "border-red-500" : ""
+              }`}
+            />
+            {errors.email && (
+              <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+            )}
+          </div>
 
           {/* LinkedIn */}
           <input
@@ -174,12 +223,22 @@ export default function Header() {
           />
         </div>
 
-        <button
-          onClick={handleNext}
-          className="mt-6 bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700"
-        >
-          Next
-        </button>
+        {/* Buttons */}
+        <div className="flex items-center gap-4 mt-6">
+          <button
+            onClick={handleClear}
+            className="bg-gray-300 text-black px-6 py-3 rounded hover:bg-gray-400"
+          >
+            Clear All
+          </button>
+
+          <button
+            onClick={handleNext}
+            className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700"
+          >
+            Next
+          </button>
+        </div>
       </div>
     </CreateLayout>
   );

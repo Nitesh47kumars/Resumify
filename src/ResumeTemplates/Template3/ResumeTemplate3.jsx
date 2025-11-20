@@ -10,7 +10,7 @@ export default function ResumeTemplate3({ data }) {
   return (
     <div
       id="template3"
-      className="bg-white p-8 w-[800px] mx-auto text-gray-900 border shadow-sm"
+      className="bg-white p-8 w-[500px] mx-auto text-gray-900 border shadow-sm"
     >
       <HeaderSection data={data} />
       <SummarySection summary={data.summary} />
