@@ -13,7 +13,7 @@ export default function Education() {
       : [{ degree: "", school: "", year: "" }]
   );
 
-  const [errors, setErrors] = useState([]); // empty initially
+  const [errors, setErrors] = useState([]);
 
   const handleChange = (index, field, value) => {
     const updated = [...entries];
@@ -28,6 +28,17 @@ export default function Education() {
   const addEntry = () => {
     setEntries([...entries, { degree: "", school: "", year: "" }]);
     setErrors([...errors, { degree: false, school: false, year: false }]);
+  };
+
+  // 🔥 NEW — Delete Education Entry
+  const deleteEntry = (index) => {
+    if (entries.length === 1) return; // do not remove last entry
+
+    const updatedEntries = entries.filter((_, i) => i !== index);
+    const updatedErrors = errors.filter((_, i) => i !== index);
+
+    setEntries(updatedEntries);
+    setErrors(updatedErrors);
   };
 
   const validate = () => {
@@ -62,11 +73,21 @@ export default function Education() {
         {entries.map((item, index) => (
           <div
             key={index}
-            className="bg-white border rounded-xl p-4 shadow-sm mb-6"
+            className="bg-white border rounded-xl p-4 shadow-sm mb-6 relative"
           >
             <h2 className="text-xl font-semibold mb-3">
               Education Entry {index + 1}
             </h2>
+
+            {/* 🔥 DELETE BUTTON */}
+            {entries.length > 1 && (
+              <button
+                onClick={() => deleteEntry(index)}
+                className="absolute top-4 right-4 text-red-500 font-semibold"
+              >
+                ✕
+              </button>
+            )}
 
             {/* Degree */}
             <div className="mb-3">
@@ -91,9 +112,7 @@ export default function Education() {
               <input
                 type="text"
                 value={item.school}
-                onChange={(e) =>
-                  handleChange(index, "school", e.target.value)
-                }
+                onChange={(e) => handleChange(index, "school", e.target.value)}
                 placeholder="School / College / University"
                 className={`w-full p-3 border rounded ${
                   errors[index]?.school ? "border-red-500" : "border-gray-300"
