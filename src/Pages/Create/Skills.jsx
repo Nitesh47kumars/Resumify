@@ -10,8 +10,8 @@ export default function Skills() {
   const handleNext = () => {
     if (!skill.trim()) return alert("Enter at least one skill");
     setFormData({ ...formData, skills: [...formData.skills, skill] });
-    setCompletedStep(4);
-    navigate("/create/summary");
+    setCompletedStep(5);
+    navigate("/create/experience");
   };
 
   return (

@@ -30,7 +30,6 @@ export default function Education() {
     setErrors([...errors, { degree: false, school: false, year: false }]);
   };
 
-  // 🔥 NEW — Delete Education Entry
   const deleteEntry = (index) => {
     if (entries.length === 1) return; // do not remove last entry
 
@@ -79,7 +78,6 @@ export default function Education() {
               Education Entry {index + 1}
             </h2>
 
-            {/* 🔥 DELETE BUTTON */}
             {entries.length > 1 && (
               <button
                 onClick={() => deleteEntry(index)}
@@ -113,14 +111,14 @@ export default function Education() {
                 type="text"
                 value={item.school}
                 onChange={(e) => handleChange(index, "school", e.target.value)}
-                placeholder="School / College / University"
+                placeholder= "College / University"
                 className={`w-full p-3 border rounded ${
                   errors[index]?.school ? "border-red-500" : "border-gray-300"
                 }`}
               />
               {errors[index]?.school && (
                 <p className="text-red-500 text-sm mt-1">
-                  School/University name is required
+                  College/University name is required
                 </p>
               )}
             </div>

@@ -4,7 +4,6 @@ import Cookies from "js-cookie";
 const StepContext = createContext();
 
 export function StepProvider({ children }) {
-  // Load from cookies
   const storedForm = Cookies.get("resumeFormData");
   const initialFormData = storedForm
     ? JSON.parse(storedForm)
@@ -32,15 +31,30 @@ export function StepProvider({ children }) {
       };
 
   const [formData, setFormData] = useState(initialFormData);
-  const [completedStep, setCompletedStep] = useState(1);
+
+  // 🔥 Load completed step from cookie
+  const storedStep = Cookies.get("resumeCompletedStep");
+  const [completedStep, setCompletedStep] = useState(
+    storedStep ? Number(storedStep) : 1
+  );
+
   const [previewImage, setPreviewImage] = useState(null);
 
+  // 🔥 Save formData to cookie
   useEffect(() => {
     Cookies.set("resumeFormData", JSON.stringify(formData), {
       expires: 7,
       path: "/",
     });
   }, [formData]);
+
+  // 🔥 Save completedStep to cookie
+  useEffect(() => {
+    Cookies.set("resumeCompletedStep", completedStep, {
+      expires: 7,
+      path: "/",
+    });
+  }, [completedStep]);
 
   return (
     <StepContext.Provider
