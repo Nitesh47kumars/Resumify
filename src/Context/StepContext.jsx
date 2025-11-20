@@ -32,7 +32,6 @@ export function StepProvider({ children }) {
 
   const [formData, setFormData] = useState(initialFormData);
 
-  // 🔥 Load completed step from cookie
   const storedStep = Cookies.get("resumeCompletedStep");
   const [completedStep, setCompletedStep] = useState(
     storedStep ? Number(storedStep) : 1
@@ -40,7 +39,6 @@ export function StepProvider({ children }) {
 
   const [previewImage, setPreviewImage] = useState(null);
 
-  // 🔥 Save formData to cookie
   useEffect(() => {
     Cookies.set("resumeFormData", JSON.stringify(formData), {
       expires: 7,
@@ -48,7 +46,6 @@ export function StepProvider({ children }) {
     });
   }, [formData]);
 
-  // 🔥 Save completedStep to cookie
   useEffect(() => {
     Cookies.set("resumeCompletedStep", completedStep, {
       expires: 7,

@@ -7,6 +7,7 @@ import Homepage from "./Pages/Homepage";
 import ChooseTemplate from "./Pages/Create/ChooseTemplate";
 import Education from "./Pages/Create/Education";
 import Summary from "./Pages/Create/Summary";
+import Skills from "./Pages/Create/Skills"
 import Experience from "./Pages/Create/Experience";
 import Finalize from "./Pages/Create/Finalize";
 import Header from "./Pages/Create/Header";
@@ -39,15 +40,6 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-          {/* Step 2 */}
-          <Route
-            path="/create/education"
-            element={
-              <ProtectedRoute stepNumber={2}>
-                <Education />
-              </ProtectedRoute>
-            }
-          />
 
           {/* Step 3 */}
           <Route
@@ -61,10 +53,10 @@ export default function App() {
 
           {/* Step 4 */}
           <Route
-            path="/create/experience"
+            path="/create/skills"
             element={
               <ProtectedRoute stepNumber={4}>
-                <Experience />
+                <Skills />
               </ProtectedRoute>
             }
           />
