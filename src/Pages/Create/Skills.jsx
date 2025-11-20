@@ -2,6 +2,7 @@ import { useStep } from "../../Context/StepContext";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CreateLayout from "../../Layout/CreateLayout";
+import GoBack from "../../Components/GoBack";
 
 export default function Skills() {
   const { setCompletedStep, formData, setFormData } = useStep();
@@ -44,6 +45,7 @@ export default function Skills() {
           Add your technical and soft skills. Press <strong>Enter</strong> after each skill.
         </p>
 
+        {/* Input + Add */}
         <div className="flex gap-3 mb-5">
           <input
             type="text"
@@ -63,6 +65,7 @@ export default function Skills() {
           </button>
         </div>
 
+        {/* Skills List */}
         <div className="flex flex-wrap gap-3 mb-6">
           {formData.skills.map((skill, index) => (
             <div
@@ -81,7 +84,8 @@ export default function Skills() {
           ))}
         </div>
 
-        <div className="flex gap-4">
+        {/* Clear All + Next */}
+        <div className="flex gap-4 mb-2">
           {formData.skills.length > 0 && (
             <button
               onClick={clearAll}
@@ -94,12 +98,14 @@ export default function Skills() {
 
           <button
             onClick={handleNext}
-            className="flex-1 bg-green-600 text-white py-3 rounded-lg shadow
+            className="flex-1 bg-green-600 text-white py-3 rounded-lg shadow transition-all duration-300
                        hover:bg-green-700"
           >
             Next
           </button>
         </div>
+
+        <GoBack data="/create/summary" />
       </div>
     </CreateLayout>
   );

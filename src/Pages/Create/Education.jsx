@@ -2,6 +2,7 @@ import { useStep } from "../../Context/StepContext";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CreateLayout from "../../Layout/CreateLayout";
+import GoBack from "../../Components/GoBack";
 
 export default function Education() {
   const { setCompletedStep, formData, setFormData } = useStep();
@@ -156,6 +157,8 @@ export default function Education() {
         >
           Next
         </button>
+
+        <GoBack data="/create/header" />
       </div>
     </CreateLayout>
   );

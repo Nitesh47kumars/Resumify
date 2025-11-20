@@ -2,6 +2,7 @@ import { useStep } from "../../Context/StepContext";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CreateLayout from "../../Layout/CreateLayout";
+import GoBack from "../../Components/GoBack";
 
 export default function Summary() {
   const { formData, setFormData, setCompletedStep } = useStep();
@@ -41,12 +42,17 @@ export default function Summary() {
           }}          
         ></textarea>
 
-        <button
-          onClick={handleNext}
-          className="mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 shadow"
-        >
-          Next
-        </button>
+        <div className="flex justify-center items-center gap-4">
+          <GoBack data="/create/education" />
+
+          <button
+            onClick={handleNext}
+            className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 shadow"
+            >
+            Next
+          </button>
+        </div>
+
       </div>
     </CreateLayout>
   );
