@@ -1,49 +1,48 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import Cookies from "js-cookie";
 
 const StepContext = createContext();
 
 export function StepProvider({ children }) {
-  // Load saved formData from localStorage
-  const savedData = JSON.parse(localStorage.getItem("formData")) || {};
 
-  const [formData, setFormData] = useState({
-    template: savedData.template || "",  // <── IMPORTANT
-    header: savedData.header || {
-      firstName: "",
-      lastName: "",
-      profession: "",
-      city: "",
-      country: "",
-      pin: "",
-      phone: "",
-      email: "",
-      linkedin: "",
-      website: "",
-      github: "",
-    },
-    summary: savedData.summary || "",
-    education: savedData.education || [],
-    experience: savedData.experience || [],
-    skills: savedData.skills || [],
-  });
+  // 1️⃣ Load from cookies on start
+  const storedForm = Cookies.get("resumeFormData");
+  const initialFormData = storedForm
+    ? JSON.parse(storedForm)
+    : {
+        header: {
+          firstName: "",
+          lastName: "",
+          profession: "",
+          city: "",
+          country: "",
+          pin: "",
+          phone: "",
+          email: "",
+          linkedin: "",
+          website: "",
+          github: "",
+        },
+        summary: "",
+        education: [],
+        experience: [],
+        skills: [],
+        projects: [],
+        extra: [],
+        template: "",
+      };
 
-  const [completedStep, setCompletedStep] = useState(
-    savedData.completedStep || 1
-  );
+  const [formData, setFormData] = useState(initialFormData);
+  const [completedStep, setCompletedStep] = useState(1);
+  const [previewImage, setPreviewImage] = useState(null);
 
-  const [previewImage, setPreviewImage] = useState(savedData.previewImage || null);
-
-  // Save all changes to localStorage
+  // 2️⃣ Save to cookies whenever formData changes
   useEffect(() => {
-    localStorage.setItem(
-      "formData",
-      JSON.stringify({
-        ...formData,
-        completedStep,
-        previewImage,
-      })
-    );
-  }, [formData, completedStep, previewImage]);
+    Cookies.set("resumeFormData", JSON.stringify(formData), {
+      expires: 7, // days
+      path: "/",
+    });
+  }, [formData]);
 
   return (
     <StepContext.Provider
