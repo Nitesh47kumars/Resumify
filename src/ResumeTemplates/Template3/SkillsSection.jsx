@@ -23,14 +23,10 @@ export default function SkillsSection({ skills }) {
 
   return (
     <section className="mb-5">
-      <h2 className="text-lg font-bold tracking-wide mb-3 border-b pb-1">
-        Skills & Strengths
-      </h2>
-
       <div className="grid grid-cols-2 gap-x-6 gap-y-4">
         {list.map((block, index) => (
           <div key={index} className="space-y-1">
-            <h3 className="font-semibold text-gray-800 text-sm uppercase tracking-wide">
+            <h3 className="font-semibold text-gray-800 text-lg uppercase tracking-wide">
               {block.category}
             </h3>
 
