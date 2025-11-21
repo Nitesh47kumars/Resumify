@@ -24,7 +24,6 @@ export default function Education() {
         ]
   );
 
-  // ---- ERROR STATE ----
   const [errors, setErrors] = useState(
     entries.map(() => ({
       degree: "",
@@ -33,19 +32,16 @@ export default function Education() {
     }))
   );
 
-  // ---- Update Inputs ----
   const handleChange = (index, field, value) => {
     const updated = [...entries];
     updated[index][field] = value;
     setEntries(updated);
 
-    // Clear error on typing
     const updatedErrors = [...errors];
     updatedErrors[index][field] = "";
     setErrors(updatedErrors);
   };
 
-  // ---- Toggle Optional Fields ----
   const toggleOptional = (index) => {
     const updated = [...entries];
     updated[index].showOptional = !updated[index].showOptional;
@@ -58,7 +54,6 @@ export default function Education() {
     setEntries(updated);
   };
 
-  // ---- Add Entry ----
   const addEntry = () => {
     setEntries([
       ...entries,
@@ -78,7 +73,6 @@ export default function Education() {
     ]);
   };
 
-  // ---- Delete Entry ----
   const deleteEntry = (index) => {
     if (entries.length === 1) return;
 
@@ -86,12 +80,11 @@ export default function Education() {
     setErrors(errors.filter((_, i) => i !== index));
   };
 
-  // ---- Validate Required Fields ----
   const validate = () => {
     const newErrors = entries.map((item) => ({
       degree: item.degree.trim() ? "" : "Degree is required",
       field: item.field.trim() ? "" : "Field of study is required",
-      school: item.school.trim() ? "" : "School / College name is required",
+      school: item.school.trim() ? "" : "College / University name is required",
     }));
 
     setErrors(newErrors);
@@ -101,7 +94,6 @@ export default function Education() {
     );
   };
 
-  // ---- Next Button ----
   const handleNext = () => {
     if (!validate()) return;
 
@@ -170,7 +162,7 @@ export default function Education() {
               )}
             </div>
 
-            {/* SCHOOL */}
+            {/* COLLEGE */}
             <div className="mb-3">
               <input
                 type="text"
@@ -188,7 +180,7 @@ export default function Education() {
               )}
             </div>
 
-            {/* TOGGLE OPTIONAL */}
+            {/* TOGGLE SWITCH */}
             <div className="flex items-center gap-3 mb-3">
               <label className="text-sm font-medium">
                 Are you currently studying?
