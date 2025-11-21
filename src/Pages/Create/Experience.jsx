@@ -3,6 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import CreateLayout from "../../Layout/CreateLayout";
 
+// Convert date into: Jan 2024
+const formatDate = (dateStr) => {
+  if (!dateStr) return "";
+  const date = new Date(dateStr);
+  return date.toLocaleString("en-US", { month: "short", year: "numeric" });
+};
+
 export default function Experience() {
   const { formData, setFormData, setCompletedStep } = useStep();
   const navigate = useNavigate();
@@ -21,14 +28,17 @@ export default function Experience() {
         ]
   );
 
-  // Convert form structure → Preview structure
+  const today = new Date().toISOString().split("T")[0];
+
   const convertToPreviewFormat = () => {
     return experience.map((exp) => ({
       role: exp.position || "",
       company: exp.company || "",
       duration:
         exp.startDate || exp.endDate
-          ? `${exp.startDate || ""} — ${exp.endDate || "Present"}`
+          ? `${formatDate(exp.startDate) || ""} — ${
+              formatDate(exp.endDate) || "Present"
+            }`
           : "",
       details: exp.description
         ? exp.description.split("\n").filter((line) => line.trim() !== "")
@@ -76,7 +86,7 @@ export default function Experience() {
   useEffect(() => {
     const converted = convertToPreviewFormat();
     setFormData({ ...formData, experience: converted });
-  }, [experience]);  
+  }, [experience]);
 
   return (
     <CreateLayout>
@@ -126,29 +136,37 @@ export default function Experience() {
               className="w-full mb-2 p-2 border rounded"
             />
 
+            {/* DATE PICKERS */}
             <div className="grid grid-cols-2 gap-3">
-              <input
-                type="text"
-                placeholder="Start Date (e.g., Jan 2023)"
-                value={exp.startDate}
-                onChange={(e) => handleChange(index, "startDate", e.target.value)}
-                className="w-full p-2 border rounded"
-              />
+              <div>
+                <label className="text-xs text-gray-600">Start Date</label>
+                <input
+                  type="date"
+                  max={today}
+                  value={exp.startDate}
+                  onChange={(e) => handleChange(index, "startDate", e.target.value)}
+                  className="w-full p-2 border rounded"
+                />
+              </div>
 
-              <input
-                type="text"
-                placeholder="End Date (or Present)"
-                value={exp.endDate}
-                onChange={(e) => handleChange(index, "endDate", e.target.value)}
-                className="w-full p-2 border rounded"
-              />
+              <div>
+                <label className="text-xs text-gray-600">End Date</label>
+                <input
+                  type="date"
+                  max={today}
+                  min={exp.startDate || ""}
+                  value={exp.endDate}
+                  onChange={(e) => handleChange(index, "endDate", e.target.value)}
+                  className="w-full p-2 border rounded"
+                />
+              </div>
             </div>
 
             <textarea
               placeholder="Describe your work (each line becomes a bullet point)"
               value={exp.description}
               onChange={(e) => handleChange(index, "description", e.target.value)}
-              className="w-full mt-2 p-2 border rounded h-24"
+              className="w-full mt-2 p-2 border rounded h-32 resize-none"
             />
           </div>
         ))}

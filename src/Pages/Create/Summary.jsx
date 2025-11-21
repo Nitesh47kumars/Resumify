@@ -31,7 +31,7 @@ export default function Summary() {
         </p>
 
         <textarea
-          className="w-full h-40 p-4 border rounded-lg shadow-sm bg-white
+          className="w-full h-80 p-4 border rounded-lg shadow-sm bg-white
                      focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
           placeholder="Example: Motivated BCA student with strong frontend skills in React, JavaScript, and UI design..."
           value={summary}
