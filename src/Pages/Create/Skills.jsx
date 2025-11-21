@@ -1,13 +1,13 @@
 import { useStep } from "../../Context/StepContext";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CreateLayout from "../../Layout/CreateLayout";
 import GoBack from "../../Buttons/GoBack";
+import NextButton from "../../Buttons/NextButton";
 
 export default function Skills() {
-  const { setCompletedStep, formData, setFormData } = useStep();
+  const { formData, setFormData } = useStep();
   const [skillInput, setSkillInput] = useState("");
-  const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const addSkill = () => {
     const trimmed = skillInput.trim();
@@ -16,24 +16,30 @@ export default function Skills() {
     const updated = [...formData.skills, trimmed];
     setFormData({ ...formData, skills: updated });
     setSkillInput("");
+    setError(""); // clear error once a skill is added
   };
 
   const removeSkill = (index) => {
     const updated = formData.skills.filter((_, i) => i !== index);
     setFormData({ ...formData, skills: updated });
+
+    if (updated.length === 0) {
+      setError("Please enter at least one skill.");
+    }
   };
 
   const clearAll = () => {
-    if (formData.skills.length === 0) return;
     setFormData({ ...formData, skills: [] });
+    setError("Please enter at least one skill.");
   };
 
-  const handleNext = () => {
-    if (formData.skills.length === 0)
-      return alert("Please enter at least one skill");
-
-    setCompletedStep(5);
-    navigate("/create/experience");
+  const validateSkills = () => {
+    if (formData.skills.length === 0) {
+      setError("Please enter at least one skill.");
+      return false;
+    }
+    setError("");
+    return true;
   };
 
   return (
@@ -46,32 +52,37 @@ export default function Skills() {
         </p>
 
         {/* Input + Add */}
-        <div className="flex gap-3 mb-5">
+        <div className="flex gap-3 mb-2">
           <input
             type="text"
             placeholder="e.g. React.js, JavaScript, UI Design"
             value={skillInput}
             onChange={(e) => setSkillInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), addSkill())}
-            className="flex-1 p-3 border rounded-lg shadow-sm bg-white 
-                       focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={`flex-1 p-3 border rounded-lg shadow-sm bg-white
+              focus:outline-none focus:ring-2 
+              ${error ? "border-red-500 focus:ring-red-500" : "focus:ring-blue-500"}
+            `}
           />
+
           <button
             onClick={addSkill}
-            className="px-5 py-3 bg-blue-600 text-white rounded-lg shadow
-                       hover:bg-blue-700"
+            className="px-5 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
           >
             Add
           </button>
         </div>
 
+        {error && (
+          <p className="text-sm text-red-600 mb-3">{error}</p>
+        )}
+
         {/* Skills List */}
-        <div className="flex flex-wrap gap-3 mb-6">
+        <div className="flex flex-wrap gap-3 mb-4">
           {formData.skills.map((skill, index) => (
             <div
               key={index}
-              className="flex items-center gap-2 bg-blue-100 text-blue-800 
-                         px-4 py-2 rounded-full shadow-sm"
+              className="flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full shadow-sm"
             >
               <span>{skill}</span>
               <button
@@ -85,24 +96,23 @@ export default function Skills() {
         </div>
 
         {/* Clear All + Next */}
-        <div className="flex gap-4 mb-2">
-          {formData.skills.length > 0 && (
+        <div className="flex justify-between items-center gap-4 mb-2">
+          {formData.skills.length > 0 ? (
             <button
               onClick={clearAll}
-              className="flex-1 bg-red-500 text-white py-3 rounded-lg shadow
-                         hover:bg-red-600"
+              className="px-4 bg-red-500 text-white py-3 rounded-lg shadow hover:bg-red-600"
             >
               Clear All
             </button>
+          ) : (
+            <div className="w-[100px]"></div>
           )}
 
-          <button
-            onClick={handleNext}
-            className="flex-1 bg-green-600 text-white py-3 rounded-lg shadow transition-all duration-300
-                       hover:bg-green-700"
-          >
-            Next
-          </button>
+          <NextButton
+            nextRoute="/create/experience"
+            stepNumber={5}
+            validate={validateSkills}
+          />
         </div>
 
         <GoBack data="/create/summary" />

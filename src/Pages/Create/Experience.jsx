@@ -171,20 +171,20 @@ export default function Experience() {
           </div>
         ))}
 
-        <button
-          onClick={addExperience}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg"
-        >
-          + Add Another Experience
-        </button>
-
-        <div className="mt-6 flex justify-end">
+        <div className="mt-4 flex justify-between">
           <button
-            onClick={handleNext}
-            className="px-5 py-2 bg-green-600 text-white rounded-lg"
+            onClick={addExperience}
+            className="px-4 py-2 bg-blue-600 text-white rounded"
           >
-            Save & Continue
+            + Add Another Experience
           </button>
+
+            <button
+              onClick={handleNext}
+              className="px-5 py-2 bg-green-600 text-white rounded"
+            >
+              Save & Continue
+            </button>
         </div>
       </div>
     </CreateLayout>

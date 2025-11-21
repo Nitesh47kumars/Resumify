@@ -1,13 +1,12 @@
 import { useStep } from "../../Context/StepContext";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CreateLayout from "../../Layout/CreateLayout";
 import GoBack from "../../Buttons/GoBack";
 import Toggle from "../../Buttons/Toggle";
+import NextButton from "../../Buttons/NextButton";
 
 export default function Education() {
-  const { setCompletedStep, formData, setFormData } = useStep();
-  const navigate = useNavigate();
+  const {formData, setFormData } = useStep();
 
   const [entries, setEntries] = useState(
     formData.education?.length
@@ -80,27 +79,20 @@ export default function Education() {
     setErrors(errors.filter((_, i) => i !== index));
   };
 
-  const validate = () => {
-    const newErrors = entries.map((item) => ({
-      degree: item.degree.trim() ? "" : "Degree is required",
-      field: item.field.trim() ? "" : "Field of study is required",
-      school: item.school.trim() ? "" : "College / University name is required",
-    }));
+  const validate = () =>
+    entries.every((item, i) => {
+      const newErr = {
+        degree: item.degree.trim() ? "" : "Degree is required",
+        field: item.field.trim()? "" : "Field of study is required",
+        school: item.school.trim()? "" : "College / University name is required",
+      };
 
-    setErrors(newErrors);
+      const updated = [...errors];
+      updated[i] = newErr;
+      setErrors(updated);
 
-    return newErrors.every(
-      (err) => !err.degree && !err.field && !err.school
-    );
-  };
-
-  const handleNext = () => {
-    if (!validate()) return;
-
-    setFormData({ ...formData, education: entries });
-    setCompletedStep(3);
-    navigate("/create/summary");
-  };
+      return !newErr.degree && !newErr.field && !newErr.school;
+    });
 
   return (
     <CreateLayout>
@@ -116,7 +108,7 @@ export default function Education() {
               Education Entry {index + 1}
             </h2>
 
-            {/* Delete Button */}
+            {/* Delete */}
             {entries.length > 1 && (
               <button
                 onClick={() => deleteEntry(index)}
@@ -132,15 +124,13 @@ export default function Education() {
                 type="text"
                 value={item.degree}
                 onChange={(e) => handleChange(index, "degree", e.target.value)}
-                placeholder="Degree (e.g. Bachelor of Computer Applications)"
+                placeholder="Degree"
                 className={`w-full p-3 border rounded ${
                   errors[index]?.degree ? "border-red-500" : "border-gray-300"
                 }`}
               />
               {errors[index]?.degree && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors[index].degree}
-                </p>
+                <p className="text-red-500 text-sm mt-1">{errors[index].degree}</p>
               )}
             </div>
 
@@ -156,9 +146,7 @@ export default function Education() {
                 }`}
               />
               {errors[index]?.field && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors[index].field}
-                </p>
+                <p className="text-red-500 text-sm mt-1">{errors[index].field}</p>
               )}
             </div>
 
@@ -174,18 +162,15 @@ export default function Education() {
                 }`}
               />
               {errors[index]?.school && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors[index].school}
-                </p>
+                <p className="text-red-500 text-sm mt-1">{errors[index].school}</p>
               )}
             </div>
 
-            {/* TOGGLE SWITCH */}
+            {/* TOGGLE */}
             <div className="flex items-center gap-3 mb-3">
               <label className="text-sm font-medium">
                 Are you currently studying?
               </label>
-
               <Toggle
                 value={item.showOptional}
                 onChange={() => toggleOptional(index)}
@@ -195,7 +180,6 @@ export default function Education() {
             {/* OPTIONAL FIELDS */}
             {item.showOptional && (
               <>
-                {/* Graduation Year */}
                 <div className="mb-3">
                   <input
                     type="text"
@@ -203,12 +187,11 @@ export default function Education() {
                     onChange={(e) =>
                       handleChange(index, "gradYear", e.target.value)
                     }
-                    placeholder="Expected Graduation (e.g. July 2027)"
+                    placeholder="Expected Graduation"
                     className="w-full p-3 border rounded border-gray-300"
                   />
                 </div>
 
-                {/* Current Year */}
                 <div className="mb-3">
                   <input
                     type="text"
@@ -216,7 +199,7 @@ export default function Education() {
                     onChange={(e) =>
                       handleChange(index, "currentYear", e.target.value)
                     }
-                    placeholder="Current Year (e.g. 2nd Year - 3rd Semester)"
+                    placeholder="Current Year (optional)"
                     className="w-full p-3 border rounded border-gray-300"
                   />
                 </div>
@@ -225,21 +208,24 @@ export default function Education() {
           </div>
         ))}
 
-        {/* Add Entry */}
-        <button
-          onClick={addEntry}
-          className="w-full bg-gray-200 py-3 rounded my-2 font-medium hover:bg-gray-300"
-        >
-          + Add Another Education
-        </button>
+        <div className="flex justify-between mt-2 mb-2">
+          <button
+            onClick={addEntry}
+            className="px-4 bg-gray-200 py-3 rounded font-medium hover:bg-gray-300"
+          >
+            + Add Another Education
+          </button>
 
-        {/* NEXT */}
-        <button
-          onClick={handleNext}
-          className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 w-full"
-        >
-          Next
-        </button>
+          <NextButton
+            nextRoute="/create/summary"
+            stepNumber={3}
+            validate={() => {
+              if (!validate()) return false;
+              setFormData({ ...formData, education: entries });
+              return true;
+            }}
+          />
+        </div>
 
         <GoBack data="/create/header" />
       </div>

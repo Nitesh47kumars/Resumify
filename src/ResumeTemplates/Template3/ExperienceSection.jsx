@@ -7,31 +7,35 @@ export default function ExperienceSection({ experience }) {
     <section className="mb-6">
       <h2 className="text-xl font-semibold mb-3">Experience</h2>
 
-      {experience.map((exp, index) => (
-        <div key={index} className="mb-4">
+      {experience.map((exp, index) => {
+        // Placeholders
+        const role = exp.role?.trim() || "Job Title";
+        const company = exp.company?.trim() || "Company Name";
+        const duration = exp.duration?.trim() || "Start — End";
 
-          {exp.role && (
-            <h3 className="font-semibold text-gray-800">{exp.role}</h3>
-          )}
+        const details =
+          exp.details && exp.details.length > 0
+            ? exp.details
+            : ["Describe your responsibilities"];
 
-          {(exp.company || exp.duration) && (
+        return (
+          <div key={index} className="mb-4">
+            <h3 className="font-semibold text-gray-800">{role}</h3>
+
             <p className="text-sm text-gray-600">
-              {exp.company && <span>{exp.company}</span>}
-              {exp.company && exp.duration && <span> • </span>}
-              {exp.duration && <span>{exp.duration}</span>}
+              <span>{company}</span>
+              <span> • </span>
+              <span>{duration}</span>
             </p>
-          )}
 
-          {exp.details?.length > 0 && (
             <ul className="list-disc ml-5 text-sm text-gray-700 mt-1">
-              {exp.details.map((d, i) => (
+              {details.map((d, i) => (
                 <li key={i}>{d}</li>
               ))}
             </ul>
-          )}
-
-        </div>
-      ))}
+          </div>
+        );
+      })}
     </section>
   );
 }

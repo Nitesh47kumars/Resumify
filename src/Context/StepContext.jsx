@@ -1,10 +1,9 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import Cookies from "js-cookie";
 
 const StepContext = createContext();
 
 export function StepProvider({ children }) {
-  const storedForm = Cookies.get("resumeFormData");
+  const storedForm = sessionStorage.getItem("resumeFormData");
   const initialFormData = storedForm
     ? JSON.parse(storedForm)
     : {
@@ -32,7 +31,7 @@ export function StepProvider({ children }) {
 
   const [formData, setFormData] = useState(initialFormData);
 
-  const storedStep = Cookies.get("resumeCompletedStep");
+  const storedStep = sessionStorage.getItem("resumeCompletedStep");
   const [completedStep, setCompletedStep] = useState(
     storedStep ? Number(storedStep) : 1
   );
@@ -40,18 +39,25 @@ export function StepProvider({ children }) {
   const [previewImage, setPreviewImage] = useState(null);
 
   useEffect(() => {
-    Cookies.set("resumeFormData", JSON.stringify(formData), {
-      expires: 7,
-      path: "/",
-    });
+    sessionStorage.setItem("resumeFormData", JSON.stringify(formData));
   }, [formData]);
 
   useEffect(() => {
-    Cookies.set("resumeCompletedStep", completedStep, {
-      expires: 7,
-      path: "/",
-    });
+    sessionStorage.setItem("resumeCompletedStep", completedStep);
   }, [completedStep]);
+
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   return (
     <StepContext.Provider

@@ -1,21 +1,21 @@
 import { useStep } from "../../Context/StepContext";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import CreateLayout from "../../Layout/CreateLayout";
 import GoBack from "../../Buttons/GoBack";
+import NextButton from "../../Buttons/NextButton";
 
 export default function Summary() {
-  const { formData, setFormData, setCompletedStep } = useStep();
+  const { formData, setFormData } = useStep();
   const [summary, setSummary] = useState(formData.summary || "");
-  const navigate = useNavigate();
+  const [error, setError] = useState("");
 
-  const handleNext = () => {
-    if (!summary.trim())
-      return alert("Please enter your professional summary.");
-
-    setFormData({ ...formData, summary });
-    setCompletedStep(4);
-    navigate("/create/skills");
+  const handleValidate = () => {
+    if (!summary.trim()) {
+      setError("Summary cannot be empty.");
+      return false;
+    }
+    setError("");
+    return true;
   };
 
   return (
@@ -31,28 +31,32 @@ export default function Summary() {
         </p>
 
         <textarea
-          className="w-full h-80 p-4 border rounded-lg shadow-sm bg-white
-                     focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-          placeholder="Example: Motivated BCA student with strong frontend skills in React, JavaScript, and UI design..."
+          className={`w-full h-80 p-4 border rounded-lg shadow-sm bg-white resize-none
+            focus:outline-none focus:ring-2 
+            ${error ? "border-red-500 focus:ring-red-500" : "focus:ring-blue-500"}
+          `}
+          placeholder="Example: Motivated BCA student with strong frontend skills..."
           value={summary}
           onChange={(e) => {
             const value = e.target.value;
             setSummary(value);
             setFormData({ ...formData, summary: value });
-          }}          
+            if (value.trim()) setError("");
+          }}
         ></textarea>
 
-        <div className="flex justify-center items-center gap-4">
+        {error && <p className="text-red-600 text-sm mt-1">{error}</p>}
+
+        {/* Buttons */}
+        <div className="flex justify-end items-center mt-4 gap-4">
           <GoBack data="/create/education" />
 
-          <button
-            onClick={handleNext}
-            className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 shadow"
-            >
-            Next
-          </button>
+          <NextButton
+            nextRoute="/create/skills"
+            stepNumber={4}
+            validate={handleValidate}
+          />
         </div>
-
       </div>
     </CreateLayout>
   );

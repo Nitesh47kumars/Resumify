@@ -1,11 +1,10 @@
 import { useStep } from "../../Context/StepContext";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CreateLayout from "../../Layout/CreateLayout";
+import NextButton from "../../Buttons/NextButton";
 
 export default function Header() {
-  const { setCompletedStep, formData, setFormData } = useStep();
-  const navigate = useNavigate();
+  const {formData, setFormData } = useStep();
 
   const emptyHeader = {
     firstName: "",
@@ -65,7 +64,7 @@ export default function Header() {
     }
   };
 
-  const handleNext = () => {
+  const validate = () => {
     const newErrors = {};
 
     if (!headerData.firstName.trim()) {
@@ -78,14 +77,10 @@ export default function Header() {
 
     setErrors(newErrors);
 
-    if (Object.keys(newErrors).length > 0) return;
-
-    setFormData({ ...formData, header: headerData });
-    setCompletedStep(2);
-    navigate("/create/education");
+    return Object.keys(newErrors).length === 0;
   };
 
-  // 🔥 CLEAR ALL BUTTON
+  // CLEAR ALL
   const handleClear = () => {
     setHeaderData(emptyHeader);
     setFormData((prev) => ({
@@ -224,7 +219,7 @@ export default function Header() {
         </div>
 
         {/* Buttons */}
-        <div className="flex items-center gap-4 mt-6">
+        <div className="flex justify-between items-center mt-6">
           <button
             onClick={handleClear}
             className="bg-gray-300 text-black px-6 py-3 rounded hover:bg-gray-400"
@@ -232,12 +227,11 @@ export default function Header() {
             Clear All
           </button>
 
-          <button
-            onClick={handleNext}
-            className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700"
-          >
-            Next
-          </button>
+          <NextButton
+            nextRoute="/create/education"
+            stepNumber={2}
+            validate={validate}
+          />
         </div>
       </div>
     </CreateLayout>

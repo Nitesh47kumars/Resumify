@@ -11,7 +11,7 @@ import Skills from "./Pages/Create/Skills"
 import Experience from "./Pages/Create/Experience";
 import Finalize from "./Pages/Create/Finalize";
 import Header from "./Pages/Create/Header";
-import AddOtherPart from "./Pages/Create/AddOtherPart";
+import AddOtherPart from "./Pages/Create/AddComponent";
 
 export default function App() {
   return (
