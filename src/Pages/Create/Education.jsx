@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CreateLayout from "../../Layout/CreateLayout";
 import GoBack from "../../Buttons/GoBack";
-import Toggle from "../../Buttons/Toggle"
+import Toggle from "../../Buttons/Toggle";
 
 export default function Education() {
   const { setCompletedStep, formData, setFormData } = useStep();
@@ -24,18 +24,28 @@ export default function Education() {
         ]
   );
 
-  const [errors, setErrors] = useState([]);
+  // ---- ERROR STATE ----
+  const [errors, setErrors] = useState(
+    entries.map(() => ({
+      degree: "",
+      field: "",
+      school: "",
+    }))
+  );
 
+  // ---- Update Inputs ----
   const handleChange = (index, field, value) => {
     const updated = [...entries];
     updated[index][field] = value;
     setEntries(updated);
 
+    // Clear error on typing
     const updatedErrors = [...errors];
-    if (updatedErrors[index]) updatedErrors[index][field] = false;
+    updatedErrors[index][field] = "";
     setErrors(updatedErrors);
   };
 
+  // ---- Toggle Optional Fields ----
   const toggleOptional = (index) => {
     const updated = [...entries];
     updated[index].showOptional = !updated[index].showOptional;
@@ -48,6 +58,7 @@ export default function Education() {
     setEntries(updated);
   };
 
+  // ---- Add Entry ----
   const addEntry = () => {
     setEntries([
       ...entries,
@@ -63,10 +74,11 @@ export default function Education() {
 
     setErrors([
       ...errors,
-      { degree: false, field: false, school: false }
+      { degree: "", field: "", school: "" }
     ]);
   };
 
+  // ---- Delete Entry ----
   const deleteEntry = (index) => {
     if (entries.length === 1) return;
 
@@ -74,11 +86,12 @@ export default function Education() {
     setErrors(errors.filter((_, i) => i !== index));
   };
 
+  // ---- Validate Required Fields ----
   const validate = () => {
     const newErrors = entries.map((item) => ({
-      degree: !item.degree.trim(),
-      field: !item.field.trim(),
-      school: !item.school.trim(),
+      degree: item.degree.trim() ? "" : "Degree is required",
+      field: item.field.trim() ? "" : "Field of study is required",
+      school: item.school.trim() ? "" : "School / College name is required",
     }));
 
     setErrors(newErrors);
@@ -88,6 +101,7 @@ export default function Education() {
     );
   };
 
+  // ---- Next Button ----
   const handleNext = () => {
     if (!validate()) return;
 
@@ -104,12 +118,13 @@ export default function Education() {
         {entries.map((item, index) => (
           <div
             key={index}
-            className="bg-white border rounded-xl p-4 shadow-sm mb-6 relative"
+            className="bg-white border rounded-xl p-4 shadow-sm mb-3 relative"
           >
             <h2 className="text-xl font-semibold mb-3">
               Education Entry {index + 1}
             </h2>
 
+            {/* Delete Button */}
             {entries.length > 1 && (
               <button
                 onClick={() => deleteEntry(index)}
@@ -119,7 +134,7 @@ export default function Education() {
               </button>
             )}
 
-            {/* Degree */}
+            {/* DEGREE */}
             <div className="mb-3">
               <input
                 type="text"
@@ -130,9 +145,14 @@ export default function Education() {
                   errors[index]?.degree ? "border-red-500" : "border-gray-300"
                 }`}
               />
+              {errors[index]?.degree && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors[index].degree}
+                </p>
+              )}
             </div>
 
-            {/* Field */}
+            {/* FIELD */}
             <div className="mb-3">
               <input
                 type="text"
@@ -143,9 +163,14 @@ export default function Education() {
                   errors[index]?.field ? "border-red-500" : "border-gray-300"
                 }`}
               />
+              {errors[index]?.field && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors[index].field}
+                </p>
+              )}
             </div>
 
-            {/* School */}
+            {/* SCHOOL */}
             <div className="mb-3">
               <input
                 type="text"
@@ -156,9 +181,14 @@ export default function Education() {
                   errors[index]?.school ? "border-red-500" : "border-gray-300"
                 }`}
               />
+              {errors[index]?.school && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors[index].school}
+                </p>
+              )}
             </div>
 
-            {/* Toggle Fields */}
+            {/* TOGGLE OPTIONAL */}
             <div className="flex items-center gap-3 mb-3">
               <label className="text-sm font-medium">
                 Are you currently studying?
@@ -170,10 +200,10 @@ export default function Education() {
               />
             </div>
 
-            {/* Optional Fields */}
+            {/* OPTIONAL FIELDS */}
             {item.showOptional && (
               <>
-                {/* Expected Graduation */}
+                {/* Graduation Year */}
                 <div className="mb-3">
                   <input
                     type="text"
@@ -203,13 +233,15 @@ export default function Education() {
           </div>
         ))}
 
+        {/* Add Entry */}
         <button
           onClick={addEntry}
-          className="w-full bg-gray-200 py-3 rounded mb-6 font-medium hover:bg-gray-300"
+          className="w-full bg-gray-200 py-3 rounded my-2 font-medium hover:bg-gray-300"
         >
           + Add Another Education
         </button>
 
+        {/* NEXT */}
         <button
           onClick={handleNext}
           className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 w-full"
