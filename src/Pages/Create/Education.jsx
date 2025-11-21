@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CreateLayout from "../../Layout/CreateLayout";
 import GoBack from "../../Buttons/GoBack";
+import Toggle from "../../Buttons/Toggle"
 
 export default function Education() {
   const { setCompletedStep, formData, setFormData } = useStep();
@@ -39,7 +40,6 @@ export default function Education() {
     const updated = [...entries];
     updated[index].showOptional = !updated[index].showOptional;
 
-    // Clear values if turning OFF
     if (!updated[index].showOptional) {
       updated[index].gradYear = "";
       updated[index].currentYear = "";
@@ -158,20 +158,16 @@ export default function Education() {
               />
             </div>
 
-            {/* Toggle Optional */}
-            <div className="flex items-center gap-2 mb-3">
+            {/* Toggle Fields */}
+            <div className="flex items-center gap-3 mb-3">
               <label className="text-sm font-medium">
-                Are you Currently in Studying
+                Are you currently studying?
               </label>
 
-              <button
-                onClick={() => toggleOptional(index)}
-                className={`px-3 py-1 text-sm rounded-full ${
-                  item.showOptional ? "bg-blue-600 text-white" : "bg-gray-300"
-                }`}
-              >
-                {item.showOptional ? "ON" : "OFF"}
-              </button>
+              <Toggle
+                value={item.showOptional}
+                onChange={() => toggleOptional(index)}
+              />
             </div>
 
             {/* Optional Fields */}
