@@ -1,6 +1,6 @@
 import React from "react";
 import TemplateFeatures from "./TemplateFeatures";
-import ResumeButton from "../ResumeButton";
+import ResumeButton from "../../Buttons/ResumeButton";
 
 const TemplateContent = () => {
   return (

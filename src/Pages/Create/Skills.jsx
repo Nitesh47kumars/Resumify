@@ -2,7 +2,7 @@ import { useStep } from "../../Context/StepContext";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CreateLayout from "../../Layout/CreateLayout";
-import GoBack from "../../Components/GoBack";
+import GoBack from "../../Buttons/GoBack";
 
 export default function Skills() {
   const { setCompletedStep, formData, setFormData } = useStep();

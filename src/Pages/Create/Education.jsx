@@ -1,8 +1,8 @@
-import { useStep } from "../../Context/StepContext"; 
+import { useStep } from "../../Context/StepContext";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CreateLayout from "../../Layout/CreateLayout";
-import GoBack from "../../Components/GoBack";
+import GoBack from "../../Buttons/GoBack";
 
 export default function Education() {
   const { setCompletedStep, formData, setFormData } = useStep();
@@ -11,7 +11,16 @@ export default function Education() {
   const [entries, setEntries] = useState(
     formData.education?.length
       ? formData.education
-      : [{ degree: "", school: "", year: "" }]
+      : [
+          {
+            degree: "",
+            field: "",
+            school: "",
+            gradYear: "",
+            currentYear: "",
+            showOptional: true,
+          },
+        ]
   );
 
   const [errors, setErrors] = useState([]);
@@ -26,41 +35,63 @@ export default function Education() {
     setErrors(updatedErrors);
   };
 
+  const toggleOptional = (index) => {
+    const updated = [...entries];
+    updated[index].showOptional = !updated[index].showOptional;
+
+    // Clear values if turning OFF
+    if (!updated[index].showOptional) {
+      updated[index].gradYear = "";
+      updated[index].currentYear = "";
+    }
+
+    setEntries(updated);
+  };
+
   const addEntry = () => {
-    setEntries([...entries, { degree: "", school: "", year: "" }]);
-    setErrors([...errors, { degree: false, school: false, year: false }]);
+    setEntries([
+      ...entries,
+      {
+        degree: "",
+        field: "",
+        school: "",
+        gradYear: "",
+        currentYear: "",
+        showOptional: true,
+      },
+    ]);
+
+    setErrors([
+      ...errors,
+      { degree: false, field: false, school: false }
+    ]);
   };
 
   const deleteEntry = (index) => {
-    if (entries.length === 1) return; // do not remove last entry
+    if (entries.length === 1) return;
 
-    const updatedEntries = entries.filter((_, i) => i !== index);
-    const updatedErrors = errors.filter((_, i) => i !== index);
-
-    setEntries(updatedEntries);
-    setErrors(updatedErrors);
+    setEntries(entries.filter((_, i) => i !== index));
+    setErrors(errors.filter((_, i) => i !== index));
   };
 
   const validate = () => {
     const newErrors = entries.map((item) => ({
       degree: !item.degree.trim(),
+      field: !item.field.trim(),
       school: !item.school.trim(),
-      year: !item.year.trim(),
     }));
 
     setErrors(newErrors);
 
-    return newErrors.every((err) => !err.degree && !err.school && !err.year);
+    return newErrors.every(
+      (err) => !err.degree && !err.field && !err.school
+    );
   };
 
   const handleNext = () => {
     if (!validate()) return;
 
-    setFormData({
-      ...formData,
-      education: entries,
-    });
-
+    setFormData({ ...formData, education: entries });
     setCompletedStep(3);
     navigate("/create/summary");
   };
@@ -94,16 +125,24 @@ export default function Education() {
                 type="text"
                 value={item.degree}
                 onChange={(e) => handleChange(index, "degree", e.target.value)}
-                placeholder="Degree (e.g. BCA)"
+                placeholder="Degree (e.g. Bachelor of Computer Applications)"
                 className={`w-full p-3 border rounded ${
                   errors[index]?.degree ? "border-red-500" : "border-gray-300"
                 }`}
               />
-              {errors[index]?.degree && (
-                <p className="text-red-500 text-sm mt-1">
-                  Degree is required
-                </p>
-              )}
+            </div>
+
+            {/* Field */}
+            <div className="mb-3">
+              <input
+                type="text"
+                value={item.field}
+                onChange={(e) => handleChange(index, "field", e.target.value)}
+                placeholder="Field of Study"
+                className={`w-full p-3 border rounded ${
+                  errors[index]?.field ? "border-red-500" : "border-gray-300"
+                }`}
+              />
             </div>
 
             {/* School */}
@@ -112,35 +151,59 @@ export default function Education() {
                 type="text"
                 value={item.school}
                 onChange={(e) => handleChange(index, "school", e.target.value)}
-                placeholder= "College / University"
+                placeholder="College / University"
                 className={`w-full p-3 border rounded ${
                   errors[index]?.school ? "border-red-500" : "border-gray-300"
                 }`}
               />
-              {errors[index]?.school && (
-                <p className="text-red-500 text-sm mt-1">
-                  College/University name is required
-                </p>
-              )}
             </div>
 
-            {/* Year */}
-            <div>
-              <input
-                type="text"
-                value={item.year}
-                onChange={(e) => handleChange(index, "year", e.target.value)}
-                placeholder="Year (e.g. 2022 - Present)"
-                className={`w-full p-3 border rounded ${
-                  errors[index]?.year ? "border-red-500" : "border-gray-300"
+            {/* Toggle Optional */}
+            <div className="flex items-center gap-2 mb-3">
+              <label className="text-sm font-medium">
+                Are you Currently in Studying
+              </label>
+
+              <button
+                onClick={() => toggleOptional(index)}
+                className={`px-3 py-1 text-sm rounded-full ${
+                  item.showOptional ? "bg-blue-600 text-white" : "bg-gray-300"
                 }`}
-              />
-              {errors[index]?.year && (
-                <p className="text-red-500 text-sm mt-1">
-                  Year is required
-                </p>
-              )}
+              >
+                {item.showOptional ? "ON" : "OFF"}
+              </button>
             </div>
+
+            {/* Optional Fields */}
+            {item.showOptional && (
+              <>
+                {/* Expected Graduation */}
+                <div className="mb-3">
+                  <input
+                    type="text"
+                    value={item.gradYear}
+                    onChange={(e) =>
+                      handleChange(index, "gradYear", e.target.value)
+                    }
+                    placeholder="Expected Graduation (e.g. July 2027)"
+                    className="w-full p-3 border rounded border-gray-300"
+                  />
+                </div>
+
+                {/* Current Year */}
+                <div className="mb-3">
+                  <input
+                    type="text"
+                    value={item.currentYear}
+                    onChange={(e) =>
+                      handleChange(index, "currentYear", e.target.value)
+                    }
+                    placeholder="Current Year (e.g. 2nd Year - 3rd Semester)"
+                    className="w-full p-3 border rounded border-gray-300"
+                  />
+                </div>
+              </>
+            )}
           </div>
         ))}
 

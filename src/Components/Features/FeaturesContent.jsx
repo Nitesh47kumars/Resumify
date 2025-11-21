@@ -1,6 +1,6 @@
 import React from 'react';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import ResumeButton from '../ResumeButton';
+import ResumeButton from '../../Buttons/ResumeButton';
 
 const features = [
   'Build Resume with Multiple Templates',

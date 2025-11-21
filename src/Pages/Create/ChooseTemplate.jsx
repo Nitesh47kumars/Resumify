@@ -1,7 +1,7 @@
 import { useStep } from "../../Context/StepContext";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import ResumeButton from "../../Components/ResumeButton";
+import ResumeButton from "../../Buttons/ResumeButton";
 
 export default function ChooseTemplate() {
   const { setCompletedStep, formData, setFormData } = useStep();

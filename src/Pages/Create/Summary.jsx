@@ -2,7 +2,7 @@ import { useStep } from "../../Context/StepContext";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CreateLayout from "../../Layout/CreateLayout";
-import GoBack from "../../Components/GoBack";
+import GoBack from "../../Buttons/GoBack";
 
 export default function Summary() {
   const { formData, setFormData, setCompletedStep } = useStep();

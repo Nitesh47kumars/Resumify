@@ -2,8 +2,10 @@ export default function EducationSection({ education }) {
   const placeholder = [
     {
       degree: "Bachelor of Computer Applications",
+      field: "Computer Applications",
       school: "XYZ University",
-      duration: "2022 - 2025",
+      gradYear: "2027",
+      currentYear: "2nd Year (3rd Semester)",
     },
   ];
 
@@ -14,10 +16,32 @@ export default function EducationSection({ education }) {
       <h2 className="text-xl font-semibold mb-3">Education</h2>
 
       {list.map((edu, index) => (
-        <div key={index} className="mb-2">
-          <h3 className="font-semibold">{edu.degree}</h3>
-          <p className="text-sm text-gray-700">{edu.school}</p>
-          <p className="text-sm text-gray-600">{edu.duration}</p>
+        <div key={index} className="mb-4 leading-relaxed">
+          
+          {/* Degree + Field */}
+          <h3 className="font-semibold">
+            {edu.degree}
+            {edu.field ? ` — ${edu.field}` : ""}
+          </h3>
+
+          {/* School */}
+          {edu.school && (
+            <p className="text-sm text-gray-700">{edu.school}</p>
+          )}
+
+          {/* Expected Graduation (optional) */}
+          {edu.gradYear && (
+            <p className="text-sm text-gray-600">
+              Expected Graduation: {edu.gradYear}
+            </p>
+          )}
+
+          {/* Current Year (optional) */}
+          {edu.currentYear && (
+            <p className="text-sm text-gray-600">
+              Current Year: {edu.currentYear}
+            </p>
+          )}
         </div>
       ))}
     </section>

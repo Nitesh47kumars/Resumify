@@ -1,4 +1,4 @@
-import ResumeButton from "../ResumeButton";
+import ResumeButton from "../../Buttons/ResumeButton";
 
 export default function AboutText() {
     return (

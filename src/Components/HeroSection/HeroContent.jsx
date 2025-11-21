@@ -1,4 +1,4 @@
-import ResumeButton from "../ResumeButton"
+import ResumeButton from "../../Buttons/ResumeButton"
 export default function HeroContent() {
   return (
     <div className="md:w-1/2 flex flex-col space-y-6 text-center md:text-left">
