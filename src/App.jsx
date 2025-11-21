@@ -11,6 +11,7 @@ import Skills from "./Pages/Create/Skills"
 import Experience from "./Pages/Create/Experience";
 import Finalize from "./Pages/Create/Finalize";
 import Header from "./Pages/Create/Header";
+import AddOtherPart from "./Pages/Create/AddOtherPart";
 
 export default function App() {
   return (
@@ -63,9 +64,29 @@ export default function App() {
 
           {/* Step 5 */}
           <Route
-            path="/create/finalize"
+            path="/create/experience"
             element={
               <ProtectedRoute stepNumber={5}>
+                <Experience />
+              </ProtectedRoute>
+            }
+          />
+          
+          {/* Step 6 */}
+          <Route
+            path="/create/addcomponent"
+            element={
+              <ProtectedRoute stepNumber={6}>
+                <AddOtherPart />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Step 6 */}
+          <Route
+            path="/create/finalize"
+            element={
+              <ProtectedRoute stepNumber={7}>
                 <Finalize />
               </ProtectedRoute>
             }
