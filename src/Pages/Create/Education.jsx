@@ -6,7 +6,7 @@ import Toggle from "../../Buttons/Toggle";
 import NextButton from "../../Buttons/NextButton";
 
 export default function Education() {
-  const {formData, setFormData } = useStep();
+  const { formData, setFormData } = useStep();
 
   const [entries, setEntries] = useState(
     formData.education?.length
@@ -31,14 +31,19 @@ export default function Education() {
     }))
   );
 
+  const sync = (updated) => {
+    setEntries(updated);
+    setFormData((prev) => ({ ...prev, education: updated }));
+  };
+
   const handleChange = (index, field, value) => {
     const updated = [...entries];
     updated[index][field] = value;
-    setEntries(updated);
+    sync(updated);
 
-    const updatedErrors = [...errors];
-    updatedErrors[index][field] = "";
-    setErrors(updatedErrors);
+    const newErr = [...errors];
+    newErr[index][field] = "";
+    setErrors(newErr);
   };
 
   const toggleOptional = (index) => {
@@ -50,11 +55,11 @@ export default function Education() {
       updated[index].currentYear = "";
     }
 
-    setEntries(updated);
+    sync(updated);
   };
 
   const addEntry = () => {
-    setEntries([
+    const updated = [
       ...entries,
       {
         degree: "",
@@ -64,18 +69,18 @@ export default function Education() {
         currentYear: "",
         showOptional: true,
       },
-    ]);
+    ];
+    sync(updated);
 
-    setErrors([
-      ...errors,
-      { degree: "", field: "", school: "" }
-    ]);
+    setErrors([...errors, { degree: "", field: "", school: "" }]);
   };
 
   const deleteEntry = (index) => {
     if (entries.length === 1) return;
 
-    setEntries(entries.filter((_, i) => i !== index));
+    const updated = entries.filter((_, i) => i !== index);
+    sync(updated);
+
     setErrors(errors.filter((_, i) => i !== index));
   };
 
@@ -83,13 +88,13 @@ export default function Education() {
     entries.every((item, i) => {
       const newErr = {
         degree: item.degree.trim() ? "" : "Degree is required",
-        field: item.field.trim()? "" : "Field of study is required",
-        school: item.school.trim()? "" : "College / University name is required",
+        field: item.field.trim() ? "" : "Field of study is required",
+        school: item.school.trim() ? "" : "College / University is required",
       };
 
-      const updated = [...errors];
-      updated[i] = newErr;
-      setErrors(updated);
+      const updatedErrs = [...errors];
+      updatedErrs[i] = newErr;
+      setErrors(updatedErrs);
 
       return !newErr.degree && !newErr.field && !newErr.school;
     });
@@ -108,7 +113,6 @@ export default function Education() {
               Education Entry {index + 1}
             </h2>
 
-            {/* Delete */}
             {entries.length > 1 && (
               <button
                 onClick={() => deleteEntry(index)}
@@ -118,7 +122,6 @@ export default function Education() {
               </button>
             )}
 
-            {/* DEGREE */}
             <div className="mb-3">
               <input
                 type="text"
@@ -134,7 +137,6 @@ export default function Education() {
               )}
             </div>
 
-            {/* FIELD */}
             <div className="mb-3">
               <input
                 type="text"
@@ -150,7 +152,6 @@ export default function Education() {
               )}
             </div>
 
-            {/* COLLEGE */}
             <div className="mb-3">
               <input
                 type="text"
@@ -166,18 +167,11 @@ export default function Education() {
               )}
             </div>
 
-            {/* TOGGLE */}
             <div className="flex items-center gap-3 mb-3">
-              <label className="text-sm font-medium">
-                Are you currently studying?
-              </label>
-              <Toggle
-                value={item.showOptional}
-                onChange={() => toggleOptional(index)}
-              />
+              <label className="text-sm font-medium">Are you currently studying?</label>
+              <Toggle value={item.showOptional} onChange={() => toggleOptional(index)} />
             </div>
 
-            {/* OPTIONAL FIELDS */}
             {item.showOptional && (
               <>
                 <div className="mb-3">
@@ -221,7 +215,6 @@ export default function Education() {
             stepNumber={5}
             validate={() => {
               if (!validate()) return false;
-              setFormData({ ...formData, education: entries });
               return true;
             }}
           />

@@ -4,8 +4,6 @@ export default function EducationSection({ education }) {
       degree: "Bachelor of Computer Applications",
       field: "Computer Applications",
       school: "XYZ University",
-      gradYear: "2027",
-      currentYear: "2nd Year (3rd Semester)",
     },
   ];
 
@@ -15,35 +13,34 @@ export default function EducationSection({ education }) {
     <section className="mb-6">
       <h2 className="text-xl font-semibold mb-3">Education</h2>
 
-      {list.map((edu, index) => (
-        <div key={index} className="mb-4 leading-relaxed">
-          
-          {/* Degree + Field */}
-          <h3 className="font-semibold">
-            {edu.degree}
-            {edu.field ? ` — ${edu.field}` : ""}
-          </h3>
+      {list.map((edu, index) => {
+        const degree = edu.degree || placeholder[0].degree;
+        const field = edu.field || placeholder[0].field;
+        const school = edu.school || placeholder[0].school;
 
-          {/* School */}
-          {edu.school && (
-            <p className="text-sm text-gray-700">{edu.school}</p>
-          )}
+        return (
+          <div key={index} className="mb-4 leading-relaxed">
+            <h3 className="font-semibold">
+              {degree}
+              {field ? ` — ${field}` : ""}
+            </h3>
 
-          {/* Expected Graduation (optional) */}
-          {edu.gradYear && (
-            <p className="text-sm text-gray-600">
-              Expected Graduation: {edu.gradYear}
-            </p>
-          )}
+            <p className="text-sm text-gray-700">{school}</p>
 
-          {/* Current Year (optional) */}
-          {edu.currentYear && (
-            <p className="text-sm text-gray-600">
-              Current Year: {edu.currentYear}
-            </p>
-          )}
-        </div>
-      ))}
+            {edu.gradYear && (
+              <p className="text-sm text-gray-600">
+                Expected Graduation: {edu.gradYear}
+              </p>
+            )}
+
+            {edu.currentYear && (
+              <p className="text-sm text-gray-600">
+                Current Year: {edu.currentYear}
+              </p>
+            )}
+          </div>
+        );
+      })}
     </section>
   );
 }

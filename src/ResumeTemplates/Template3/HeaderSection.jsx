@@ -18,9 +18,9 @@ export default function HeaderSection({ data }) {
         <p><strong>Email:</strong> {email || "example@gmail.com"}</p>
 
         <div className="flex gap-4 text-blue-600 underline mt-1">
-          {(header.linkedin && <a href={header.linkedin}>LinkedIn</a>) || <span>LinkedIn</span>}
-          {(header.website && <a href={header.website}>Portfolio</a>) || <span>Portfolio</span>}
-          {(header.github && <a href={header.github}>GitHub</a>) || <span>GitHub</span>}
+          {(header.linkedin && <a href={header.linkedin}>LinkedIn</a>)}
+          {(header.website && <a href={header.website}>Portfolio</a>)}
+          {(header.github && <a href={header.github}>GitHub</a>)}
         </div>
       </div>
 

@@ -26,14 +26,9 @@ export function StepProvider({ children }) {
         experience: [],
         skills: [],
         projects: [],
-        extra: [],
-        extraComponents: [], 
+        extraComponents: [],
         template: "",
       };
-
-  if (!initialFormData.extraComponents) {
-    initialFormData.extraComponents = [];
-  }
 
   const [formData, setFormData] = useState(initialFormData);
   const [previewImage, setPreviewImage] = useState(null);
@@ -43,8 +38,8 @@ export function StepProvider({ children }) {
     storedStep ? Number(storedStep) : 1
   );
 
-  // ⭐ Store dynamic extra section
-  const addDynamicStep = (category, inputs) => {
+  // MAIN FIXED STEP: ALWAYS STORE ARRAY IN inputs
+  const addDynamicStep = (category, inputsArray) => {
     setFormData((prev) => ({
       ...prev,
       extraComponents: [
@@ -52,7 +47,7 @@ export function StepProvider({ children }) {
         {
           id: Date.now(),
           category,
-          inputs,
+          inputs: inputsArray, // Always array
         },
       ],
     }));

@@ -7,102 +7,152 @@ export default function AddSection() {
   const extra = formData.extraComponents || [];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {extra.map((sec, index) => {
-        const inputs = sec.inputs || {};
-        const values = Object.values(inputs).filter(
-          (v) => v && v.trim() !== ""
-        );
+        const raw = sec.inputs;
+        const list = Array.isArray(raw) ? raw : raw ? [raw] : [];
+        if (list.length === 0) return null;
 
-        if (values.length === 0) return null;
+        const sectionTitle =
+          sec.category === "custom"
+            ? sec.customTitle || "CUSTOM"
+            : (sec.category || "Untitled Section").toUpperCase();
 
         return (
-          <div key={index} className="bg-white">
+          <div key={index} className="bg-white rounded-md">
+            <h3 className="text-lg font-bold mb-2">{sectionTitle}</h3>
 
-            {/* UPPERCASE SECTION TITLE */}
-            <h3 className="text-md font-bold mb-0.5">
-              {(sec.category || "Untitled Section").toUpperCase()}
-            </h3>
-
-            {/* Certificates special layout */}
-            {sec.category === "certificates" ? (
-              <div className="space-y-1">
-
-                {/* Title + Link */}
-                <div className="flex items-center gap-2">
-                  {inputs["Certificate Name"] && (
-                    <p className="font-semibold">{inputs["Certificate Name"]}</p>
-                  )}
-
-                  {inputs["Certificate URL"] && (
-                    <a
-                      href={inputs["Certificate URL"]}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 underline text-sm"
-                    >
-                      LINK
-                    </a>
-                  )}
-                </div>
-
-                {/* Issued By + Dates */}
-                {(inputs["Issued By"] || inputs["Issue Date"]) && (
-                  <p className="text-gray-700">
-                    {inputs["Issued By"] || ""}
-
-                    {inputs["Issue Date"] &&
-                      ` – (${inputs["Issue Date"]})`}
-                  </p>
+            {/* HOBBIES – NO UNDERLINE */}
+            {sec.category === "hobbies" && (
+              <div className="grid grid-cols-2 gap-2">
+                {list.map((entry, i) =>
+                  entry["Hobby Name"] ? (
+                    <p key={i} className="uppercase text-sm text-gray-800">
+                      {entry["Hobby Name"]}
+                    </p>
+                  ) : null
                 )}
               </div>
-            ) : (
-              /* OTHER SECTIONS UI */
-              <div className="space-y-1 text-gray-800 text-sm">
-                {sec.category === "hobbies" &&
-                  inputs["Hobby Name"] && <p>{inputs["Hobby Name"]}</p>}
+            )}
 
-                {sec.category === "languages" && (
-                  <p>
-                    {inputs["Language Name"] || ""}{" "}
-                    {inputs["Proficiency"] &&
-                      `- ${inputs["Proficiency"]}`}
-                  </p>
-                )}
+            {/* LANGUAGES */}
+            {sec.category === "languages" && (
+              <div className="space-y-1">
+                {list.map((entry, i) => {
+                  const lang = entry["Language Name"];
+                  const prof = entry["Proficiency"];
+                  if (!lang) return null;
 
-                {sec.category === "courses" && (
-                  <>
-                    <p>
-                      {inputs["Course Name"]}{" "}
-                      {inputs["Link (Optional)"] && (
+                  return (
+                    <p key={i} className="uppercase text-sm text-gray-800">
+                      {lang}
+                      {prof && ` - ${prof}`}
+                    </p>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* COURSES */}
+            {sec.category === "courses" && (
+              <div className="space-y-3">
+                {list.map((entry, i) => (
+                  <div key={i}>
+                    <p className="font-semibold uppercase text-sm text-gray-900">
+                      {entry["Course Name"]}
+
+                      {entry["Link (Optional)"] && (
                         <a
-                          href={inputs["Link (Optional)"]}
+                          href={entry["Link (Optional)"]}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-blue-600 text-sm underline ml-1"
+                          className="text-blue-600 underline ml-2"
                         >
                           LINK
                         </a>
                       )}
                     </p>
-                    <p>
-                      {inputs["Institution"] || ""}{" "}
-                      {inputs["Completion Year"] &&
-                        ` - ${inputs["Completion Year"]}`}
-                    </p>
-                  </>
-                )}
 
-                {/* Default fallback for custom sections */}
-                {sec.category === "custom" &&
-                  Object.values(inputs).map(
-                    (v, i) =>
-                      v && (
-                        <p key={i} className="text-sm">
-                          {v}
+                    {(entry["Institution"] ||
+                      entry["Completion Year"]) && (
+                      <p className="text-gray-700 text-sm">
+                        {entry["Institution"] || ""}
+                        {entry["Completion Year"] &&
+                          ` – ${entry["Completion Year"]}`}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* CERTIFICATES */}
+            {sec.category === "certificates" && (
+              <div className="space-y-3">
+                {list.map((entry, i) => (
+                  <div key={i}>
+                    <p className="font-semibold uppercase text-sm text-gray-900 flex items-center gap-2">
+                      {entry["Certificate Name"]}
+
+                      {entry["Certificate URL"] && (
+                        <a
+                          href={entry["Certificate URL"]}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 underline"
+                        >
+                          LINK
+                        </a>
+                      )}
+                    </p>
+
+                    {(entry["Issued By"] || entry["Issue Date"]) && (
+                      <p className="text-gray-700 text-sm">
+                        {entry["Issued By"] || ""}
+                        {entry["Issue Date"] &&
+                          ` – (${entry["Issue Date"]})`}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* NEW CUSTOM SECTION (Name + Link + Description) */}
+            {sec.category === "custom" && (
+              <div className="space-y-2">
+                {list.map((entry, i) => {
+                  const name = entry["Name"];
+                  const link = entry["Link"];
+                  const desc = entry["Description"];
+
+                  if (!name && !desc) return null;
+
+                  return (
+                    <div key={i} className="space-y-1">
+                      <p className="font-bold uppercase text-sm text-gray-900 flex items-center gap-2">
+                        {name}
+
+                        {link && (
+                          <a
+                            href={link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 underline"
+                          >
+                            LINK
+                          </a>
+                        )}
+                      </p>
+
+                      {desc && (
+                        <p className="text-sm text-gray-700 whitespace-pre-line">
+                          {desc}
                         </p>
-                      )
-                  )}
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>
