@@ -7,57 +7,107 @@ export default function AddSection() {
   const extra = formData.extraComponents || [];
 
   return (
+    <div className="space-y-6">
+      {extra.map((sec, index) => {
+        const inputs = sec.inputs || {};
+        const values = Object.values(inputs).filter(
+          (v) => v && v.trim() !== ""
+        );
 
-        <div className="space-y-4">
-          {extra.map((sec, index) => (
-            <div
-              key={index}
-              className="rounded-lg bg-white"
-            >
-              <h3 className="text-md font-semibold mb-2">
-                {sec.category?.toUpperCase() || "Untitled Section"}
-              </h3>
+        if (values.length === 0) return null;
 
-              {/* If inputs is missing or empty */}
-              {!sec.inputs || Object.keys(sec.inputs).length === 0 ? (
-                null
-              ) : (
-                <div className=" text-gray-800">
+        return (
+          <div key={index} className="bg-white">
 
-                  <div className="flex gap-2">
-                    {/* Title */}
-                    {sec.inputs["Certificate Name"] && (
-                      <p className="text-md uppercase font-semibold">{sec.inputs["Certificate Name"]}</p>
-                    )}
+            {/* UPPERCASE SECTION TITLE */}
+            <h3 className="text-md font-bold mb-0.5">
+              {(sec.category || "Untitled Section").toUpperCase()}
+            </h3>
 
-                    {/* Link */}
-                    {sec.inputs["Certificate URL"] && (
-                      <p>
-                        <a
-                          href={sec.inputs["Certificate URL"]}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 text-sm underline hover:text-blue-800"
-                          >
-                          LINK
-                        </a>
-                      </p>
-                    )}
-                  </div>
+            {/* Certificates special layout */}
+            {sec.category === "certificates" ? (
+              <div className="space-y-1">
 
-                    {/* Organization + Duration */}
-                    {(sec.inputs["Issued By"] || sec.inputs["Issue Date"] || sec.inputs["End Date"]) && (
-                      <p className="text-gray-700">
-                        {sec.inputs["Issued By"] || ""}{" "}
-                        {(sec.inputs["Issue Date"] || sec.inputs["End Date"]) &&
-                          `– (${sec.inputs["Issue Date"] || ""})`}
-                      </p>
-                    )}
-                  </div>
+                {/* Title + Link */}
+                <div className="flex items-center gap-2">
+                  {inputs["Certificate Name"] && (
+                    <p className="font-semibold">{inputs["Certificate Name"]}</p>
+                  )}
+
+                  {inputs["Certificate URL"] && (
+                    <a
+                      href={inputs["Certificate URL"]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 underline text-sm"
+                    >
+                      LINK
+                    </a>
+                  )}
+                </div>
+
+                {/* Issued By + Dates */}
+                {(inputs["Issued By"] || inputs["Issue Date"]) && (
+                  <p className="text-gray-700">
+                    {inputs["Issued By"] || ""}
+
+                    {inputs["Issue Date"] &&
+                      ` – (${inputs["Issue Date"]})`}
+                  </p>
+                )}
+              </div>
+            ) : (
+              /* OTHER SECTIONS UI */
+              <div className="space-y-1 text-gray-800 text-sm">
+                {sec.category === "hobbies" &&
+                  inputs["Hobby Name"] && <p>{inputs["Hobby Name"]}</p>}
+
+                {sec.category === "languages" && (
+                  <p>
+                    {inputs["Language Name"] || ""}{" "}
+                    {inputs["Proficiency"] &&
+                      `- ${inputs["Proficiency"]}`}
+                  </p>
                 )}
 
-            </div>
-          ))}
-        </div>
+                {sec.category === "courses" && (
+                  <>
+                    <p>
+                      {inputs["Course Name"]}{" "}
+                      {inputs["Link (Optional)"] && (
+                        <a
+                          href={inputs["Link (Optional)"]}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 text-sm underline ml-1"
+                        >
+                          LINK
+                        </a>
+                      )}
+                    </p>
+                    <p>
+                      {inputs["Institution"] || ""}{" "}
+                      {inputs["Completion Year"] &&
+                        ` - ${inputs["Completion Year"]}`}
+                    </p>
+                  </>
+                )}
+
+                {/* Default fallback for custom sections */}
+                {sec.category === "custom" &&
+                  Object.values(inputs).map(
+                    (v, i) =>
+                      v && (
+                        <p key={i} className="text-sm">
+                          {v}
+                        </p>
+                      )
+                  )}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
   );
 }

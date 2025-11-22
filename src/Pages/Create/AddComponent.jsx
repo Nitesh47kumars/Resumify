@@ -20,7 +20,7 @@ export default function AddComponent() {
     certificates: ["Certificate Name", "Issued By", "Issue Date", "Certificate URL"],
     custom: ["Title", "Name", "Dates", "Link", "Description"],
     languages: ["Language Name", "Proficiency"],
-    courses: ["Course Name", "Institution", "Completion Year"],
+    courses: ["Course Name", "Institution", "Completion Year", "Link (Optional)"],
   };
 
   const [selectedCategory, setSelectedCategory] = useState("");
