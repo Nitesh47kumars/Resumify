@@ -17,22 +17,43 @@ export default function AddComponent() {
 
   const courseTemplate = {
     "Course Name": "",
-    "Institution": "",
+    Institution: "",
     "Completion Year": "",
     "Link (Optional)": "",
   };
 
   const fields = {
     hobbies: ["Hobby Name"],
-    certificates: ["Certificate Name", "Issued By", "Issue Date", "Certificate URL"],
+    certificates: [
+      "Certificate Name",
+      "Issued By",
+      "Issue Date",
+      "Certificate URL",
+    ],
     languages: ["Language Name", "Proficiency"],
-    custom: ["Title", "Name", "Dates", "Link", "Description"],
+    custom: ["Name", "Link", "Description"],
     courses: Object.keys(courseTemplate),
   };
 
   const [selectedCategory, setSelectedCategory] = useState("");
   const [list, setList] = useState([]);
   const [courses, setCourses] = useState([{ ...courseTemplate }]);
+  const [customTitle, setCustomTitle] = useState("");
+
+  const startCategory = (id) => {
+    setSelectedCategory(id);
+
+    if (id === "courses") {
+      setCourses([{ ...courseTemplate }]);
+      return;
+    }
+
+    if (id === "custom") setCustomTitle("");
+
+    const empty = {};
+    fields[id].forEach((f) => (empty[f] = ""));
+    setList([empty]);
+  };
 
   const addEntry = () => {
     const empty = {};
@@ -73,6 +94,8 @@ export default function AddComponent() {
 
     if (selectedCategory === "courses") {
       addDynamicStep("courses", courses);
+    } else if (selectedCategory === "custom") {
+      addDynamicStep("custom", list, customTitle);
     } else {
       addDynamicStep(selectedCategory, list);
     }
@@ -80,6 +103,7 @@ export default function AddComponent() {
     setSelectedCategory("");
     setList([]);
     setCourses([{ ...courseTemplate }]);
+    setCustomTitle("");
   };
 
   return (
@@ -90,11 +114,12 @@ export default function AddComponent() {
         {!selectedCategory && (
           <div>
             <h2 className="text-lg font-semibold mb-3">Choose Component</h2>
+
             <div className="grid grid-cols-2 gap-4">
               {categories.map((cat) => (
                 <button
                   key={cat.id}
-                  onClick={() => setSelectedCategory(cat.id)}
+                  onClick={() => startCategory(cat.id)}
                   className="p-4 border rounded-xl shadow hover:bg-blue-50 font-medium"
                 >
                   {cat.label}
@@ -104,60 +129,84 @@ export default function AddComponent() {
           </div>
         )}
 
-        {selectedCategory && selectedCategory !== "courses" && (
-          <div className="space-y-4">
-            <h2 className="font-semibold text-gray-800">
-              Enter {categories.find((c) => c.id === selectedCategory)?.label}
-            </h2>
+        {selectedCategory &&
+          selectedCategory !== "courses" && (
+            <div className="space-y-4">
+              <h2 className="font-semibold text-gray-800">
+                Enter {categories.find((c) => c.id === selectedCategory)?.label}
+              </h2>
 
-            {list.map((entry, index) => (
-              <div key={index} className="border p-4 rounded-lg space-y-2 relative">
-                {fields[selectedCategory].map((field) => (
-                  <input
-                    key={field}
-                    type="text"
-                    placeholder={field}
-                    value={entry[field]}
-                    onChange={(e) => updateEntry(index, field, e.target.value)}
-                    className="w-full p-2 border rounded"
-                  />
-                ))}
+              {selectedCategory === "custom" && (
+                <input
+                  type="text"
+                  placeholder="Custom Title (e.g. Projects)"
+                  value={customTitle}
+                  onChange={(e) => setCustomTitle(e.target.value)}
+                  className="w-full p-2 border rounded"
+                />
+              )}
 
-                <button
-                  onClick={() => deleteEntry(index)}
-                  className="absolute top-2 right-2 text-red-600 font-bold"
+              {list.map((entry, index) => (
+                <div
+                  key={index}
+                  className="border p-4 rounded-lg space-y-2 relative"
                 >
-                  ✕
-                </button>
-              </div>
-            ))}
+                  {fields[selectedCategory].map((field) => (
+                    <input
+                      key={field}
+                      type="text"
+                      placeholder={field}
+                      value={entry[field]}
+                      onChange={(e) =>
+                        updateEntry(index, field, e.target.value)
+                      }
+                      className="w-full p-2 border rounded"
+                    />
+                  ))}
 
-            <button onClick={addEntry} className="w-full p-2 bg-gray-200 rounded">
-              + Add Another
-            </button>
+                  <button
+                    onClick={() => deleteEntry(index)}
+                    className="absolute top-2 right-2 text-red-600 font-bold"
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
 
-            <button
-              onClick={saveComponent}
-              className="w-full p-3 bg-blue-600 text-white rounded-lg"
-            >
-              Save Component
-            </button>
-          </div>
-        )}
+              <button
+                onClick={addEntry}
+                className="w-full p-2 bg-gray-200 rounded"
+              >
+                + Add Another
+              </button>
+
+              <button
+                onClick={saveComponent}
+                className="w-full p-3 bg-blue-600 text-white rounded-lg"
+              >
+                Save Component
+              </button>
+            </div>
+          )}
 
         {selectedCategory === "courses" && (
           <div className="space-y-4">
             <h2 className="font-semibold text-gray-800">Enter Courses</h2>
 
             {courses.map((course, index) => (
-              <div key={index} className="border p-4 rounded-lg relative space-y-2">
+              <div
+                key={index}
+                className="border p-4 rounded-lg relative space-y-2"
+              >
                 {Object.keys(courseTemplate).map((field) => (
                   <input
                     key={field}
                     type="text"
                     placeholder={field}
                     value={course[field]}
-                    onChange={(e) => updateCourseField(index, field, e.target.value)}
+                    onChange={(e) =>
+                      updateCourseField(index, field, e.target.value)
+                    }
                     className="w-full p-2 border rounded"
                   />
                 ))}
@@ -171,7 +220,10 @@ export default function AddComponent() {
               </div>
             ))}
 
-            <button onClick={addCourse} className="w-full p-2 bg-gray-200 rounded">
+            <button
+              onClick={addCourse}
+              className="w-full p-2 bg-gray-200 rounded"
+            >
               + Add Another Course
             </button>
 

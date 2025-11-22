@@ -3,7 +3,6 @@ import { useStep } from "../../Context/StepContext";
 
 export default function AddSection() {
   const { formData } = useStep();
-
   const extra = formData.extraComponents || [];
 
   return (
@@ -15,14 +14,14 @@ export default function AddSection() {
 
         const sectionTitle =
           sec.category === "custom"
-            ? sec.customTitle || "CUSTOM"
+            ? (sec.customTitle || "CUSTOM").toUpperCase()
             : (sec.category || "Untitled Section").toUpperCase();
 
         return (
           <div key={index} className="bg-white rounded-md">
             <h3 className="text-lg font-bold mb-2">{sectionTitle}</h3>
 
-            {/* HOBBIES – NO UNDERLINE */}
+            {/* Hobbies */}
             {sec.category === "hobbies" && (
               <div className="grid grid-cols-2 gap-2">
                 {list.map((entry, i) =>
@@ -35,9 +34,9 @@ export default function AddSection() {
               </div>
             )}
 
-            {/* LANGUAGES */}
+            {/* Languages */}
             {sec.category === "languages" && (
-              <div className="space-y-1">
+              <div className="grid grid-cols-2 gap-2">
                 {list.map((entry, i) => {
                   const lang = entry["Language Name"];
                   const prof = entry["Proficiency"];
@@ -53,7 +52,7 @@ export default function AddSection() {
               </div>
             )}
 
-            {/* COURSES */}
+            {/* Courses */}
             {sec.category === "courses" && (
               <div className="space-y-3">
                 {list.map((entry, i) => (
@@ -73,9 +72,8 @@ export default function AddSection() {
                       )}
                     </p>
 
-                    {(entry["Institution"] ||
-                      entry["Completion Year"]) && (
-                      <p className="text-gray-700 text-sm">
+                    {(entry["Institution"] || entry["Completion Year"]) && (
+                      <p className="text-sm text-gray-700">
                         {entry["Institution"] || ""}
                         {entry["Completion Year"] &&
                           ` – ${entry["Completion Year"]}`}
@@ -86,7 +84,7 @@ export default function AddSection() {
               </div>
             )}
 
-            {/* CERTIFICATES */}
+            {/* Certificates */}
             {sec.category === "certificates" && (
               <div className="space-y-3">
                 {list.map((entry, i) => (
@@ -107,7 +105,7 @@ export default function AddSection() {
                     </p>
 
                     {(entry["Issued By"] || entry["Issue Date"]) && (
-                      <p className="text-gray-700 text-sm">
+                      <p className="text-sm text-gray-700">
                         {entry["Issued By"] || ""}
                         {entry["Issue Date"] &&
                           ` – (${entry["Issue Date"]})`}
@@ -118,7 +116,7 @@ export default function AddSection() {
               </div>
             )}
 
-            {/* NEW CUSTOM SECTION (Name + Link + Description) */}
+            {/* Custom */}
             {sec.category === "custom" && (
               <div className="space-y-2">
                 {list.map((entry, i) => {

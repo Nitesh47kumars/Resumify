@@ -34,12 +34,13 @@ export function StepProvider({ children }) {
   const [previewImage, setPreviewImage] = useState(null);
 
   const storedStep = sessionStorage.getItem("resumeCompletedStep");
+
   const [completedStep, setCompletedStep] = useState(
     storedStep ? Number(storedStep) : 1
   );
 
   // MAIN FIXED STEP: ALWAYS STORE ARRAY IN inputs
-  const addDynamicStep = (category, inputsArray) => {
+  const addDynamicStep = (category, inputsArray, customTitle = "") => {
     setFormData((prev) => ({
       ...prev,
       extraComponents: [
@@ -47,7 +48,8 @@ export function StepProvider({ children }) {
         {
           id: Date.now(),
           category,
-          inputs: inputsArray, // Always array
+          inputs: inputsArray,
+          customTitle: category === "custom" ? customTitle : undefined,
         },
       ],
     }));
