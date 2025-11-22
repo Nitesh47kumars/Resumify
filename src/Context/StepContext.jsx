@@ -31,30 +31,28 @@ export function StepProvider({ children }) {
         template: "",
       };
 
-  // 🔥 IMPORTANT FIX: Patch old stored data missing "extraComponents"
   if (!initialFormData.extraComponents) {
     initialFormData.extraComponents = [];
   }
 
   const [formData, setFormData] = useState(initialFormData);
+  const [previewImage, setPreviewImage] = useState(null);
 
   const storedStep = sessionStorage.getItem("resumeCompletedStep");
   const [completedStep, setCompletedStep] = useState(
     storedStep ? Number(storedStep) : 1
   );
 
-  const [previewImage, setPreviewImage] = useState(null);
-
-  // Add dynamic extra component (certificates, custom sections, etc)
-  const addDynamicStep = (componentName, data) => {
+  // ⭐ Store dynamic extra section
+  const addDynamicStep = (category, inputs) => {
     setFormData((prev) => ({
       ...prev,
       extraComponents: [
-        ...(prev.extraComponents || []),
+        ...prev.extraComponents,
         {
           id: Date.now(),
-          name: componentName,
-          data,
+          category,
+          inputs,
         },
       ],
     }));
@@ -67,15 +65,6 @@ export function StepProvider({ children }) {
   useEffect(() => {
     sessionStorage.setItem("resumeCompletedStep", completedStep);
   }, [completedStep]);
-
-  useEffect(() => {
-    const handler = (e) => {
-      e.preventDefault();
-      e.returnValue = "";
-    };
-    window.addEventListener("beforeunload", handler);
-    return () => window.removeEventListener("beforeunload", handler);
-  }, []);
 
   return (
     <StepContext.Provider

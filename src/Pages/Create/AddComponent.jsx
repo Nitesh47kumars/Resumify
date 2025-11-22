@@ -5,7 +5,7 @@ import GoBack from "../../Buttons/GoBack";
 import { useStep } from "../../Context/StepContext";
 
 export default function AddComponent() {
-  const { formData, setFormData, addDynamicStep } = useStep();
+  const { addDynamicStep } = useStep();
 
   const categories = [
     { id: "hobbies", label: "Hobbies" },
@@ -17,24 +17,9 @@ export default function AddComponent() {
 
   const fields = {
     hobbies: ["Hobby Name"],
-
-    certificates: [
-      "Certificate Name",
-      "Issued By",
-      "Issue Date",
-      "Certificate URL",
-    ],
-
-    custom: [
-      "Title",
-      "Name",
-      "Dates",
-      "Link",
-      "Description",
-    ],
-
+    certificates: ["Certificate Name", "Issued By", "Issue Date", "Certificate URL"],
+    custom: ["Title", "Name", "Dates", "Link", "Description"],
     languages: ["Language Name", "Proficiency"],
-
     courses: ["Course Name", "Institution", "Completion Year"],
   };
 
@@ -46,21 +31,8 @@ export default function AddComponent() {
   };
 
   const saveComponent = () => {
-    const data = {
-      category: selectedCategory,
-      inputs,
-    };
+    addDynamicStep(selectedCategory, inputs);
 
-    // Save inside global formData
-    setFormData((prev) => ({
-      ...prev,
-      extraComponents: [...prev.extraComponents, data],
-    }));
-
-    // Add dynamic step inside Step Tracker
-    addDynamicStep(selectedCategory);
-
-    // Reset
     setInputs({});
     setSelectedCategory("");
   };
@@ -68,10 +40,10 @@ export default function AddComponent() {
   return (
     <CreateLayout>
       <div className="max-w-2xl mx-auto bg-white p-5 rounded-xl shadow space-y-5">
+        <h1 className="text-3xl font-bold text-gray-900">
+          Add Extra Components
+        </h1>
 
-        <h1 className="text-3xl font-bold text-gray-900">Add Extra Components</h1>
-
-        {/* Main Category Selection */}
         {!selectedCategory && (
           <div>
             <h2 className="text-lg font-semibold mb-3">Choose Component</h2>
@@ -89,7 +61,6 @@ export default function AddComponent() {
           </div>
         )}
 
-        {/* Input Fields */}
         {selectedCategory && (
           <div className="space-y-3">
             <h2 className="font-semibold text-gray-800">
@@ -116,7 +87,6 @@ export default function AddComponent() {
           </div>
         )}
 
-        {/* Navigation Buttons */}
         <NextButton nextRoute="/create/finalize" stepNumber={7} />
         <GoBack data="/create/experience" />
       </div>
