@@ -5,13 +5,13 @@ import ProtectedRoute from "./Routes/ProtectedRoute";
 // Pages
 import Homepage from "./Pages/Homepage";
 import ChooseTemplate from "./Pages/Create/ChooseTemplate";
-import Education from "./Pages/Create/Education";
-import Summary from "./Pages/Create/Summary";
-import Skills from "./Pages/Create/Skills"
-import Experience from "./Pages/Create/Experience";
-import Finalize from "./Pages/Create/Finalize";
 import Header from "./Pages/Create/Header";
+import Summary from "./Pages/Create/Summary";
+import Skills from "./Pages/Create/Skills";
+import Education from "./Pages/Create/Education";
+import Experience from "./Pages/Create/Experience";
 import AddComponent from "./Pages/Create/AddComponent";
+import Finalize from "./Pages/Create/Finalize";
 
 export default function App() {
   return (
@@ -23,7 +23,7 @@ export default function App() {
           {/* Step 1 */}
           <Route path="/create/template" element={<ChooseTemplate />} />
 
-          {/* Step 1 */}
+          {/* Step 1 - Header */}
           <Route
             path="/create/header"
             element={
@@ -32,37 +32,38 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-          {/* Step 2 */}
-          <Route
-            path="/create/education"
-            element={
-              <ProtectedRoute stepNumber={2}>
-                <Education />
-              </ProtectedRoute>
-            }
-          />
 
-          {/* Step 3 */}
+          {/* Step 2 - Summary */}
           <Route
             path="/create/summary"
             element={
-              <ProtectedRoute stepNumber={3}>
+              <ProtectedRoute stepNumber={2}>
                 <Summary />
               </ProtectedRoute>
             }
           />
 
-          {/* Step 4 */}
+          {/* Step 3 - Skills */}
           <Route
             path="/create/skills"
             element={
-              <ProtectedRoute stepNumber={4}>
+              <ProtectedRoute stepNumber={3}>
                 <Skills />
               </ProtectedRoute>
             }
           />
 
-          {/* Step 5 */}
+          {/* Step 4 - Education */}
+          <Route
+            path="/create/education"
+            element={
+              <ProtectedRoute stepNumber={4}>
+                <Education />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Step 5 - Experience */}
           <Route
             path="/create/experience"
             element={
@@ -71,8 +72,8 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-          
-          {/* Step 6 */}
+
+          {/* Step 6 - Add More */}
           <Route
             path="/create/addcomponent"
             element={
@@ -82,7 +83,7 @@ export default function App() {
             }
           />
 
-          {/* Step 6 */}
+          {/* Step 7 - Finalize */}
           <Route
             path="/create/finalize"
             element={

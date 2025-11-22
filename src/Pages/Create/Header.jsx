@@ -228,7 +228,7 @@ export default function Header() {
           </button>
 
           <NextButton
-            nextRoute="/create/education"
+            nextRoute="/create/summary"
             stepNumber={2}
             validate={validate}
           />

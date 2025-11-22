@@ -16,7 +16,7 @@ export default function Skills() {
     const updated = [...formData.skills, trimmed];
     setFormData({ ...formData, skills: updated });
     setSkillInput("");
-    setError(""); // clear error once a skill is added
+    setError("");
   };
 
   const removeSkill = (index) => {
@@ -109,8 +109,8 @@ export default function Skills() {
           )}
 
           <NextButton
-            nextRoute="/create/experience"
-            stepNumber={5}
+            nextRoute="/create/education"
+            stepNumber={4}
             validate={validateSkills}
           />
         </div>

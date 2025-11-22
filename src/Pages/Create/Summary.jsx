@@ -53,7 +53,7 @@ export default function Summary() {
 
           <NextButton
             nextRoute="/create/skills"
-            stepNumber={4}
+            stepNumber={3}
             validate={handleValidate}
           />
         </div>

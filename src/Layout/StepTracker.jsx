@@ -9,13 +9,13 @@ export default function StepTracker() {
 
   const steps = [
     { id: 1, label: "Header", path: "/create/header" },
-    { id: 2, label: "Education", path: "/create/education" },
-    { id: 3, label: "Summary", path: "/create/summary" },
-    { id: 4, label: "Skills", path: "/create/skills" },
+    { id: 2, label: "Summary", path: "/create/summary" },
+    { id: 3, label: "Skills", path: "/create/skills" },
+    { id: 4, label: "Education", path: "/create/education" },
     { id: 5, label: "Experience", path: "/create/experience" },
     { id: 6, label: "Add More", path: "/create/addcomponent" },
     { id: 7, label: "Finalize", path: "/create/finalize" },
-  ];
+  ];  
 
   return (
     <div className="flex flex-col h-full">

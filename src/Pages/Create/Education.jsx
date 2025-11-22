@@ -217,8 +217,8 @@ export default function Education() {
           </button>
 
           <NextButton
-            nextRoute="/create/summary"
-            stepNumber={3}
+            nextRoute="/create/experience"
+            stepNumber={5}
             validate={() => {
               if (!validate()) return false;
               setFormData({ ...formData, education: entries });
