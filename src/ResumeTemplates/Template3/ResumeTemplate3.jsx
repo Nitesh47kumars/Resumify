@@ -4,7 +4,7 @@ import SkillsSection from "./SkillsSection";
 import ExperienceSection from "./ExperienceSection";
 import EducationSection from "./EducationSection";
 import ProjectsSection from "./ProjectsSection";
-import ExtraSection from "./ExtraSection";
+import AddSection from "./AddSection";
 
 export default function ResumeTemplate3({ data }) {
   return (
@@ -18,7 +18,7 @@ export default function ResumeTemplate3({ data }) {
       <ExperienceSection experience={data.experience} />
       <EducationSection education={data.education} />
       <ProjectsSection projects={data.projects} />
-      <ExtraSection extra={data.extra} />
+      <AddSection />
     </div>
   );
 }

@@ -1,75 +1,124 @@
 import { useState } from "react";
 import CreateLayout from "../../Layout/CreateLayout";
+import NextButton from "../../Buttons/NextButton";
+import GoBack from "../../Buttons/GoBack";
+import { useStep } from "../../Context/StepContext";
 
 export default function AddComponent() {
+  const { formData, setFormData, addDynamicStep } = useStep();
+
   const categories = [
-    "Projects",
-    "Social Media / Profiles",
-    "Certificates",
+    { id: "hobbies", label: "Hobbies" },
+    { id: "certificates", label: "Certificates" },
+    { id: "custom", label: "Custom Build" },
+    { id: "languages", label: "Languages" },
+    { id: "courses", label: "Courses" },
   ];
 
-  const fieldsByCategory = {
-    Projects: ["Project Name", "Description", "Tech Stack", "Link"],
-    "Social Media / Profiles": ["Platform", "Username", "Profile URL"],
-    Certificates: ["Certificate Name", "Issued By", "Issue Date", "Certificate URL"],
+  const fields = {
+    hobbies: ["Hobby Name"],
+
+    certificates: [
+      "Certificate Name",
+      "Issued By",
+      "Issue Date",
+      "Certificate URL",
+    ],
+
+    custom: [
+      "Title",
+      "Name",
+      "Dates",
+      "Link",
+      "Description",
+    ],
+
+    languages: ["Language Name", "Proficiency"],
+
+    courses: ["Course Name", "Institution", "Completion Year"],
   };
 
-  const [category, setCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [inputs, setInputs] = useState({});
 
   const handleInputChange = (field, value) => {
     setInputs((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = () => {
-    console.log("Saved Data:", { category, inputs });
+  const saveComponent = () => {
+    const data = {
+      category: selectedCategory,
+      inputs,
+    };
+
+    // Save inside global formData
+    setFormData((prev) => ({
+      ...prev,
+      extraComponents: [...prev.extraComponents, data],
+    }));
+
+    // Add dynamic step inside Step Tracker
+    addDynamicStep(selectedCategory);
+
+    // Reset
+    setInputs({});
+    setSelectedCategory("");
   };
 
   return (
     <CreateLayout>
-      <div className="p-4 space-y-4 w-full mx-auto bg-white rounded-2xl shadow">
-        <h2 className="text-xl font-semibold">Add Component</h2>
+      <div className="max-w-2xl mx-auto bg-white p-5 rounded-xl shadow space-y-5">
 
-        <div className="space-y-2">
-          <label className="font-medium">Choose Category</label>
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="w-full p-2 border rounded"
-            >
-            <option value="">Select...</option>
-            {categories.map((cat) => (
-              <option key={cat} value={cat}>
-                {cat}
-              </option>
-            ))}
-          </select>
-        </div>
+        <h1 className="text-3xl font-bold text-gray-900">Add Extra Components</h1>
 
-        {category && (
-          <div className="space-y-3">
-            <h3 className="font-medium">Enter {category} Details</h3>
-            {fieldsByCategory[category].map((field) => (
-              <input
-              key={field}
-              type="text"
-              placeholder={field}
-              value={inputs[field] || ""}
-              onChange={(e) => handleInputChange(field, e.target.value)}
-              className="w-full p-2 border rounded"
-              />
-            ))}
+        {/* Main Category Selection */}
+        {!selectedCategory && (
+          <div>
+            <h2 className="text-lg font-semibold mb-3">Choose Component</h2>
+            <div className="grid grid-cols-2 gap-4">
+              {categories.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => setSelectedCategory(cat.id)}
+                  className="p-4 border rounded-xl shadow hover:bg-blue-50 font-medium"
+                >
+                  {cat.label}
+                </button>
+              ))}
+            </div>
           </div>
         )}
 
-        {category && (
-          <button
-          onClick={handleSubmit}
-          className="w-full p-2 bg-blue-600 text-white rounded-lg"
-          >
-            Save
-          </button>
+        {/* Input Fields */}
+        {selectedCategory && (
+          <div className="space-y-3">
+            <h2 className="font-semibold text-gray-800">
+              Enter {categories.find((c) => c.id === selectedCategory)?.label} Details
+            </h2>
+
+            {fields[selectedCategory].map((field) => (
+              <input
+                key={field}
+                type="text"
+                placeholder={field}
+                value={inputs[field] || ""}
+                onChange={(e) => handleInputChange(field, e.target.value)}
+                className="w-full p-3 border rounded-lg"
+              />
+            ))}
+
+            <button
+              onClick={saveComponent}
+              className="w-full p-3 bg-blue-600 text-white rounded-lg mt-2"
+            >
+              Save Component
+            </button>
+          </div>
         )}
+
+        {/* Navigation Buttons */}
+        <NextButton nextRoute="/create/finalize" stepNumber={7} />
+        <GoBack data="/create/experience" />
       </div>
     </CreateLayout>
   );
