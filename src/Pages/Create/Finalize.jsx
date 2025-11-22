@@ -1,10 +1,13 @@
 import React from 'react'
+import CreateLayout from '../../Layout/CreateLayout'
 
 const Finalize = () => {
   return (
-    <div>
-      
-    </div>
+    <CreateLayout>
+      <div>
+        <h1>Finalizing</h1>
+      </div>
+    </CreateLayout>
   )
 }
 

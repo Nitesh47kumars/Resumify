@@ -2,6 +2,7 @@ import { useStep } from "../../Context/StepContext";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import CreateLayout from "../../Layout/CreateLayout";
+import NextButton from "../../Buttons/NextButton";
 
 // Convert date into: Jan 2024
 const formatDate = (dateStr) => {
@@ -68,13 +69,6 @@ export default function Experience() {
   const removeExperience = (index) => {
     const updated = experience.filter((_, i) => i !== index);
     setExperience(updated.length ? updated : []);
-  };
-
-  const handleNext = () => {
-    const converted = convertToPreviewFormat();
-    setFormData({ ...formData, experience: converted });
-    setCompletedStep("experience");
-    navigate("/create/addcomponent");
   };
 
   const skipExperience = () => {
@@ -179,12 +173,10 @@ export default function Experience() {
             + Add Another Experience
           </button>
 
-            <button
-              onClick={handleNext}
-              className="px-5 py-2 bg-green-600 text-white rounded"
-            >
-              Save & Continue
-            </button>
+          <NextButton
+          nextRoute={"/create/addcomponent"}
+          stepNumber={6}
+          />
         </div>
       </div>
     </CreateLayout>
