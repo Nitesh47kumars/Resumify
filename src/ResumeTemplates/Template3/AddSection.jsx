@@ -18,7 +18,12 @@ export default function AddSection() {
       {extra.map((sec, index) => {
         const raw = sec.inputs;
         const list = Array.isArray(raw) ? raw : raw ? [raw] : [];
-        if (list.length === 0) return null;
+
+        const hasValidData = list.some(entry =>
+          Object.values(entry).some(value => value && value.trim && value.trim() !== "")
+        );
+
+        if (!hasValidData) return null;
 
         const sectionTitle =
           sec.category === "custom"

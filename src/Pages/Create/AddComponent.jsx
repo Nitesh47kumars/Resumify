@@ -5,7 +5,10 @@ import { useStep } from "../../Context/StepContext";
 import PageHeader from "../../Buttons/PageHeader";
 
 export default function AddComponent() {
-  const { addDynamicStep } = useStep();
+  const { formData, addDynamicStep, removeDynamicStep } = useStep();
+
+  const savedSections = formData.extraComponents || [];
+  const alreadyAdded = savedSections.map((sec) => sec.category);
 
   const categories = [
     { id: "hobbies", label: "Hobbies" },
@@ -106,88 +109,111 @@ export default function AddComponent() {
     setCustomTitle("");
   };
 
+  const deleteSaved = (category) => {
+    removeDynamicStep(category);
+  };
+
   return (
     <CreateLayout>
       <div className="max-w-2xl mx-auto space-y-5">
-        <PageHeader header="Add Components"/>
+        <PageHeader header="Add Components" />
 
         {!selectedCategory && (
           <div>
             <h2 className="text-lg font-semibold mb-3">Choose Component</h2>
 
             <div className="grid grid-cols-2 gap-4">
-              {categories.map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => startCategory(cat.id)}
-                  className="p-4 border rounded-xl shadow hover:bg-blue-50 font-medium"
-                >
-                  {cat.label}
-                </button>
-              ))}
+              {categories.map((cat) => {
+                const disabled = alreadyAdded.includes(cat.id);
+
+                return (
+                  <div key={cat.id} className="relative">
+                    <button
+                      onClick={() => !disabled && startCategory(cat.id)}
+                      disabled={disabled}
+                      className={`w-full p-4 border rounded-xl shadow font-medium transition 
+                      ${
+                        disabled
+                          ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                          : "hover:bg-blue-50 cursor-pointer"
+                      }`}
+                    >
+                      {cat.label}
+                    </button>
+
+                    {disabled && (
+                      <button
+                        onClick={() => deleteSaved(cat.id)}
+                        className="absolute top-2 right-2 text-red-600 font-bold text-sm"
+                      >
+                        ✕
+                      </button>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}
 
-        {selectedCategory &&
-          selectedCategory !== "courses" && (
-            <div className="space-y-4">
-              <h2 className="font-semibold text-gray-800">
-                Enter {categories.find((c) => c.id === selectedCategory)?.label}
-              </h2>
+        {selectedCategory && selectedCategory !== "courses" && (
+          <div className="space-y-4">
+            <h2 className="font-semibold text-gray-800">
+              Enter {categories.find((c) => c.id === selectedCategory)?.label}
+            </h2>
 
-              {selectedCategory === "custom" && (
-                <input
-                  type="text"
-                  placeholder="Custom Title (e.g. Projects)"
-                  value={customTitle}
-                  onChange={(e) => setCustomTitle(e.target.value)}
-                  className="w-full p-2 border rounded"
-                />
-              )}
+            {selectedCategory === "custom" && (
+              <input
+                type="text"
+                placeholder="Custom Title (e.g. Awards)"
+                value={customTitle}
+                onChange={(e) => setCustomTitle(e.target.value)}
+                className="w-full p-2 border rounded"
+              />
+            )}
 
-              {list.map((entry, index) => (
-                <div
-                  key={index}
-                  className="border p-4 rounded-lg space-y-2 relative"
+            {list.map((entry, index) => (
+              <div
+                key={index}
+                className="border p-4 rounded-lg space-y-3 relative pt-10"
+              >
+                {fields[selectedCategory].map((field) => (
+                  <input
+                    key={field}
+                    type="text"
+                    placeholder={field}
+                    value={entry[field]}
+                    onChange={(e) =>
+                      updateEntry(index, field, e.target.value)
+                    }
+                    className="w-full p-2 border rounded"
+                  />
+                ))}
+
+                <button
+                  onClick={() => deleteEntry(index)}
+                  className="absolute top-2 right-2 text-red-600 font-bold"
                 >
-                  {fields[selectedCategory].map((field) => (
-                    <input
-                      key={field}
-                      type="text"
-                      placeholder={field}
-                      value={entry[field]}
-                      onChange={(e) =>
-                        updateEntry(index, field, e.target.value)
-                      }
-                      className="w-full p-2 border rounded"
-                    />
-                  ))}
+                  ✕
+                </button>
+              </div>
+            ))}
 
-                  <button
-                    onClick={() => deleteEntry(index)}
-                    className="absolute top-2 right-2 text-red-600 font-bold"
-                  >
-                    ✕
-                  </button>
-                </div>
-              ))}
+            <button
+              onClick={addEntry}
+              className="w-full p-2 bg-gray-200 rounded"
+            >
+              + Add Another
+            </button>
 
-              <button
-                onClick={addEntry}
-                className="w-full p-2 bg-gray-200 rounded"
-              >
-                + Add Another
-              </button>
-
-              <button
-                onClick={saveComponent}
-                className="w-full p-3 bg-blue-600 text-white rounded-lg"
-              >
-                Save Component
-              </button>
-            </div>
-          )}
+            <button
+              onClick={saveComponent}
+              className="w-full p-3 bg-blue-600 text-white rounded-lg"
+            >
+              Save Component
+            </button>
+          </div>
+        )}
 
         {selectedCategory === "courses" && (
           <div className="space-y-4">
@@ -236,7 +262,11 @@ export default function AddComponent() {
           </div>
         )}
 
-        <NextButton nextRoute="/create/finalize" stepNumber={7} />
+        <NextButton
+          nextRoute="/create/finalize"
+          stepNumber={7}
+          disabled={!!selectedCategory}
+        />
       </div>
     </CreateLayout>
   );

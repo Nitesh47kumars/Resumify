@@ -39,7 +39,7 @@ export function StepProvider({ children }) {
     storedStep ? Number(storedStep) : 1
   );
 
-  // MAIN FIXED STEP: ALWAYS STORE ARRAY IN inputs
+  // ADD A NEW SECTION
   const addDynamicStep = (category, inputsArray, customTitle = "") => {
     setFormData((prev) => ({
       ...prev,
@@ -52,6 +52,16 @@ export function StepProvider({ children }) {
           customTitle: category === "custom" ? customTitle : undefined,
         },
       ],
+    }));
+  };
+
+  // DELETE A SECTION
+  const removeDynamicStep = (category) => {
+    setFormData((prev) => ({
+      ...prev,
+      extraComponents: prev.extraComponents.filter(
+        (item) => item.category !== category
+      ),
     }));
   };
 
@@ -73,6 +83,7 @@ export function StepProvider({ children }) {
         previewImage,
         setPreviewImage,
         addDynamicStep,
+        removeDynamicStep,
       }}
     >
       {children}
