@@ -3,9 +3,13 @@ import CreateLayout from "../../Layout/CreateLayout";
 import NextButton from "../../Buttons/NextButton";
 import { useStep } from "../../Context/StepContext";
 import PageHeader from "../../Buttons/PageHeader";
+import { useNavigate } from "react-router-dom";
 
 export default function AddComponent() {
   const { formData, addDynamicStep, removeDynamicStep } = useStep();
+
+  const navigate = useNavigate();
+
 
   const savedSections = formData.extraComponents || [];
   const alreadyAdded = savedSections.map((sec) => sec.category);
@@ -116,7 +120,17 @@ export default function AddComponent() {
   return (
     <CreateLayout>
       <div className="max-w-2xl mx-auto space-y-5">
-        <PageHeader header="Add Components" />
+        <PageHeader
+          header="Add Components"
+          onBack={() => {
+            if (selectedCategory) {
+              setSelectedCategory("");
+              return;
+            } else {
+              navigate("/create/experience");
+            }
+          }}
+        />
 
         {!selectedCategory && (
           <div>
