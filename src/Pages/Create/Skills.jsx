@@ -1,8 +1,8 @@
 import { useStep } from "../../Context/StepContext";
 import { useState } from "react";
 import CreateLayout from "../../Layout/CreateLayout";
-import GoBack from "../../Buttons/GoBack";
 import NextButton from "../../Buttons/NextButton";
+import PageHeader from "../../Buttons/PageHeader";
 
 export default function Skills() {
   const { formData, setFormData } = useStep();
@@ -45,7 +45,8 @@ export default function Skills() {
   return (
     <CreateLayout>
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6 text-gray-900">Skills</h1>
+        
+        <PageHeader header="Skills"/>
 
         <p className="text-gray-600 mb-4">
           Add your technical and soft skills. Press <strong>Enter</strong> after each skill.
@@ -114,8 +115,6 @@ export default function Skills() {
             validate={validateSkills}
           />
         </div>
-
-        <GoBack data="/create/summary" />
       </div>
     </CreateLayout>
   );

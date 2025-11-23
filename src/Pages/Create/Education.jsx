@@ -1,9 +1,9 @@
 import { useStep } from "../../Context/StepContext";
 import { useState } from "react";
 import CreateLayout from "../../Layout/CreateLayout";
-import GoBack from "../../Buttons/GoBack";
 import Toggle from "../../Buttons/Toggle";
 import NextButton from "../../Buttons/NextButton";
+import PageHeader from "../../Buttons/PageHeader";
 
 export default function Education() {
   const { formData, setFormData } = useStep();
@@ -102,7 +102,8 @@ export default function Education() {
   return (
     <CreateLayout>
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">Education</h1>
+
+        <PageHeader header="Education"/>
 
         {entries.map((item, index) => (
           <div
@@ -219,8 +220,6 @@ export default function Education() {
             }}
           />
         </div>
-
-        <GoBack data="/create/header" />
       </div>
     </CreateLayout>
   );

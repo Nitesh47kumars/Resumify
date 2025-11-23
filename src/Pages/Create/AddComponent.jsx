@@ -1,8 +1,8 @@
 import { useState } from "react";
 import CreateLayout from "../../Layout/CreateLayout";
 import NextButton from "../../Buttons/NextButton";
-import GoBack from "../../Buttons/GoBack";
 import { useStep } from "../../Context/StepContext";
+import PageHeader from "../../Buttons/PageHeader";
 
 export default function AddComponent() {
   const { addDynamicStep } = useStep();
@@ -108,8 +108,8 @@ export default function AddComponent() {
 
   return (
     <CreateLayout>
-      <div className="max-w-2xl mx-auto bg-white p-5 rounded-xl shadow space-y-5">
-        <h1 className="text-3xl font-bold text-gray-900">Add Extra Components</h1>
+      <div className="max-w-2xl mx-auto space-y-5">
+        <PageHeader header="Add Components"/>
 
         {!selectedCategory && (
           <div>
@@ -237,7 +237,6 @@ export default function AddComponent() {
         )}
 
         <NextButton nextRoute="/create/finalize" stepNumber={7} />
-        <GoBack data="/create/experience" />
       </div>
     </CreateLayout>
   );

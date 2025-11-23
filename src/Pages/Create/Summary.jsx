@@ -1,8 +1,8 @@
 import { useStep } from "../../Context/StepContext";
 import { useState } from "react";
 import CreateLayout from "../../Layout/CreateLayout";
-import GoBack from "../../Buttons/GoBack";
 import NextButton from "../../Buttons/NextButton";
+import PageHeader from "../../Buttons/PageHeader";
 
 export default function Summary() {
   const { formData, setFormData } = useStep();
@@ -21,9 +21,7 @@ export default function Summary() {
   return (
     <CreateLayout>
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6 text-gray-900">
-          Professional Summary
-        </h1>
+        <PageHeader header="Professional Summary" />
 
         <p className="text-gray-600 mb-4">
           Write a short 2–3 line summary describing your strengths,
@@ -49,7 +47,6 @@ export default function Summary() {
 
         {/* Buttons */}
         <div className="flex justify-end items-center mt-4 gap-4">
-          <GoBack data="/create/education" />
 
           <NextButton
             nextRoute="/create/skills"

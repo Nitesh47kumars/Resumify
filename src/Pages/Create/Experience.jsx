@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import CreateLayout from "../../Layout/CreateLayout";
 import NextButton from "../../Buttons/NextButton";
+import PageHeader from "../../Buttons/PageHeader"
 
 // Convert date into: Jan 2024
 const formatDate = (dateStr) => {
@@ -84,8 +85,9 @@ export default function Experience() {
 
   return (
     <CreateLayout>
-      <div className="max-w-2xl mx-auto p-6">
-        <h2 className="text-2xl font-semibold mb-4">Experience</h2>
+      <div className="max-w-2xl mx-auto p-0">
+
+        <PageHeader header="Experience"/>
 
         {/* SKIP BOX */}
         <div className="mb-6 p-4 border rounded-lg bg-gray-50 flex justify-between items-center">

@@ -9,7 +9,7 @@ const CreateLayout = ({ children }) => {
         <StepTracker />
       </div>
 
-      <div className="w-[50%] p-8 overflow-y-auto">
+      <div className="w-[50%] p-8 bg-gray-50 overflow-y-auto">
         {children}
       </div>
 
