@@ -7,11 +7,10 @@ import { useNavigate } from "react-router-dom";
 
 export default function AddComponent() {
   const { formData, addDynamicStep, removeDynamicStep } = useStep();
-
   const navigate = useNavigate();
 
   const savedSections = formData.extraComponents || [];
-  const alreadyAdded = savedSections.map((sec) => sec.category);
+  const alreadyAdded = savedSections.map((s) => s.category);
 
   const categories = [
     { id: "hobbies", label: "Hobbies" },
@@ -28,7 +27,15 @@ export default function AddComponent() {
     "Link (Optional)": "",
   };
 
-  const fields = {
+  const requiredFields = {
+    hobbies: ["Hobby Name"],
+    certificates: ["Certificate Name", "Issued By", "Issue Date"],
+    languages: ["Language Name", "Proficiency"],
+    custom: ["Name", "Description"],
+    courses: ["Course Name", "Institution", "Completion Year"],
+  };
+
+  const allFields = {
     hobbies: ["Hobby Name"],
     certificates: [
       "Certificate Name",
@@ -45,9 +52,11 @@ export default function AddComponent() {
   const [list, setList] = useState([]);
   const [courses, setCourses] = useState([{ ...courseTemplate }]);
   const [customTitle, setCustomTitle] = useState("");
+  const [errors, setErrors] = useState({});
 
   const startCategory = (id) => {
     setSelectedCategory(id);
+    setErrors({});
 
     if (id === "courses") {
       setCourses([{ ...courseTemplate }]);
@@ -57,13 +66,13 @@ export default function AddComponent() {
     if (id === "custom") setCustomTitle("");
 
     const empty = {};
-    fields[id].forEach((f) => (empty[f] = ""));
+    allFields[id].forEach((f) => (empty[f] = ""));
     setList([empty]);
   };
 
   const addEntry = () => {
     const empty = {};
-    fields[selectedCategory].forEach((f) => (empty[f] = ""));
+    allFields[selectedCategory].forEach((f) => (empty[f] = ""));
     setList([...list, empty]);
   };
 
@@ -95,8 +104,41 @@ export default function AddComponent() {
     setCourses(updated);
   };
 
+  const validate = () => {
+    let newErrors = {};
+
+    if (selectedCategory === "custom" && !customTitle.trim()) {
+      newErrors["customTitle"] = "This field is required.";
+    }
+
+    if (selectedCategory === "courses") {
+      courses.forEach((course, i) => {
+        requiredFields.courses.forEach((field) => {
+          if (!course[field]?.trim()) {
+            newErrors[`courses-${i}-${field}`] = "This field is required.";
+          }
+        });
+      });
+      return newErrors;
+    }
+
+    list.forEach((entry, i) => {
+      requiredFields[selectedCategory].forEach((field) => {
+        if (!entry[field]?.trim()) {
+          newErrors[`${selectedCategory}-${i}-${field}`] =
+            "This field is required.";
+        }
+      });
+    });
+
+    return newErrors;
+  };
+
   const saveComponent = () => {
-    if (!selectedCategory) return;
+    const validationErrors = validate();
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length > 0) return;
 
     if (selectedCategory === "courses") {
       addDynamicStep("courses", courses);
@@ -110,6 +152,7 @@ export default function AddComponent() {
     setList([]);
     setCourses([{ ...courseTemplate }]);
     setCustomTitle("");
+    setErrors({});
   };
 
   const deleteSaved = (category) => {
@@ -125,9 +168,8 @@ export default function AddComponent() {
             if (selectedCategory) {
               setSelectedCategory("");
               return;
-            } else {
-              navigate("/create/experience");
             }
+            navigate("/create/experience");
           }}
         />
 
@@ -136,53 +178,55 @@ export default function AddComponent() {
             <h2 className="text-lg font-semibold mb-3">Choose Component</h2>
 
             <div className="grid grid-cols-2 gap-4">
-              {categories.map((cat) => {
-                const disabled = alreadyAdded.includes(cat.id);
+              {categories.map((cat) => (
+                <div key={cat.id} className="relative">
+                  <button
+                    onClick={() => !alreadyAdded.includes(cat.id) && startCategory(cat.id)}
+                    disabled={alreadyAdded.includes(cat.id)}
+                    className={`w-full p-4 border rounded-xl shadow font-medium transition ${
+                      alreadyAdded.includes(cat.id)
+                        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                        : "hover:bg-blue-50"
+                    }`}
+                  >
+                    {cat.label}
+                  </button>
 
-                return (
-                  <div key={cat.id} className="relative">
+                  {alreadyAdded.includes(cat.id) && (
                     <button
-                      onClick={() => !disabled && startCategory(cat.id)}
-                      disabled={disabled}
-                      className={`w-full p-4 border rounded-xl shadow font-medium transition 
-                      ${
-                        disabled
-                          ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                          : "hover:bg-blue-50 cursor-pointer"
-                      }`}
+                      onClick={() => deleteSaved(cat.id)}
+                      className="absolute top-2 right-2 text-red-600 font-bold"
                     >
-                      {cat.label}
+                      ✕
                     </button>
-
-                    {disabled && (
-                      <button
-                        onClick={() => deleteSaved(cat.id)}
-                        className="absolute top-2 right-2 text-red-600 font-bold text-sm"
-                      >
-                        ✕
-                      </button>
-                    )}
-                  </div>
-                );
-              })}
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         )}
 
         {selectedCategory && selectedCategory !== "courses" && (
           <div className="space-y-4">
-            <h2 className="font-semibold text-gray-800">
+            <h2 className="font-semibold">
               Enter {categories.find((c) => c.id === selectedCategory)?.label}
             </h2>
 
             {selectedCategory === "custom" && (
-              <input
-                type="text"
-                placeholder="Custom Title (e.g. Awards)"
-                value={customTitle}
-                onChange={(e) => setCustomTitle(e.target.value)}
-                className="w-full p-2 border rounded"
-              />
+              <div className="space-y-1">
+                <input
+                  type="text"
+                  placeholder="Custom Title (e.g. Awards)"
+                  value={customTitle}
+                  onChange={(e) => setCustomTitle(e.target.value)}
+                  className={`w-full p-2 border rounded ${
+                    errors.customTitle ? "border-red-500" : ""
+                  }`}
+                />
+                {errors.customTitle && (
+                  <p className="text-red-500 text-xs">This field is required.</p>
+                )}
+              </div>
             )}
 
             {list.map((entry, index) => (
@@ -190,18 +234,31 @@ export default function AddComponent() {
                 key={index}
                 className="border p-4 rounded-lg space-y-3 relative pt-10"
               >
-                {fields[selectedCategory].map((field) => (
-                  <input
-                    key={field}
-                    type="text"
-                    placeholder={field}
-                    value={entry[field]}
-                    onChange={(e) =>
-                      updateEntry(index, field, e.target.value)
-                    }
-                    className="w-full p-2 border rounded"
-                  />
-                ))}
+                {allFields[selectedCategory].map((field) => {
+                  const errKey = `${selectedCategory}-${index}-${field}`;
+                  const isRequired = requiredFields[selectedCategory].includes(field);
+
+                  return (
+                    <div key={field} className="space-y-1">
+                      <input
+                        type="text"
+                        placeholder={field}
+                        value={entry[field]}
+                        onChange={(e) =>
+                          updateEntry(index, field, e.target.value)
+                        }
+                        className={`w-full p-2 border rounded ${
+                          errors[errKey] ? "border-red-500" : ""
+                        }`}
+                      />
+                      {errors[errKey] && (
+                        <p className="text-red-500 text-xs">
+                          This field is required.
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
 
                 <button
                   onClick={() => deleteEntry(index)}
@@ -230,25 +287,39 @@ export default function AddComponent() {
 
         {selectedCategory === "courses" && (
           <div className="space-y-4">
-            <h2 className="font-semibold text-gray-800">Enter Courses</h2>
+            <h2 className="font-semibold">Enter Courses</h2>
 
             {courses.map((course, index) => (
               <div
                 key={index}
-                className="border p-4 rounded-lg relative space-y-2"
+                className="border p-4 rounded-lg space-y-2 relative"
               >
-                {Object.keys(courseTemplate).map((field) => (
-                  <input
-                    key={field}
-                    type="text"
-                    placeholder={field}
-                    value={course[field]}
-                    onChange={(e) =>
-                      updateCourseField(index, field, e.target.value)
-                    }
-                    className="w-full p-2 border rounded"
-                  />
-                ))}
+                {Object.keys(courseTemplate).map((field) => {
+                  const errKey = `courses-${index}-${field}`;
+                  const isRequired = requiredFields.courses.includes(field);
+
+                  return (
+                    <div key={field} className="space-y-1">
+                      <input
+                        type="text"
+                        placeholder={field}
+                        value={course[field]}
+                        onChange={(e) =>
+                          updateCourseField(index, field, e.target.value)
+                        }
+                        className={`w-full p-2 border rounded ${
+                          errors[errKey] ? "border-red-500" : ""
+                        }`}
+                      />
+
+                      {errors[errKey] && (
+                        <p className="text-red-500 text-xs">
+                          This field is required.
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
 
                 <button
                   onClick={() => deleteCourse(index)}
@@ -276,10 +347,7 @@ export default function AddComponent() {
         )}
 
         {!selectedCategory && (
-          <NextButton
-            nextRoute="/create/finalize"
-            stepNumber={7}
-          />
+          <NextButton nextRoute="/create/finalize" stepNumber={7} />
         )}
       </div>
     </CreateLayout>
