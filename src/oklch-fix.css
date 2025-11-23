@@ -1,0 +1,19 @@
+:root {
+  /* Fix only these Tailwind variables used internally */
+  --tw-color-black: rgb(0 0 0);
+  --tw-color-white: rgb(255 255 255);
+}
+
+/* Fix for gray-50 used in backgrounds */
+:root {
+  --tw-color-gray-50: rgb(249 250 251);
+  --tw-color-gray-100: rgb(243 244 246);
+  --tw-color-gray-200: rgb(229 231 235);
+  --tw-color-gray-300: rgb(209 213 219);
+  --tw-color-gray-400: rgb(156 163 175);
+  --tw-color-gray-500: rgb(107 114 128);
+  --tw-color-gray-600: rgb(75 85 99);
+  --tw-color-gray-700: rgb(55 65 81);
+  --tw-color-gray-800: rgb(31 41 55);
+  --tw-color-gray-900: rgb(17 24 39);
+}

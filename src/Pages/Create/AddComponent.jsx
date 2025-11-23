@@ -10,7 +10,6 @@ export default function AddComponent() {
 
   const navigate = useNavigate();
 
-
   const savedSections = formData.extraComponents || [];
   const alreadyAdded = savedSections.map((sec) => sec.category);
 
@@ -276,11 +275,12 @@ export default function AddComponent() {
           </div>
         )}
 
-        <NextButton
-          nextRoute="/create/finalize"
-          stepNumber={7}
-          disabled={!!selectedCategory}
-        />
+        {!selectedCategory && (
+          <NextButton
+            nextRoute="/create/finalize"
+            stepNumber={7}
+          />
+        )}
       </div>
     </CreateLayout>
   );

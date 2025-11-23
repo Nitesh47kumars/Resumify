@@ -1,12 +1,10 @@
 import React from 'react'
 import CreateLayout from '../../Layout/CreateLayout'
-
+import Export from "./Export"
 const Finalize = () => {
   return (
     <CreateLayout>
-      <div>
-        <h1>Finalizing</h1>
-      </div>
+      <Export/>
     </CreateLayout>
   )
 }

@@ -74,7 +74,7 @@ export default function Experience() {
 
   const skipExperience = () => {
     setFormData({ ...formData, experience: [] });
-    setCompletedStep("experience");
+    setCompletedStep(6);
     navigate("/create/addcomponent");
   };
 
