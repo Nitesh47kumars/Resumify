@@ -5,6 +5,14 @@ export default function AddSection() {
   const { formData } = useStep();
   const extra = formData.extraComponents || [];
 
+  // Capitalizing first letter of each word
+  const toTitleCase = (str = "") =>
+    str
+      .toLowerCase()
+      .split(" ")
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(" ");
+
   return (
     <div className="space-y-4">
       {extra.map((sec, index) => {
@@ -26,8 +34,8 @@ export default function AddSection() {
               <div className="grid grid-cols-2 gap-2">
                 {list.map((entry, i) =>
                   entry["Hobby Name"] ? (
-                    <p key={i} className="uppercase text-sm text-gray-800">
-                      {entry["Hobby Name"]}
+                    <p key={i} className="text-sm text-gray-800">
+                      {toTitleCase(entry["Hobby Name"])}
                     </p>
                   ) : null
                 )}
@@ -43,9 +51,9 @@ export default function AddSection() {
                   if (!lang) return null;
 
                   return (
-                    <p key={i} className="uppercase text-sm text-gray-800">
-                      {lang}
-                      {prof && ` - ${prof}`}
+                    <p key={i} className="text-sm text-gray-800">
+                      {toTitleCase(lang)}
+                      {prof && ` – ${toTitleCase(prof)}`}
                     </p>
                   );
                 })}
@@ -54,11 +62,11 @@ export default function AddSection() {
 
             {/* Courses */}
             {sec.category === "courses" && (
-              <div className="space-y-3">
+              <div className="grid grid-cols-2 gap-4">
                 {list.map((entry, i) => (
-                  <div key={i}>
-                    <p className="font-semibold uppercase text-sm text-gray-900">
-                      {entry["Course Name"]}
+                  <div key={i} className="space-y-1">
+                    <p className="font-semibold text-sm text-gray-900">
+                      {toTitleCase(entry["Course Name"])}
 
                       {entry["Link (Optional)"] && (
                         <a
@@ -73,8 +81,8 @@ export default function AddSection() {
                     </p>
 
                     {(entry["Institution"] || entry["Completion Year"]) && (
-                      <p className="text-sm text-gray-700">
-                        {entry["Institution"] || ""}
+                      <p className="text-[12px] text-gray-700">
+                        {toTitleCase(entry["Institution"] || "")}
                         {entry["Completion Year"] &&
                           ` – ${entry["Completion Year"]}`}
                       </p>
@@ -86,11 +94,11 @@ export default function AddSection() {
 
             {/* Certificates */}
             {sec.category === "certificates" && (
-              <div className="space-y-3">
+              <div className="grid grid-cols-2 gap-4">
                 {list.map((entry, i) => (
-                  <div key={i}>
-                    <p className="font-semibold uppercase text-sm text-gray-900 flex items-center gap-2">
-                      {entry["Certificate Name"]}
+                  <div key={i} className="space-y-1">
+                    <p className="font-semibold text-sm text-gray-900 flex items-center gap-2">
+                      {toTitleCase(entry["Certificate Name"])}
 
                       {entry["Certificate URL"] && (
                         <a
@@ -106,9 +114,8 @@ export default function AddSection() {
 
                     {(entry["Issued By"] || entry["Issue Date"]) && (
                       <p className="text-sm text-gray-700">
-                        {entry["Issued By"] || ""}
-                        {entry["Issue Date"] &&
-                          ` – (${entry["Issue Date"]})`}
+                        {toTitleCase(entry["Issued By"] || "")}
+                        {entry["Issue Date"] && ` – (${entry["Issue Date"]})`}
                       </p>
                     )}
                   </div>
@@ -128,8 +135,8 @@ export default function AddSection() {
 
                   return (
                     <div key={i} className="space-y-1">
-                      <p className="font-bold uppercase text-sm text-gray-900 flex items-center gap-2">
-                        {name}
+                      <p className="font-bold text-sm text-gray-900 flex items-center gap-2">
+                        {toTitleCase(name)}
 
                         {link && (
                           <a
@@ -145,7 +152,7 @@ export default function AddSection() {
 
                       {desc && (
                         <p className="text-sm text-gray-700 whitespace-pre-line">
-                          {desc}
+                          {toTitleCase(desc)}
                         </p>
                       )}
                     </div>
