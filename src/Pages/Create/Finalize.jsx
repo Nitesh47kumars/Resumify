@@ -1,12 +1,13 @@
-import React from 'react'
-import CreateLayout from '../../Layout/CreateLayout'
-import Export from "./Export"
-const Finalize = () => {
-  return (
-    <CreateLayout>
-      <Export/>
-    </CreateLayout>
-  )
-}
+import React, { useRef } from "react";
+import CreateLayout from "../../Layout/CreateLayout";
+import Export from "./Export";
 
-export default Finalize
+export default function Finalize() {
+  const resumeRef = useRef(null);
+
+  return (
+    <CreateLayout resumeRef={resumeRef}>
+      <Export resumeRef={resumeRef} />
+    </CreateLayout>
+  );
+}

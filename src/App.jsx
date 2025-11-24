@@ -23,7 +23,6 @@ export default function App() {
           {/* Step 1 */}
           <Route path="/create/template" element={<ChooseTemplate />} />
 
-          {/* Step 1 - Header */}
           <Route
             path="/create/header"
             element={
@@ -33,7 +32,6 @@ export default function App() {
             }
           />
 
-          {/* Step 2 - Summary */}
           <Route
             path="/create/summary"
             element={
@@ -43,7 +41,6 @@ export default function App() {
             }
           />
 
-          {/* Step 3 - Skills */}
           <Route
             path="/create/skills"
             element={
@@ -53,7 +50,6 @@ export default function App() {
             }
           />
 
-          {/* Step 4 - Education */}
           <Route
             path="/create/education"
             element={
@@ -63,7 +59,6 @@ export default function App() {
             }
           />
 
-          {/* Step 5 - Experience */}
           <Route
             path="/create/experience"
             element={
@@ -73,7 +68,6 @@ export default function App() {
             }
           />
 
-          {/* Step 6 - Add More */}
           <Route
             path="/create/addcomponent"
             element={
@@ -83,7 +77,6 @@ export default function App() {
             }
           />
 
-          {/* Step 7 - Finalize */}
           <Route
             path="/create/finalize"
             element={
