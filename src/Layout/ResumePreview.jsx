@@ -29,7 +29,7 @@ const ResumePreview = () => {
   const selectedTemplate = formData.template;
 
   return (
-    <div>
+    <div style={{ transform: "scale(0.60)", transformOrigin: "top left"}}>
       {selectedTemplate === "template1" && <ResumeTemplate1 data={mergedData} />}
       {selectedTemplate === "template2" && <ResumeTemplate2 data={mergedData} />}
       {selectedTemplate === "template3" && <ResumeTemplate3 data={mergedData} />}
