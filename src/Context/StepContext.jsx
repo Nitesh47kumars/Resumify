@@ -39,7 +39,6 @@ export function StepProvider({ children }) {
     storedStep ? Number(storedStep) : 1
   );
 
-  // ADD A NEW SECTION
   const addDynamicStep = (category, inputsArray, customTitle = "") => {
     setFormData((prev) => ({
       ...prev,
@@ -55,7 +54,6 @@ export function StepProvider({ children }) {
     }));
   };
 
-  // DELETE A SECTION
   const removeDynamicStep = (category) => {
     setFormData((prev) => ({
       ...prev,
@@ -72,6 +70,24 @@ export function StepProvider({ children }) {
   useEffect(() => {
     sessionStorage.setItem("resumeCompletedStep", completedStep);
   }, [completedStep]);
+
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      const isDirty =
+        JSON.stringify(formData) !== JSON.stringify(initialFormData);
+
+      if (isDirty) {
+        e.preventDefault();
+        e.returnValue = "";
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [formData]);
 
   return (
     <StepContext.Provider

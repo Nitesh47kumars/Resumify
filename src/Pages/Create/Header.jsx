@@ -2,6 +2,7 @@ import { useStep } from "../../Context/StepContext";
 import { useState } from "react";
 import CreateLayout from "../../Layout/CreateLayout";
 import NextButton from "../../Buttons/NextButton";
+import PageHeader from "../../Buttons/PageHeader";
 
 export default function Header() {
   const {formData, setFormData } = useStep();
@@ -96,7 +97,7 @@ export default function Header() {
   return (
     <CreateLayout>
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">Personal Information</h1>
+        <PageHeader header="Personal information"/>
         <p className="text-sm text-gray-600 mb-4">* required fields</p>
 
         <div className="grid grid-cols-2 gap-2">
