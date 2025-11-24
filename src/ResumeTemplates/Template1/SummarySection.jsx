@@ -8,7 +8,7 @@ export default function SummarySection({ summary }) {
       <div className="text-sm text-gray-700 leading-relaxed space-y-2">
         <p>
           {summary?.trim() ||
-            "Write a short professional summary here..."}
+            "A brief professional summary highlighting your strengths, experience, and value."}
         </p>
       </div>
     </section>

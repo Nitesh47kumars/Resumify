@@ -1,47 +1,51 @@
 import SectionTitle from "./SectionTitle";
 
 export default function ExperienceSection({ experience }) {
-  const fallback = [
-    {
-      role: "Your Job Role",
-      company: "Company Name",
-      year: "2022 - Present",
-      desc: [
-        "Achievement or responsibility goes here.",
-        "Another responsibility or task goes here.",
-      ],
-    },
-  ];
-
-  const list = experience?.length > 0 ? experience : fallback;
+  // If no data → follow Template 2 behavior (return null)
+  if (!experience || experience.length === 0) {
+    return null;
+  }
 
   return (
     <section>
       <SectionTitle title="Experience" />
 
       <div className="space-y-4 text-sm text-gray-700">
-        {list.map((exp, idx) => (
-          <div key={idx} className="space-y-1">
-            {/* Role */}
-            <p className="font-semibold text-gray-900 text-base">
-              {exp.role || "Your Job Role"}
-            </p>
+        {experience.map((exp, idx) => {
+          // Template 2 functional placeholders
+          const role = exp.role?.trim() || "Job Title";
+          const company = exp.company?.trim() || "Company Name";
+          const duration =
+            exp.duration?.trim() ||
+            exp.year?.trim() ||
+            "Start — End";
 
-            {/* Company + Year */}
-            <p className="text-gray-800">
-              {exp.company || "Company Name"} • {exp.year || "2022 - Present"}
-            </p>
+          const details =
+            exp.details?.length > 0
+              ? exp.details
+              : exp.desc?.length > 0
+              ? exp.desc
+              : ["Describe your responsibilities"];
 
-            {/* Description bullets */}
-            <ul className="list-disc pl-5 space-y-1">
-              {(exp.desc?.length ? exp.desc : fallback[0].desc).map(
-                (d, i) => (
+          return (
+            <div key={idx} className="space-y-1">
+              {/* Role */}
+              <p className="font-semibold text-gray-900 text-base">{role}</p>
+
+              {/* Company + Duration */}
+              <p className="text-gray-800">
+                {company} • {duration}
+              </p>
+
+              {/* Description Bullets */}
+              <ul className="list-disc pl-5 space-y-1">
+                {details.map((d, i) => (
                   <li key={i}>{d}</li>
-                )
-              )}
-            </ul>
-          </div>
-        ))}
+                ))}
+              </ul>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

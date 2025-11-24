@@ -1,32 +1,54 @@
 import SectionTitle from "./SectionTitle";
 
 export default function EducationSection({ education }) {
-  const fallback = [
+  const placeholder = [
     {
-      degree: "Bachelor of Science",
-      institute: "Your University Name",
-      year: "2020 - 2023",
+      degree: "Bachelor of Computer Applications",
+      field: "Computer Applications",
+      school: "XYZ University",
     },
   ];
 
-  const list = education?.length > 0 ? education : fallback;
+  const list = education?.length ? education : placeholder;
 
   return (
     <section>
       <SectionTitle title="Education" />
 
       <div className="text-sm text-gray-700 space-y-3">
-        {list.map((edu, idx) => (
-          <div key={idx} className="space-y-1">
-            <p>
-              <span className="font-semibold">{edu.degree}</span>
-            </p>
+        {list.map((edu, idx) => {
+          const degree = edu.degree || placeholder[0].degree;
+          const field = edu.field || placeholder[0].field;
+          const school = edu.school || placeholder[0].school;
 
-            <p className="font-semibold text-gray-900">{edu.institute}</p>
+          return (
+            <div key={idx} className="space-y-1">
+              {/* Degree + Field */}
+              <p className="font-semibold">
+                {degree}
+                {field ? ` — ${field}` : ""}
+              </p>
 
-            <p className="text-gray-800">{edu.year}</p>
-          </div>
-        ))}
+              {/* Institute / School */}
+              <p className="font-semibold text-gray-900">{school}</p>
+
+              {/* Grad Year */}
+              {edu.gradYear && (
+                <p className="text-gray-800">Expected Graduation: {edu.gradYear}</p>
+              )}
+
+              {/* Current Year */}
+              {edu.currentYear && (
+                <p className="text-gray-800">Current Year: {edu.currentYear}</p>
+              )}
+
+              {/* Old UI field (year) — still supported if exists */}
+              {edu.year && (
+                <p className="text-gray-800">{edu.year}</p>
+              )}
+            </div>
+          );
+        })}
       </div>
     </section>
   );
