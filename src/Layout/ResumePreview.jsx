@@ -29,13 +29,21 @@ const ResumePreview = () => {
   const selectedTemplate = formData.template;
 
   return (
-    <div style={{ transform: "scale(0.60)", transformOrigin: "top left"}}>
+    <div className="w-full">
+      <div
+        className="h-full w-[794px] p-5"
+        style={{
+          transform: "scale(0.62)",
+          transformOrigin: "top left"
+        }}
+      >
       {selectedTemplate === "template1" && <ResumeTemplate1 data={mergedData} />}
       {selectedTemplate === "template2" && <ResumeTemplate2 data={mergedData} />}
       {selectedTemplate === "template3" && <ResumeTemplate3 data={mergedData} />}
 
       {/* If no template selected => fallback */}
       {!selectedTemplate && <p>Please select a template.</p>}
+    </div>
     </div>
   );
 };

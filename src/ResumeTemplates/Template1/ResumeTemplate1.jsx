@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "./Header";
+import Header from "./HeaderSection";
 import SummarySection from "./SummarySection";
 import SkillsSection from "./SkillsSection";
 import ExperienceSection from "./ExperienceSection";
@@ -10,23 +10,16 @@ export default function ResumeTemplate1({ data }) {
     <div id="template1"
       style={{
         width: "100%",
-        maxWidth: "800px",
         padding: "40px",
         margin: "0 auto",
         background: "white",
         fontFamily: "Arial, sans-serif",
         color: "#222",
+        boxShadow:"0 0 15px rgba(0,0,0,0.2)",
         lineHeight: 1.5,
       }}
     >
-      <Header
-        name={data.name}
-        email={data.email}
-        phone={data.phone}
-        address={data.address}
-        header={data.header}
-      />
-
+      <Header data={data}/>
       <SummarySection summary={data.summary} />
       <SkillsSection skills={data.skills} />
       <ExperienceSection experience={data.experience} />

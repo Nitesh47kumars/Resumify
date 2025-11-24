@@ -14,7 +14,7 @@ const CreateLayout = ({ children, resumeRef }) => {
       </div>
 
       <div
-        className="w-[35%] bg-gray-50 border-l p-5 overflow-y-auto"
+        className="w-[35%] p-5 bg-gray-50 border-l overflow-y-auto "
         ref={resumeRef}
       >
         <ResumePreview />

@@ -1,6 +1,14 @@
 import React from "react";
 
-export default function Header({ name, email, phone, address, header }) {
+export default function HeaderSection({ data }) {
+  const {
+    name = "Your Name",
+    header = {},
+    email = "example@gmail.com",
+    phone = "+91 00000 00000",
+    address = "City, State, Country - PIN",
+  } = data;
+
   return (
     <header className="text-center mb-6">
       <hr className="border-gray-300" />
