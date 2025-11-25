@@ -3,8 +3,8 @@ import SectionTitle from "./SectionTitle";
 export default function EducationSection({ education }) {
   const placeholder = [
     {
-      degree: "Bachelor of Computer Applications",
-      field: "Computer Applications",
+      degree: "Degree",
+      field: "Field of Study",
       school: "XYZ University",
     },
   ];
@@ -21,15 +21,19 @@ export default function EducationSection({ education }) {
           const field = edu.field || placeholder[0].field;
           const school = edu.school || placeholder[0].school;
 
+          const year =
+            edu.year?.trim() ||
+            edu.gradYear?.trim() ||
+            edu.currentYear?.trim() ||
+            placeholder[0].year;
+
           return (
             <div key={idx} className="space-y-1">
-              {/* Degree + Field */}
               <p className="font-semibold">
                 {degree}
                 {field ? ` — ${field}` : ""}
               </p>
 
-              {/* Institute / School */}
               <p className="font-semibold text-gray-900">{school}</p>
 
               {/* Grad Year */}

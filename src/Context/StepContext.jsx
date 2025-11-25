@@ -11,7 +11,6 @@ export function StepProvider({ children }) {
         header: {
           firstName: "",
           lastName: "",
-          profession: "",
           city: "",
           country: "",
           pin: "",
