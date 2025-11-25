@@ -1,20 +1,23 @@
-export default function EducationSection({ data }) {
-    if (!data.education || data.education.length === 0) return null;
-  
-    return (
-      <section className="">
-        <h2 className="text-lg font-semibold border-b pb-1 mb-2">
-          Education
-        </h2>
-  
-        {data.education.map((edu, index) => (
-          <div key={index} className="mb-3">
-            <p className="font-semibold">{edu.degree}</p>
-            <p className="text-sm text-gray-800">{edu.institution}</p>
-            <p className="text-sm text-gray-700">{edu.year}</p>
+import { SectionTitle } from "./SectionTitle";
+
+export function EducationSection({ education }) {
+  if (!education?.length) return null;
+
+  return (
+    <section className="mb-6">
+      <SectionTitle title="Education" />
+
+      <div className="space-y-4">
+        {education.map((edu, idx) => (
+          <div key={idx} className="text-sm text-gray-700 space-y-1">
+            <p className="font-semibold text-gray-900 text-base">
+              {edu.degree || "Degree"}
+            </p>
+            <p className="text-gray-800">{edu.school || "Institution"}</p>
+            <p className="text-gray-600">{edu.year || "Year"}</p>
           </div>
         ))}
-      </section>
-    );
-  }
-  
+      </div>
+    </section>
+  );
+}

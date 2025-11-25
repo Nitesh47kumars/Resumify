@@ -1,32 +1,35 @@
-export default function HeaderSection({ data }) {
-  const { name, email, phone, address, header = {} } = data;
+import { SectionTitle } from "./SectionTitle";
 
+export function HeaderSection({ header }) {
   return (
-    <header className="mb-6">
-      <h1 className="text-3xl font-bold text-gray-900">
-        {name || "Your Name Here"}
+    <header className="border-b-2 border-gray-300 pb-4 mb-6">
+      <h1 className="text-4xl font-bold text-gray-900 tracking-tight">
+        {header.firstName || "Your"} {header.lastName || "Name"}
       </h1>
 
-      <p className="text-gray-600 mt-1 text-sm">
-        {address || "Your Address Here"}
+      <p className="text-sm text-gray-700 mt-1">
+        {header.profession || "Professional Title"}
       </p>
 
-      <div className="mt-2 text-[13px] text-gray-700 space-y-1">
-        <p>
-          <strong>Phone:</strong> {phone || "+91 00000 00000"}
-        </p>
-        <p>
-          <strong>Email:</strong> {email || "example@gmail.com"}
-        </p>
-
-        <div className="flex gap-3 flex-wrap text-blue-600 underline">
-          {header.linkedin && <a href={header.linkedin}>LinkedIn</a>}
-          {header.website && <a href={header.website}>Portfolio</a>}
-          {header.github && <a href={header.github}>GitHub</a>}
-        </div>
+      <div className="flex flex-wrap gap-4 mt-3 text-sm text-gray-700">
+        {header.email && <span>{header.email}</span>}
+        {header.phone && <span>{header.phone}</span>}
+        {(header.city || header.country) && (
+          <span>
+            {header.city}, {header.country}
+          </span>
+        )}
+        {header.linkedin && (
+          <a href={header.linkedin} target="_blank" className="text-blue-600">
+            LinkedIn
+          </a>
+        )}
+        {header.github && (
+          <a href={header.github} target="_blank" className="text-blue-600">
+            GitHub
+          </a>
+        )}
       </div>
-
-      <hr className="mt-4 border-gray-300" />
     </header>
   );
 }

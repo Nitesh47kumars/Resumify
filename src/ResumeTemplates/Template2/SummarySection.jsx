@@ -1,13 +1,12 @@
-export default function SummarySection({ data }) {
-    if (!data.summary) return null;
-  
-    return (
-      <section className="mb-6">
-        <h2 className="text-lg font-semibold border-b pb-1 mb-2">
-          Professional Summary
-        </h2>
-        <p className="text-sm">{data.summary}</p>
-      </section>
-    );
-  }
-  
+import { SectionTitle } from "./SectionTitle";
+
+export function SummarySection({ summary }) {
+  return (
+    <section className="mb-6">
+      <SectionTitle title="Professional Summary" />
+      <p className="text-sm text-gray-700 leading-relaxed">
+        {summary?.trim() || "Write a short professional summary here..."}
+      </p>
+    </section>
+  );
+}

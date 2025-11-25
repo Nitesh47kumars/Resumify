@@ -1,31 +1,41 @@
-export default function ExperienceSection({ data }) {
-    if (!data.experience || data.experience.length === 0) return null;
-  
-    return (
-      <section className="mb-6">
-        <h2 className="text-lg font-semibold border-b pb-1 mb-2">
-          Work Experience
-        </h2>
-  
-        {data.experience.map((exp, index) => (
-          <div key={index} className="mb-4">
-            <div className="flex justify-between">
-              <p className="font-semibold">{exp.role}</p>
-              <p className="text-sm text-gray-700">
-                {exp.startDate} – {exp.endDate || "Present"}
+import { SectionTitle } from "./SectionTitle";
+
+export function ExperienceSection({ experience }) {
+  if (!experience?.length) return null;
+
+  return (
+    <section className="mb-6">
+      <SectionTitle title="Experience" />
+
+      <div className="space-y-4 text-sm text-gray-700">
+        {experience.map((exp, idx) => {
+          const role = exp.role?.trim() || "Job Title";
+          const company = exp.company?.trim() || "Company Name";
+          const duration =
+            exp.duration?.trim() || exp.year?.trim() || "Start — End";
+
+          const details = exp.details?.length
+            ? exp.details
+            : exp.desc?.length
+            ? exp.desc
+            : ["Describe your responsibilities"];
+
+          return (
+            <div key={idx} className="space-y-1">
+              <p className="font-semibold text-gray-900 text-base">{role}</p>
+              <p className="text-gray-800">
+                {company} • {duration}
               </p>
+
+              <ul className="list-disc pl-5 space-y-1">
+                {details.map((d, i) => (
+                  <li key={i}>{d}</li>
+                ))}
+              </ul>
             </div>
-  
-            <p className="font-medium text-gray-900 mb-1">{exp.company}</p>
-  
-            <ul className="list-disc ml-5 text-sm space-y-1">
-              {exp.description?.map((point, i) => (
-                <li key={i}>{point}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </section>
-    );
-  }
-  
+          );
+        })}
+      </div>
+    </section>
+  );
+}

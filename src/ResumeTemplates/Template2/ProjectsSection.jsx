@@ -1,18 +1,40 @@
-export default function ProjectsSection({ data }) {
-    if (!data.projects || data.projects.length === 0) return null;
-  
-    return (
-      <section className="mb-6">
-        <h2 className="text-lg font-semibold border-b pb-1 mb-2">Projects</h2>
-  
-        {data.projects.map((proj, index) => (
-          <div key={index} className="mb-4">
-            <p className="font-semibold">{proj.title}</p>
-            <p className="text-sm mb-1 text-gray-800">{proj.tech}</p>
-            <p className="text-sm">{proj.description}</p>
-          </div>
-        ))}
-      </section>
-    );
-  }
-  
+import React from "react";
+import { useStep } from "../../Context/StepContext";
+import { HeaderSection } from "./components/HeaderSection";
+import { SummarySection } from "./components/SummarySection";
+import { ExperienceSection } from "./components/ExperienceSection";
+import { EducationSection } from "./components/EducationSection";
+import { SkillsSection } from "./components/SkillsSection";
+import { AddSection } from "./components/AddSection";
+
+export default function ResumeTemplate2() {
+  const { formData } = useStep();
+
+  const {
+    header = {},
+    summary = "",
+    experience = [],
+    education = [],
+    skills = [],
+    extraComponents = [],
+  } = formData || {};
+
+  return (
+    <div
+      className="w-full max-w-4xl mx-auto bg-white text-gray-900 p-10 tracking-wide"
+      style={{ fontFamily: "serif" }}
+    >
+      <HeaderSection header={header} />
+
+      <SummarySection summary={summary} />
+
+      <ExperienceSection experience={experience} />
+
+      <EducationSection education={education} />
+
+      <SkillsSection skills={skills} />
+
+      <AddSection extraComponents={extraComponents} />
+    </div>
+  );
+}
