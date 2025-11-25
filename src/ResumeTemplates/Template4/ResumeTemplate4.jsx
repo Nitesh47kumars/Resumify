@@ -4,6 +4,7 @@ import SummarySection from "./SummarySection";
 import SkillsSection from "./SkillsSection";
 import ExperienceSection from "./ExperienceSection";
 import EducationSection from "./EducationSection";
+import AddSection from "./AddSection";
 
 export default function ResumeTemplate4({ data }) {
   const { summary, skills, experience, education } = data;
@@ -25,6 +26,7 @@ export default function ResumeTemplate4({ data }) {
         <div className="col-span-2 space-y-10">
           <ExperienceSection experience={experience} />
           <EducationSection education={education} />
+          <AddSection/>
         </div>
       </div>
     </div>
