@@ -7,13 +7,16 @@ import AddSection from "./AddSection";
 
 export default function ResumeTemplate3({ data }) {
   return (
-    <div
-      id="template3"
-      className="bg-white mx-auto text-gray-900 border shadow-sm"
+    <div id="template3"
       style={{
-        width: "794px",
-        minHeight: "1123px",
-        padding: "32px",
+        width: "100%",
+        padding: "40px",
+        margin: "0 auto",
+        background: "white",
+        fontFamily: "Arial, sans-serif",
+        color: "#222",
+        boxShadow:"0 0 15px rgba(0,0,0,0.2)",
+        lineHeight: 1.5,
       }}
     >
       <HeaderSection data={data} />
