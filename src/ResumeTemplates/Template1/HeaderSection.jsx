@@ -13,13 +13,13 @@ export default function HeaderSection({ data }) {
     <header className="text-center mb-6">
       <hr className="border-gray-300" />
 
-      <h1 className="text-2xl my-1 font-serif font-bold text-gray-900">
+      <h1 className="text-xl sm:text-2xl md:text-3xl my-1 font-serif font-bold text-gray-900">
         {name?.trim() || "Your Name Here"}
       </h1>
 
       <hr className="border-gray-300 mb-1" />
 
-      <div className="flex flex-col items-center gap-1 text-[13px] text-gray-700 leading-relaxed">
+      <div className="flex flex-col items-center gap-1 text-[11px] sm:text-[12px] md:text-[13px] text-gray-700 leading-relaxed">
         <p>{address?.trim() || "Your Address Here"}</p>
 
         <p>

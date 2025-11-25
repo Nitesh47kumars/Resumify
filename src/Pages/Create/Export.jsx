@@ -30,12 +30,11 @@ const Export = ({ resumeRef }) => {
     if (!resumeRef.current) return alert("Preview not ready");
 
     const canvasImage = await toPng(resumeRef.current, { quality: 1 });
-
     const pdf = new jsPDF("p", "mm", "a4");
+
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = pdf.internal.pageSize.getHeight();
 
-    // Create image
     const img = new Image();
     img.src = canvasImage;
 
@@ -49,26 +48,48 @@ const Export = ({ resumeRef }) => {
   };
 
   return (
-    <div className="flex gap-3 mt-5">
+    <div
+      className="
+        flex flex-wrap gap-3 mt-5
+        sm:flex-nowrap
+      "
+    >
 
       <button
         onClick={handlePNG}
-        className="px-4 py-2 bg-indigo-600 text-white rounded"
+        className="
+          flex-1 sm:flex-none
+          px-4 py-2 
+          bg-indigo-600 text-white rounded
+          text-sm sm:text-base
+          w-full sm:w-auto
+        "
       >
         Download PNG
       </button>
 
       <button
         onClick={handleJPG}
-        className="px-4 py-2 bg-green-600 text-white rounded"
+        className="
+          flex-1 sm:flex-none
+          px-4 py-2 
+          bg-green-600 text-white rounded
+          text-sm sm:text-base
+          w-full sm:w-auto
+        "
       >
         Download JPG
       </button>
 
-      {/* 📄 New PDF button */}
       <button
         onClick={handlePDF}
-        className="px-4 py-2 bg-red-600 text-white rounded"
+        className="
+          flex-1 sm:flex-none
+          px-4 py-2 
+          bg-red-600 text-white rounded
+          text-sm sm:text-base
+          w-full sm:w-auto
+        "
       >
         Download PDF
       </button>

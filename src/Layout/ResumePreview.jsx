@@ -32,7 +32,7 @@ const ResumePreview = () => {
   return (
     <div className="w-full">
       <div
-        className="h-full w-[794px] p-5"
+        className="h-[900px] max-sm:h-[850px] w-[794px]  max-sm:w-[465px] p-5 max-sm:p-1"
         style={{
           transform: "scale(0.62)",
           transformOrigin: "top left"
