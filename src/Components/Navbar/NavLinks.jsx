@@ -1,6 +1,6 @@
 import { Link } from "react-scroll";
 
-const NavLinks = ({ links, onClick }) => {
+const NavLinks = ({ links, onClick, isMobile }) => {
   return (
     <>
       {links.map((link, idx) => (
@@ -11,9 +11,13 @@ const NavLinks = ({ links, onClick }) => {
           duration={600}
           offset={-160}
           spy={true}
-          activeClass="text-indigo-600"
-          onClick={onClick} // This will close the menu on mobile after clicking a link.
-          className="cursor-pointer text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors duration-200"
+          activeClass="text-indigo-600 font-semibold"
+          onClick={onClick}
+          className={`cursor-pointer text-base font-medium transition-colors duration-200
+            ${isMobile
+              ? "block w-full text-center py-4 mb-2 rounded-md hover:bg-indigo-50"
+              : "text-gray-700 hover:text-indigo-600"
+            }`}
         >
           {link.name}
         </Link>
