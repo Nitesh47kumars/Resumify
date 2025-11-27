@@ -92,7 +92,6 @@ const Export = () => {
 
   return (
     <>
-      {/* Invisible full-size resume for export */}
       <div 
         ref={exportRef}
         style={{
@@ -102,7 +101,7 @@ const Export = () => {
           zIndex: -10,
           pointerEvents: "none",
           width: "794px", // A4 width
-          padding: "30px",
+          padding: "40px",
           backgroundColor: "#fff",
         }}
       >
