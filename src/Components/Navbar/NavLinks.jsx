@@ -11,7 +11,7 @@ const NavLinks = ({ links, onClick, isMobile }) => {
           duration={600}
           offset={-160}
           spy={true}
-          activeClass="text-indigo-600 font-semibold"
+          activeClass="text-indigo-600"
           onClick={onClick}
           className={`cursor-pointer text-base font-medium transition-colors duration-200
             ${isMobile
