@@ -20,13 +20,28 @@ export default function ExportPage({ handleExportPNG, handleExportPDF }) {
       </h1>
 
       <p className="text-gray-600 mt-3 max-w-xl">
-        I hope this resume builder helped you. If you’d like to connect or explore my
-        work, visit my Portfolio and LinkedIn —
+            I hope this resume builder helped you. If you’d like to connect or explore my
+            work, visit my Portfolio and LinkedIn —
         <br />
-        <a href="YOUR_PORTFOLIO_LINK" target="_blank" className="text-blue-600 font-semibold underline hover:text-blue-800">LINK</a>
-        {"  |  "}
-        <a href="YOUR_LINKEDIN_LINK" target="_blank" className="text-blue-600 font-semibold underline hover:text-blue-800">LINK</a>
-      </p>
+            <a
+                href="https://portfolio-ten-jade-21.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 font-semibold underline hover:text-blue-800"
+            >
+                Portfolio
+            </a>
+                {"  |  "}
+            <a
+                href="https://www.linkedin.com/in/nitesh-kumar-b18348346/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 font-semibold underline hover:text-blue-800"
+            >
+                LinkedIn
+            </a>
+        </p>
+
 
       <h2 className="text-xl font-semibold text-gray-800 mt-8">
         Choose Download Format
