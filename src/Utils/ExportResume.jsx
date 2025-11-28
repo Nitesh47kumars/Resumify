@@ -97,15 +97,18 @@ const Export = () => {
         ref={exportRef}
         style={{
           position: "absolute",
-          top: 0,
-          left: 0,
-          zIndex: -10,
+          top: "110%",
+          left: "50%",
+          transform: "translate(-50%, 0)",
           pointerEvents: "none",
-          width: "794px", // A4 width
+          width: "794px",
           padding: "40px",
           backgroundColor: "#fff",
         }}
       >
+        <h2 className="text-2xl font-semibold text-gray-900 mb-6 text-center">
+          The Actual Resume That Will Be Exported
+        </h2>
         {selectedTemplate === "template1" && <ResumeTemplate1 data={mergedData} />}
         {selectedTemplate === "template2" && <ResumeTemplate2 data={mergedData} />}
         {selectedTemplate === "template3" && <ResumeTemplate3 data={mergedData} />}

@@ -7,7 +7,14 @@ import AddSection from "./AddSection";
 
 export default function ResumeTemplate3({ data }) {
   return (
-    <div id="template3"
+    <div
+      id="template3"
+      className="
+        text-[12px] 
+        sm:text-[13px] 
+        md:text-[14px] 
+        lg:text-[15px]
+      "
       style={{
         width: "100%",
         padding: "40px",
@@ -15,7 +22,7 @@ export default function ResumeTemplate3({ data }) {
         background: "white",
         fontFamily: "Arial, sans-serif",
         color: "#222",
-        boxShadow:"0 0 15px rgba(0,0,0,0.2)",
+        boxShadow: "0 0 15px rgba(0,0,0,0.2)",
         lineHeight: 1.5,
       }}
     >

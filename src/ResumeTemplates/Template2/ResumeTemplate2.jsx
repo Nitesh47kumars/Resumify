@@ -13,8 +13,23 @@ export default function ResumeTemplate2({ data = {} }) {
 
   return (
     <div
-      className="w-full max-w-4xl mx-auto bg-white text-gray-900 p-10 tracking-wide"
-      style={{ fontFamily: "serif" }}
+      id="template2"
+      className="
+        text-[12px] 
+        sm:text-[13px] 
+        md:text-[14px] 
+        lg:text-[15px]
+      "
+      style={{
+        width: "100%",
+        padding: "40px",
+        margin: "0 auto",
+        background: "white",
+        fontFamily: "Arial, sans-serif",
+        color: "#222",
+        boxShadow: "0 0 15px rgba(0,0,0,0.2)",
+        lineHeight: 1.5,
+      }}
     >
       <HeaderSection data={data} />
       <SummarySection summary={data.summary} />

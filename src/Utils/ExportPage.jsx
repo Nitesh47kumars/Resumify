@@ -14,7 +14,7 @@ export default function ExportPage({ handleExportPNG, handleExportPDF }) {
   };
 
   return (
-    <div className="w-full h-full bg-white shadow-sm flex flex-col items-center justify-center px-5 text-center">
+    <div className="w-full h-full bg-white shadow-lg rounded-lg flex flex-col items-center justify-center px-5 text-center">
       <h1 className="text-3xl font-bold text-gray-900">
         Thank You For Visiting Us
       </h1>
@@ -47,7 +47,7 @@ export default function ExportPage({ handleExportPNG, handleExportPDF }) {
         Choose Download Format
       </h2>
 
-      <div className="flex flex-wrap gap-3 mt-5 sm:flex-nowrap">
+      <div className="flex flex-wrap gap-3 mt-5 mb-2 sm:flex-nowrap">
         <button
           onClick={() => handleDownload("png")}
           className={`flex-1 sm:flex-none px-6 py-3 rounded w-full sm:w-auto text-white font-medium transition 
@@ -68,6 +68,7 @@ export default function ExportPage({ handleExportPNG, handleExportPDF }) {
           {loadingFormat === "pdf" ? "Processing..." : "Download PDF"}
         </button>
       </div>
+      <span className="text-[12px] text-gray-500">(Scroll down to see the actual exporting resume)</span>
     </div>
   );
 }

@@ -43,7 +43,6 @@ const ResumePreview = () => {
       {selectedTemplate === "template3" && <ResumeTemplate3 data={mergedData} />}
       {selectedTemplate === "template4" && <ResumeTemplate4 data={mergedData} />}
 
-      {/* If no template selected => fallback */}
       {!selectedTemplate && <p>Please select a template.</p>}
     </div>
     </div>

@@ -7,7 +7,7 @@ const CreateLayout = ({ children, resumeRef }) => {
   const [openMenu, setOpenMenu] = useState(false);
 
   return (
-    <div className="w-full h-screen overflow-hidden bg-gray-100">
+    <div className="w-full h-screen overflow-hidden bg-gray-100 shadow-2xl">
 
       <div className="md:hidden flex items-center justify-between p-4 bg-white shadow">
         <h2 className="text-xl font-semibold">Resume Builder</h2>
@@ -48,7 +48,7 @@ const CreateLayout = ({ children, resumeRef }) => {
         </div>
 
         <div
-          className="w-[35%] p-5 bg-gray-50 border-l overflow-y-auto"
+          className="w-[35%] p-5 bg-gray-50 overflow-y-auto"
           ref={resumeRef}
         >
           <ResumePreview />

@@ -10,10 +10,24 @@ export default function ResumeTemplate4({ data }) {
   const { summary, skills, experience, education } = data;
 
   return (
-    <div
+<div
       id="template4"
-      className="w-full max-w-4xl mx-auto bg-white text-gray-900 p-10"
-      style={{ fontFamily: "serif" }}
+      className="
+        text-[12px] 
+        sm:text-[13px] 
+        md:text-[14px] 
+        lg:text-[15px]
+      "
+      style={{
+        width: "100%",
+        padding: "40px",
+        margin: "0 auto",
+        background: "white",
+        fontFamily: "Arial, sans-serif",
+        color: "#222",
+        boxShadow: "0 0 15px rgba(0,0,0,0.2)",
+        lineHeight: 1.5,
+      }}
     >
       <HeaderSection data={data} />
 
