@@ -6,7 +6,6 @@ export default function ExportPage({ handleExportPNG, handleExportPDF }) {
   const handleDownload = async (format) => {
     setLoadingFormat(format);
 
-    // Give little animation before starting export
     setTimeout(() => {
       if (format === "png") handleExportPNG();
       if (format === "pdf") handleExportPDF();
@@ -15,7 +14,7 @@ export default function ExportPage({ handleExportPNG, handleExportPDF }) {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-center px-5 text-center">
+    <div className="w-full h-full bg-white shadow-sm flex flex-col items-center justify-center px-5 text-center">
       <h1 className="text-3xl font-bold text-gray-900">
         Thank You For Visiting Us
       </h1>
