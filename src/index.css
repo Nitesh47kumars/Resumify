@@ -11,3 +11,18 @@
 .animate-slideDown {
   animation: slideDown 0.25s ease-out;
 }
+
+
+
+
+
+/* Temperary  */
+
+.blink-text {
+  animation: blinkColor 0.4s steps(10) infinite alternate;
+}
+
+@keyframes blinkColor {
+  0%   { color: #ef4444; } /* red */
+  100% { color: #ffffff; } /* white */
+}

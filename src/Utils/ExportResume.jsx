@@ -94,26 +94,30 @@ const Export = () => {
   return (
     <>
       <div 
-        ref={exportRef}
         style={{
           position: "absolute",
           top: "110%",
           left: "50%",
           transform: "translate(-50%, 0)",
-          pointerEvents: "none",
           width: "794px",
-          padding: "40px",
-          backgroundColor: "#fff",
         }}
-      >
-        <h2 className="text-2xl font-semibold text-gray-900 mb-6 text-center">
+        >
+        <h2 className="text-2xl font-semibold text-gray-900 mt-8 text-center">
           The Actual Resume That Will Be Exported
         </h2>
-        {selectedTemplate === "template1" && <ResumeTemplate1 data={mergedData} />}
-        {selectedTemplate === "template2" && <ResumeTemplate2 data={mergedData} />}
-        {selectedTemplate === "template3" && <ResumeTemplate3 data={mergedData} />}
-        {selectedTemplate === "template4" && <ResumeTemplate4 data={mergedData} />}
-        {!selectedTemplate && <p>Please select a template.</p>}
+        <div
+          ref={exportRef}
+          style={{
+            padding: "40px",
+            backgroundColor: "#fff",
+          }}
+        >
+          {selectedTemplate === "template1" && <ResumeTemplate1 data={mergedData} />}
+          {selectedTemplate === "template2" && <ResumeTemplate2 data={mergedData} />}
+          {selectedTemplate === "template3" && <ResumeTemplate3 data={mergedData} />}
+          {selectedTemplate === "template4" && <ResumeTemplate4 data={mergedData} />}
+          {!selectedTemplate && <p>Please select a template.</p>}
+        </div>
       </div>
 
 
