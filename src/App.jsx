@@ -20,7 +20,6 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
 
-          {/* Step 1 */}
           <Route path="/create/template" element={<ChooseTemplate />} />
 
           <Route

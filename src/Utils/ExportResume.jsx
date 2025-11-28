@@ -7,6 +7,7 @@ import ResumeTemplate1 from "../ResumeTemplates/Template1/ResumeTemplate1";
 import ResumeTemplate2 from "../ResumeTemplates/Template2/ResumeTemplate2";
 import ResumeTemplate3 from "../ResumeTemplates/Template3/ResumeTemplate3";
 import ResumeTemplate4 from "../ResumeTemplates/Template4/ResumeTemplate4";
+import ExportPage from "./ExportPage";
 
 const Export = () => {
   const { formData } = useStep();
@@ -112,21 +113,12 @@ const Export = () => {
         {!selectedTemplate && <p>Please select a template.</p>}
       </div>
 
-      {/* Export buttons */}
-      <div className="flex flex-wrap gap-3 mt-5 sm:flex-nowrap">
-        <button
-          onClick={handleExportPNG}
-          className="flex-1 sm:flex-none px-4 py-2 bg-indigo-600 text-white rounded w-full sm:w-auto"
-        >
-          Download PNG
-        </button>
-        <button
-          onClick={handleExportPDF}
-          className="flex-1 sm:flex-none px-4 py-2 bg-red-600 text-white rounded w-full sm:w-auto"
-        >
-          Download PDF
-        </button>
-      </div>
+
+      <ExportPage
+        handleExportPDF={handleExportPDF}
+        handleExportPNG={handleExportPNG} 
+      />
+      
     </>
   );
 };
