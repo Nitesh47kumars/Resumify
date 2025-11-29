@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import BlinkingText from "./BlinkingText"
 
 export default function ExportPage({ handleExportPNG, handleExportPDF }) {
   const [loadingFormat, setLoadingFormat] = useState(null);
@@ -14,6 +15,8 @@ export default function ExportPage({ handleExportPNG, handleExportPDF }) {
   };
 
   return (
+    <>
+      <BlinkingText/>
     <div className="w-full h-full bg-white shadow-lg rounded-lg flex flex-col items-center justify-center px-5 text-center">
       <h1 className="text-3xl font-bold text-gray-900">
         Thank You For Visiting Us
@@ -28,7 +31,7 @@ export default function ExportPage({ handleExportPNG, handleExportPDF }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 font-semibold underline hover:text-blue-800"
-            >
+                >
                 Portfolio
             </a>
                 {"  |  "}
@@ -37,7 +40,7 @@ export default function ExportPage({ handleExportPNG, handleExportPDF }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 font-semibold underline hover:text-blue-800"
-            >
+                >
                 LinkedIn
             </a>
         </p>
@@ -51,24 +54,25 @@ export default function ExportPage({ handleExportPNG, handleExportPDF }) {
         <button
           onClick={() => handleDownload("png")}
           className={`flex-1 sm:flex-none px-6 py-3 rounded w-full sm:w-auto text-white font-medium transition 
-          ${loadingFormat === "png" ? "bg-indigo-400 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-700"}
-          `}
-          disabled={loadingFormat === "png"}
-        >
+            ${loadingFormat === "png" ? "bg-indigo-400 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-700"}
+            `}
+            disabled={loadingFormat === "png"}
+            >
           {loadingFormat === "png" ? "Processing..." : "Download PNG"}
         </button>
 
         <button
           onClick={() => handleDownload("pdf")}
           className={`flex-1 sm:flex-none px-6 py-3 rounded w-full sm:w-auto text-white font-medium transition
-          ${loadingFormat === "pdf" ? "bg-red-400 cursor-not-allowed" : "bg-red-600 hover:bg-red-700"}
-          `}
-          disabled={loadingFormat === "pdf"}
-        >
+            ${loadingFormat === "pdf" ? "bg-red-400 cursor-not-allowed" : "bg-red-600 hover:bg-red-700"}
+            `}
+            disabled={loadingFormat === "pdf"}
+            >
           {loadingFormat === "pdf" ? "Processing..." : "Download PDF"}
         </button>
       </div>
       <span className="text-[12px] text-gray-500">(Scroll down to see the actual exporting resume)</span>
     </div>
+    </>
   );
 }
