@@ -48,24 +48,38 @@ const Export = () => {
   
     const node = exportRef.current;
   
-    const dataUrl = await toPng(node, { quality: 1, pixelRatio: 2 });
+    const canvasRect = node.getBoundingClientRect();
   
-    const pdf = new jsPDF("p", "pt", "a4");
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
+    const dataUrl = await toPng(node, { quality: 1, pixelRatio: 2 });
   
     const img = new Image();
     img.src = dataUrl;
   
     img.onload = () => {
+      const pdf = new jsPDF("p", "pt", "a4");
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+  
       const imgWidth = pageWidth;
       const imgHeight = (img.height * imgWidth) / img.width;
   
-      pdf.addImage(img, "PNG", 0, 0, imgWidth, imgHeight);
+      let heightLeft = imgHeight;
+      let position = 0;
+      let pageIndex = 0;
   
-      const canvasRect = node.getBoundingClientRect();
+      pdf.addImage(img, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+  
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(img, "PNG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+        pageIndex++;
+      }
   
       const links = node.querySelectorAll("a");
+  
       links.forEach(link => {
         const rect = link.getBoundingClientRect();
   
@@ -73,18 +87,23 @@ const Export = () => {
         const y = rect.top - canvasRect.top;
         const width = rect.width;
         const height = rect.height;
-
-        const pdfX = (x * pageWidth) / canvasRect.width;
-        const pdfY = (y * pageWidth) / canvasRect.width;
-        const pdfW = (width * pageWidth) / canvasRect.width;
-        const pdfH = (height * pageWidth) / canvasRect.width;
   
+        const pdfX = (x * pageWidth) / canvasRect.width;
+        const pdfW = (width * pageWidth) / canvasRect.width;
+        const pdfH = (height * pageHeight) / canvasRect.height;
+  
+        const pdfYFull = (y * imgHeight) / canvasRect.height;
+        const pageTarget = Math.floor(pdfYFull / pageHeight);
+        const pdfY = pdfYFull - pageTarget * pageHeight;
+  
+        pdf.setPage(pageTarget + 1);
         pdf.link(pdfX, pdfY, pdfW, pdfH, { url: link.href });
       });
   
       pdf.save("resume.pdf");
     };
   };
+  
   
   
   return (
