@@ -23,11 +23,11 @@ export default function HeaderSection({ data }) {
         <p>{address?.trim() || "Your Address Here"}</p>
 
         <p>
-          <a href={`tel:${phone}`} className="hover:underline">
+          <a href={`tel:${phone}`} className="hover:underline hover:text-blue-600">
             Phone: {phone || "+91 00000 00000"}
           </a>{" "}
           |{" "}
-          <a href={`mailto:${email}`} className="hover:underline">
+          <a href={`mailto:${email}`} className="hover:underline hover:text-blue-600">
             Email: {email || "example@gmail.com"}
           </a>
         </p>
@@ -39,7 +39,7 @@ export default function HeaderSection({ data }) {
                 href={header.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:underline"
+                className="text-blue-600 font-medium hover:underline"
               >
                 LinkedIn
               </a>{" "}
@@ -53,7 +53,7 @@ export default function HeaderSection({ data }) {
                 href={header.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:underline"
+                className="text-blue-600 font-medium hover:underline"
               >
                 Portfolio
               </a>{" "}
@@ -66,7 +66,7 @@ export default function HeaderSection({ data }) {
               href={header.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline"
+              className="text-blue-600 font-medium hover:underline"
             >
               GitHub
             </a>

@@ -47,6 +47,7 @@ const Export = () => {
     if (!exportRef.current) return alert("Resume not ready");
   
     const node = exportRef.current;
+  
     const dataUrl = await toPng(node, { quality: 1, pixelRatio: 2 });
   
     const pdf = new jsPDF("p", "pt", "a4");
@@ -60,37 +61,32 @@ const Export = () => {
       const imgWidth = pageWidth;
       const imgHeight = (img.height * imgWidth) / img.width;
   
-      let heightLeft = imgHeight;
-      let topOffset = 0;
+      pdf.addImage(img, "PNG", 0, 0, imgWidth, imgHeight);
   
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
+      const canvasRect = node.getBoundingClientRect();
   
-      canvas.width = img.width;
-      canvas.height = (pageHeight * img.width) / pageWidth; // Visible slice height
+      const links = node.querySelectorAll("a");
+      links.forEach(link => {
+        const rect = link.getBoundingClientRect();
   
-      while (heightLeft > 0) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, topOffset, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
+        const x = rect.left - canvasRect.left;
+        const y = rect.top - canvasRect.top;
+        const width = rect.width;
+        const height = rect.height;
+
+        const pdfX = (x * pageWidth) / canvasRect.width;
+        const pdfY = (y * pageWidth) / canvasRect.width;
+        const pdfW = (width * pageWidth) / canvasRect.width;
+        const pdfH = (height * pageWidth) / canvasRect.width;
   
-        const slicedImg = canvas.toDataURL("image/png");
-        const sliceHeightInPDF = (canvas.height * pageWidth) / canvas.width;
-  
-        pdf.addImage(slicedImg, "PNG", 0, 0, pageWidth, sliceHeightInPDF);
-  
-        heightLeft -= sliceHeightInPDF;
-        topOffset += canvas.height;
-  
-        if (heightLeft > 0) {
-          pdf.addPage();
-        }
-      }
+        pdf.link(pdfX, pdfY, pdfW, pdfH, { url: link.href });
+      });
   
       pdf.save("resume.pdf");
     };
   };
   
-
+  
   return (
     <>
       <div 
