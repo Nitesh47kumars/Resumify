@@ -1,5 +1,6 @@
 import React from "react";
 import { useStep } from "../../Context/StepContext";
+import SectionTitle from "./SectionTitle";
 
 export default function AddSection() {
   const { formData } = useStep();
@@ -32,7 +33,7 @@ export default function AddSection() {
 
         return (
           <div key={index} className="bg-white rounded-md">
-            <h3 className="text-lg font-bold mb-2">{sectionTitle}</h3>
+            <SectionTitle title={sectionTitle} />
 
             {/* Hobbies */}
             {sec.category === "hobbies" && (

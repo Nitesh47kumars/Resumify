@@ -1,3 +1,5 @@
+import SectionTitle from "./SectionTitle";
+
 export default function SkillsSection({ skills }) {
   const placeholder = ["Skill 1", "Skill 2", "Skill 3"];
 
@@ -15,7 +17,8 @@ export default function SkillsSection({ skills }) {
 
   return (
     <section className="mb-5">
-      <h2 className="text-xl font-semibold mb-2">SKILLS</h2>
+      
+      <SectionTitle title="Skills" />
 
       <div className="flex flex-wrap gap-2">
         {list.map((item, index) => (

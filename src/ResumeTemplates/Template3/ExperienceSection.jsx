@@ -1,3 +1,5 @@
+import SectionTitle from "./SectionTitle";
+
 export default function ExperienceSection({ experience }) {
   if (!experience || experience.length === 0) {
     return null;
@@ -5,7 +7,7 @@ export default function ExperienceSection({ experience }) {
 
   return (
     <section className="mb-6">
-      <h2 className="text-xl font-semibold mb-3">Experience</h2>
+      <SectionTitle title="Experience" />
 
       {experience.map((exp, index) => {
         // Placeholders

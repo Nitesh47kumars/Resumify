@@ -1,3 +1,5 @@
+import SectionTitle from "./SectionTitle";
+
 export default function EducationSection({ education }) {
   const placeholder = [
     {
@@ -11,7 +13,7 @@ export default function EducationSection({ education }) {
 
   return (
     <section className="mb-6">
-      <h2 className="text-xl font-semibold mb-3">Education</h2>
+      <SectionTitle title="Education"/>
 
       {list.map((edu, index) => {
         const degree = edu.degree || placeholder[0].degree;

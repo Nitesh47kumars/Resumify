@@ -28,3 +28,11 @@
   0%   { color: #ef4444; } /* red */
   100% { color: #ffffff; } /* white */
 }
+
+
+
+/* Page break style works only when printing/exporting */
+.page-break {
+  page-break-before: always;
+  break-before: page;
+}
