@@ -1,16 +1,92 @@
-# React + Vite
+# Resumify
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+Your personal portfolio/resume builder, crafted with modern web technologies.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🚀 Project Overview
 
-## React Compiler
+Resumify is a sleek, interactive portfolio website built using React.js, TailwindCSS, Framer Motion, and Lenis.js for smooth scrolling. The project uses pre-built UI components from UIverse, react-icons, and styled-components to create a polished and responsive user interface.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+It demonstrates modern frontend development skills with animations, responsive design, and state management.
 
-## Expanding the ESLint configuration
+🎯 Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Smooth scrolling with Lenis.js
+
+Animated components with Framer Motion
+
+Pre-built UI components integrated from UIverse
+
+Responsive design using TailwindCSS
+
+Styled components for custom styling
+
+Portfolio section showcasing projects
+
+Interactive UI with React and React Icons
+
+🛠️ Tech Stack
+
+Frontend: React.js
+
+Styling: TailwindCSS, Styled-Components
+
+Animations: Framer Motion, Lenis.js
+
+State Management: Redux
+
+Icons: React Icons
+
+Version Control: Git & GitHub
+
+💻 Installation
+
+Since this project uses Bun, make sure you have it installed. Then follow these steps:
+
+# Clone the repository
+git clone https://github.com/Nitesh47kumars/Resumify.git
+
+# Navigate into the project folder
+cd Resumify
+
+# Install dependencies using Bun
+bun install
+
+# Start the development server
+bun dev
+
+
+The app will run on http://localhost:3000 (or the port Bun assigns).
+
+🌐 Live Demo
+
+Check it out live: Resumify
+
+## 📂 Project Structure
+
+Resumify/
+├─ public/
+├─ src/
+│ ├─ Buttons/
+│ ├─ Components/
+│ ├─ Context/
+│ ├─ Layout/
+│ ├─ Pages/
+│ ├─ ResumeTemplates/
+│ ├─ Utils/
+│ ├─ App.jsx
+│ ├─ index.jsx
+│ ├─ main.jsx
+│ └─ oklch-fix.css
+├─ package.json
+├─ bun.lockb
+└─ README.md
+
+
+🤝 Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests. Please follow standard GitHub etiquette.
+
+📄 License
+
+This project is open-source and free to use.
