@@ -2,6 +2,10 @@
 
 Your personal portfolio/resume builder, crafted with modern web technologies.
 
+# 🌐 Live Demo
+
+🔗 Resumify Web App: https://resumify-blush-six.vercel.app/
+
 ## 🚀 Project Overview
 
 **Resumify** is a sleek, interactive portfolio website built using **React.js**, **TailwindCSS**, **Framer Motion**, and **Lenis.js** for smooth scrolling. The project uses pre-built **UI components from UIverse**, **react-icons**, and **styled-components** to create a polished and responsive user interface.
